@@ -1,5 +1,5 @@
 function login(login_params, cb) {
-	return fetch("api/login", {
+	return fetch("/api/login", {
 		credentials: 'include',
 		method: "POST",
 		headers: {
@@ -14,7 +14,7 @@ function login(login_params, cb) {
 }
 
 function otherUsers(cb) {
-	return fetch("api/users", {
+	return fetch("/api/users", {
 		credentials: 'include'
 	})
 	.then(checkStatus)
@@ -23,7 +23,7 @@ function otherUsers(cb) {
 }
 
 function challenge(challenged_id, cb){
-	return fetch("api/challenge", {
+	return fetch("/api/challenge", {
 		credentials: 'include',
 		method: "POST",
 		headers: {
@@ -38,7 +38,7 @@ function challenge(challenged_id, cb){
 }
 
 function games(cb){
-	return fetch("api/games", {
+	return fetch("/api/games", {
 		credentials: 'include',
 	})
 	.then(checkStatus)
@@ -47,7 +47,7 @@ function games(cb){
 }
 
 function loadGame(game_id, cb){
-	return fetch("api/game/" + game_id, {
+	return fetch("/api/game/" + game_id, {
 		credentials: 'include'
 	})
 	.then(checkStatus)
@@ -56,7 +56,7 @@ function loadGame(game_id, cb){
 }
 
 function updateBoard(game_id, piece, location, cb){
-	return fetch("api/move", {
+	return fetch("/api/move", {
 		credentials: 'include',
 		method: "PUT",
 		headers: {
