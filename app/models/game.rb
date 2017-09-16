@@ -30,7 +30,8 @@ class Game < ApplicationRecord
 
   def make_move(piece, location, user_id)
     if piece == turn && player(piece).id == user_id && board[location] == nil
-      update(board: board.insert(location, piece))
+      board[location] = piece
+      update(board: board)
     end
   end
 
