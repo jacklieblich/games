@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from "./loginForm";
+import SignupForm from "./signupForm"
 import Game from "./game";
 import Client from "./client";
 import Dashboard from "./dashboard";
@@ -12,18 +13,28 @@ class App extends React.Component {
 			games_data: false,
 			current_user_id: false,
 			game_id: false,
-			player_x: false
+			player_x: false,
+			has_account: false
 		};
+		Client.signout();
 	}
 
 	render() {
 		let content
 		if (!this.state.current_user_id){
-			content = <LoginForm handleSubmit={ (username, password) => {
-				Client.login({username, password}, (user_id) => {
-					this.setState({current_user_id: user_id})
+			if(this.state.has_account){
+			content = <LoginForm handleSubmit={ (login_params) => {
+				Client.login(login_params, (user) => {
+					this.setState({current_user_id: user.id})
 				})
-			}}/>
+			}} handleSignupClick={ ()=>this.setState({has_account: false})}/>
+		}else{
+			content = <SignupForm handleSubmit={ (user_params) => {
+				Client.signup(user_params, (user) => {
+					this.setState({current_user_id: user.id})
+				})
+			}} handleLoginClick={ ()=>this.setState({has_account: true})}/>
+		}
 		}else{
 			if(!!this.state.game_id){
 				content = <Game game_id={this.state.game_id} current_user_id={this.state.current_user_id} player_x={this.state.player_x} handleBackClick={()=>{

@@ -13,6 +13,8 @@ gem 'puma', '~> 3.0'
 gem 'pg'
 gem 'foreman', '~> 0.82.0'
 gem "thor", "~> 0.19.1"
+
+gem 'devise'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

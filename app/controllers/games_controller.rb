@@ -25,7 +25,7 @@ class GamesController < ApplicationController
 	private
 
 	def games_params
-		params[:game][:challenger_id] = session[:user_id]
+		params[:game][:challenger_id] = current_user.id
 		params.require(:game).permit(:challenged_id, :challenger_id)
 	end
 

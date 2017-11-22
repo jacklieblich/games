@@ -1,5 +1,26 @@
+function signout(){
+	return fetch("/users/logout", {
+		method: "DELETE"
+	})
+}
+
+function signup(signup_params, cb) {
+	return fetch("/users", {
+		credentials: 'include',
+		method: "POST",
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(signup_params)
+	})
+	.then(checkStatus)
+	.then(parseJSON)
+	.then(cb);
+}
+
 function login(login_params, cb) {
-	return fetch("/api/login", {
+	return fetch("/users/sign_in", {
 		credentials: 'include',
 		method: "POST",
 		headers: {
@@ -85,5 +106,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, signout };
 export default Client;
