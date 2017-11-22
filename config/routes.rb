@@ -8,4 +8,12 @@ Rails.application.routes.draw do
     get '/game/:id', to: 'games#show'
     put 'move', to: 'games#update'
   end
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+  devise_scope :user do
+    delete 'users/logout', :to => 'users/sessions#logout'
+  end
 end
