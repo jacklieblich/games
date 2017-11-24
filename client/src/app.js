@@ -10,7 +10,6 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			games_data: false,
 			current_user_id: false,
 			game_id: false,
 			player_x: false,
@@ -41,15 +40,9 @@ class App extends React.Component {
 					this.setState({game_id: false})
 				}}/>
 			}else{
-				if(!this.state.games_data){
-					Client.games((games_data) =>{
-						this.setState({games_data: games_data})
-					})
-				}else{
 					content = <Dashboard games_data={this.state.games_data} current_user_id={this.state.current_user_id} handlePlayClick={(game_id, player_x) =>{
 						this.setState({game_id: game_id, player_x: player_x})
 					}}/>
-				}
 			}
 		}
 		return (

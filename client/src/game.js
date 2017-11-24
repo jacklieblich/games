@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import Client from "./client";
+import App from "./cable";
 
 function Square(props) {
 	return (
@@ -19,9 +20,20 @@ class Board extends React.Component {
 		};
 		this.fillBoard = this.fillBoard.bind(this);
 		this.fillBoard()
-		setInterval(()=> this.fillBoard(), 1000);
+		this.subscribe = this.subscribe.bind(this);
+		this.subscribe();
 	}
 
+	subscribe(){
+		App.cable.subscriptions.create({channel: 'GameChannel',game_id: this.props.game_id},{
+			connected: function() { console.log("cable: connected") },
+			disconnected: function() { console.log("cable: disconnected") }, 
+			received: function(game_data) {
+				this.setState(game_data)
+			}.bind(this)
+		}
+		)
+	}
 
 
 	myTurn() {
@@ -32,9 +44,7 @@ class Board extends React.Component {
 	fillBoard() {
 		Client.loadGame(this.props.game_id, (board) => {
 			this.setState({
-				squares: board
-			})
-			this.setState({
+				squares: board,
 				xIsNext: board.filter(space => space !== null).length % 2 === 0
 			})
 		})
@@ -50,13 +60,7 @@ class Board extends React.Component {
 			squares: squares,
 			xIsNext: !this.state.xIsNext
 		});
-		Client.updateBoard(this.props.game_id, squares[i], i, (gameData) => {
-			this.setState({
-				squares: gameData.squares,
-				xIsNext: gameData.xIsNext
-			});
-		}
-		)
+		Client.updateBoard(this.props.game_id, squares[i], i)
 	}
 
 	renderSquare(i) {
