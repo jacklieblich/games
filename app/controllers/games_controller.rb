@@ -2,8 +2,11 @@ class GamesController < ApplicationController
 
 	def create
 		game = Game.create(games_params)
-		render json: { game: game, opponent: game.challenged }
-
+		game.users.each do |user|
+			ActionCable.server.broadcast("games_for_user: #{user.id}",
+				user.games.with_opponent(user)
+				)
+		end
 	end
 
 	def index
@@ -19,7 +22,14 @@ class GamesController < ApplicationController
 	def update
 		game = Game.find(params[:game_id])
 		game.make_move(params[:piece], params[:location], current_user.id)
-		render json: {squares: game.board, xIsNext: game.turn == 'X'}
+		ActionCable.server.broadcast("game_#{game.id}",
+			{squares: game.board, xIsNext: game.turn == 'X'}
+			)
+		game.users.each do |user|
+			ActionCable.server.broadcast("games_for_user: #{user.id}",
+				user.games.with_opponent(user)
+				)
+		end
 	end
 
 	private

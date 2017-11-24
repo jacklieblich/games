@@ -13,6 +13,8 @@ gem 'puma', '~> 3.0'
 gem 'pg'
 gem 'foreman', '~> 0.82.0'
 gem "thor", "~> 0.19.1"
+gem 'redis', '~> 3.2'
+
 
 gem 'devise'
 group :development, :test do

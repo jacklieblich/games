@@ -1,27 +1,40 @@
 import React from 'react';
 import ChallengeForm from "./challengeForm";
 import Client from "./client";
-
+import App from "./cable";
 
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			games_data: this.props.games_data
+			games_data: {pending: [], active: [], completed: []}
 		};
 		this.renderGames = this.renderGames.bind(this);
 		this.handlePlayClick = this.props.handlePlayClick.bind(this);
-		this.updateGamesData = this.updateGamesData.bind(this);
-		setInterval(()=> this.updateGamesData(), 5000);
+		this.loadGames = this.loadGames.bind(this);
+		this.loadGames();
+		this.subscribe = this.subscribe.bind(this);
+		this.subscribe();
+	}
+
+	loadGames(){
+		Client.games((games_data) =>{
+			this.setState({games_data: games_data})
+		})
+	}
+
+	subscribe(){
+		App.cable.subscriptions.create('GamesChannel',{
+			connected: function() { console.log("cable: connected") },
+			disconnected: function() { console.log("cable: disconnected") }, 
+			received: function(games_data) {
+				this.setState({games_data: games_data})
+			}.bind(this)
+		}
+		)
 	}
 	onPlayClick(game_id, player_x) {
 		this.handlePlayClick(game_id, player_x)
-	}
-
-	updateGamesData(){
-		Client.games((games_data)=>{
-			this.setState({games_data: games_data})
-		})
 	}
 
 	renderGames(games) {
@@ -68,14 +81,6 @@ class Dashboard extends React.Component {
 			<ChallengeForm handleSubmit={(challenged_id) => {
 				Client.challenge({
 					challenged_id: challenged_id
-				}, (game_data) => {
-					this.setState((prevState) => {
-						const games_data = prevState.games_data
-						games_data.pending.push(game_data)
-						return {
-							games_data: games_data
-						};
-					});
 				})
 			}} />
 			</div>
