@@ -10,8 +10,8 @@
     "react-scripts": "1.0.12"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_API_URL=ws://localhost:3001/cable react-scripts start",
+    "build": "REACT_APP_API_URL=wss://dry-hollows-83799.herokuapp.com/cable react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
