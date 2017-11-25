@@ -34,7 +34,7 @@ class ChallengeForm extends React.Component {
 
       {
         this.state.users.map(function(user){
-          return <option value={user.id}>{user.username}</option>;
+          return <option key={user.id} value={user.id}>{user.username}</option>;
         })
       }
       </select>
