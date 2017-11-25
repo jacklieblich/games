@@ -15,6 +15,6 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   devise_scope :user do
-    delete 'users/logout', :to => 'users/sessions#logout'
+    get 'users/get_current_user', :to => 'users/sessions#get_current_user'
   end
 end

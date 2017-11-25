@@ -18,8 +18,8 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  def logout
-    sign_out current_user
+  def get_current_user
+    render json: current_user
   end
 
   # protected
