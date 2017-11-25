@@ -29,7 +29,7 @@ class ChallengeForm extends React.Component {
     return (
       <form onSubmit={this.onSubmit.bind(this)}>
       <label>
-      Pick your opponent:
+      Select a player to challenge:
       <select value={this.state.value} onChange={this.handleChange}>
 
       {

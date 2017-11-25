@@ -4,8 +4,9 @@ import Client from "./client";
 import App from "./cable";
 
 function Square(props) {
+	const classes = `square ${props.value}`;
 	return (
-		<button className="square" onClick={props.onClick}>
+		<button className={classes} onClick={props.onClick}>
 		{props.value}
 		</button>
 		);
@@ -117,7 +118,7 @@ class Game extends React.Component {
 			<div className="game-board">
 			<Board game_id={this.state.game_id} current_user_id={this.props.current_user_id} player_x={this.props.player_x}/>
 			</div>
-			<button onClick={() => this.props.handleBackClick()}>Back</button>
+			<button className="back-button" onClick={() => this.props.handleBackClick()}>Back</button>
 			</div>
 			);
 	}
