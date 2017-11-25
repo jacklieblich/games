@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
 						Play
 						</button>
 					}else{
-						button = <i> waiting for opponent</i>
+						button = <i>'s turn</i>
 					}
 				}else{
 					button = <b>You {game_data.game.winner === this.props.current_user_id ? "Won :)" : "Lost :("}</b>
@@ -64,7 +64,15 @@ class Dashboard extends React.Component {
 	}
 	render() {
 		return (
+			<div className="dashboard">
+			<h1>Games</h1>
 			<div>
+			<ChallengeForm handleSubmit={(challenged_id) => {
+				Client.challenge({
+					challenged_id: challenged_id
+				})
+			}} />
+			</div>
 			<ul className="pending">
 			<b>Pending</b>
 			{this.renderGames(this.state.games_data.pending)}
@@ -77,13 +85,6 @@ class Dashboard extends React.Component {
 			<b>Completed</b>
 			{this.renderGames(this.state.games_data.completed)}
 			</ul>
-			<div>
-			<ChallengeForm handleSubmit={(challenged_id) => {
-				Client.challenge({
-					challenged_id: challenged_id
-				})
-			}} />
-			</div>
 			</div>
 			);
 	}
