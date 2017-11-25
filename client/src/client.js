@@ -1,7 +1,13 @@
-function signout(){
-	return fetch("/users/logout", {
-		method: "DELETE"
+function getCurrentUser(){
+	return fetch("/users/get_current_user",{
+		credentials: 'include',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		}
 	})
+	.then(checkStatus)
+	.then(parseJSON)
 }
 
 function signup(signup_params, cb) {
@@ -100,5 +106,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, signout };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser };
 export default Client;
