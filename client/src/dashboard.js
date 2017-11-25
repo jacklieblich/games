@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
 				let turn = game_data.game.board.filter(space => space !== null).length % 2 === 0 ? game_data.game.challenged_id : game_data.game.challenger_id
 				if(game_data.game.status !== "completed"){
 					if (turn === this.props.current_user_id) {
-						button = <button onClick={() => this.onPlayClick(game_data.game.id, game_data.game.challenged_id)}>
+						button = <button className="play-button" onClick={() => this.onPlayClick(game_data.game.id, game_data.game.challenged_id)}>
 						Play
 						</button>
 					}else{
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
 				}
 				return (
 					<li key={game_data.game.id}>
-					{game_data.opponent.username}
+					Game vs {game_data.opponent.username}
 					{button}
 					</li>
 					)

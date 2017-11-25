@@ -32,21 +32,31 @@ body {
     background-position: 0% 50%; } }
   body .form-container {
     text-align: center; }
-    body .form-container form h1 {
-      text-align: center; }
-    body .form-container form label {
-      text-align: left;
-      display: block;
-      margin: 10px auto;
-      width: fit-content; }
-    body .form-container form input {
-      display: block;
-      margin: 0 auto; }
+    body .form-container form {
+      width: 400px;
+      margin: 0 auto;
+      border: 1px solid black;
+      border-radius: 4px;
+      background-color: #FFF;
+      padding: 20px;
+      margin-bottom: 10px; }
+      body .form-container form h1 {
+        text-align: center; }
+      body .form-container form label {
+        text-align: left;
+        display: block;
+        margin: 10px auto;
+        width: fit-content; }
+      body .form-container form input {
+        display: block;
+        margin: 0 auto; }
   body .dashboard {
     text-align: center; }
     body .dashboard ul {
       list-style: none;
       padding: 0; }
+      body .dashboard ul .play-button {
+        margin-left: 6px; }
   body .game .game-board {
     width: 525px;
     margin: 0 auto; }
