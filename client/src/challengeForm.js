@@ -12,7 +12,9 @@ class ChallengeForm extends React.Component {
     this.handleSubmit = props.handleSubmit;
     Client.otherUsers((users) =>{
       this.setState({users: users})
-      this.setState({value: users[0].id})
+      if(users.length > 0){
+        this.setState({value: users[0].id})
+      }
     })
   }
 
