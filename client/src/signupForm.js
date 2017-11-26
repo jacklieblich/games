@@ -23,40 +23,43 @@ class SignupForm extends React.Component {
     });
   }
 
-  onSubmit(event){
+  onSubmit(event) {
     event.preventDefault();
     this.handleSubmit({user: {username: this.state.username, password: this.state.password, email: this.state.email}});
   }
-  onLoginClick(event){
+  
+  onLoginClick(event) {
   	event.preventDefault();
   	this.handleLoginClick();
   }
 
   render() {
     let error = ""
-    if(this.props.signup_error){
+
+    if (this.props.signup_error) {
       error = "Must use unique and correctly formatted email"
     }
+
     return (
     	<div className="form-container">
-      <form onSubmit={this.onSubmit.bind(this)}>
-      <h1>Signup</h1>
-      {error}
-      <label>
-      username:
-      <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-      </label>
-      <label>
-      email:
-      <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-      </label>
-      <label>
-      password:
-      <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-      </label>
-      <input type="submit" value="Submit" />
-      </form>
-      already have an account?<a href="" onClick={this.onLoginClick.bind(this)}>login</a>
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <h1>Signup</h1>
+          {error}
+          <label>
+            username:
+            <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+          </label>
+          <label>
+            email:
+            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
+          </label>
+          <label>
+            password:
+            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        already have an account?<a href="" onClick={this.onLoginClick.bind(this)}>login</a>
       </div>
       );
   }

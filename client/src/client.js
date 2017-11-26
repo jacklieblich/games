@@ -1,4 +1,4 @@
-function getCurrentUser(){
+function getCurrentUser() {
 	return fetch("/users/get_current_user",{
 		credentials: 'include',
 		headers: {
@@ -49,7 +49,7 @@ function otherUsers(cb) {
 	.then(cb);
 }
 
-function challenge(challenged_id){
+function challenge(challenged_id) {
 	return fetch("/api/challenge", {
 		credentials: 'include',
 		method: "POST",
@@ -61,7 +61,7 @@ function challenge(challenged_id){
 	})
 }
 
-function games(cb){
+function games(cb) {
 	return fetch("/api/games", {
 		credentials: 'include',
 	})
@@ -70,7 +70,7 @@ function games(cb){
 	.then(cb);
 }
 
-function loadGame(game_id, cb){
+function loadGame(game_id, cb) {
 	return fetch("/api/game/" + game_id, {
 		credentials: 'include'
 	})
@@ -79,7 +79,7 @@ function loadGame(game_id, cb){
 	.then(cb);
 }
 
-function updateBoard(game_id, piece, location){
+function updateBoard(game_id, piece, location) {
 	return fetch("/api/move", {
 		credentials: 'include',
 		method: "PUT",

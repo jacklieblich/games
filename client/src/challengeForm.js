@@ -10,6 +10,10 @@ class ChallengeForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = props.handleSubmit;
+    this.getOtherUsers();
+  }
+
+  getOtherUsers() {
     Client.otherUsers((users) =>{
       this.setState({users: users})
       if(users.length > 0){
@@ -30,20 +34,19 @@ class ChallengeForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit.bind(this)}>
-      <label>
-      Select a player to challenge:
-      <select value={this.state.value} onChange={this.handleChange}>
-
-      {
-        this.state.users.map(function(user){
-          return <option key={user.id} value={user.id}>{user.username}</option>;
-        })
-      }
-      </select>
-      </label>
-      <input type="submit" value="Submit" />
+        <label>
+          Select a player to challenge:
+          <select value={this.state.value} onChange={this.handleChange}>
+            {
+              this.state.users.map(function(user){
+                return <option key={user.id} value={user.id}>{user.username}</option>;
+              })
+            }
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
       </form>
-      );
+    );
   }
 }
 

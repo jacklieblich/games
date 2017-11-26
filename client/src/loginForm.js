@@ -34,25 +34,27 @@ class LoginForm extends React.Component {
 
   render() {
     let error = ""
-    if(this.props.login_error){
+
+    if(this.props.login_error) {
       error = "incorrect login info"
     }
+
     return (
       <div className="form-container">
-      <form onSubmit={this.onSubmit.bind(this)}>
-      <h1>Login</h1>
-      {error}
-      <label>
-      email:
-      <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-      </label>
-      <label>
-      password:
-      <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-      </label>
-      <input type="submit" value="Submit" />
-      </form>
-      <a href="" onClick={this.onSignupClick.bind(this)}>create account</a>
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <h1>Login</h1>
+          {error}
+          <label>
+            email:
+            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
+          </label>
+          <label>
+            password:
+            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <a href="" onClick={this.onSignupClick.bind(this)}>create account</a>
       </div>
       );
   }
