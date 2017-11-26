@@ -7,7 +7,7 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			games_data: {pending: [], active: [], completed: []}
+			gamesData: {pending: [], active: [], completed: []}
 		};
 		this.renderGames = this.renderGames.bind(this);
 		this.handlePlayClick = this.props.handlePlayClick.bind(this);
@@ -18,8 +18,8 @@ class Dashboard extends React.Component {
 	}
 
 	loadGames(){
-		Client.games((games_data) =>{
-			this.setState({games_data: games_data})
+		Client.games((gamesData) =>{
+			this.setState({gamesData: gamesData})
 		})
 	}
 
@@ -27,35 +27,35 @@ class Dashboard extends React.Component {
 		App.cable.subscriptions.create('GamesChannel',{
 			connected: function() { console.log("cable: connected") },
 			disconnected: function() { console.log("cable: disconnected") }, 
-			received: function(games_data) {
-				this.setState({games_data: games_data})
+			received: function(gamesData) {
+				this.setState({gamesData: gamesData})
 			}.bind(this)
 		}
 		)
 	}
-	onPlayClick(game_id, player_x) {
-		this.handlePlayClick(game_id, player_x)
+	onPlayClick(gameId, playerX) {
+		this.handlePlayClick(gameId, playerX)
 	}
 
 	renderGames(games) {
 		return (
-			games.map(function(game_data) {
+			games.map(function(gameData) {
 				let button
-				let turn = game_data.game.board.filter(space => space !== null).length % 2 === 0 ? game_data.game.challenged_id : game_data.game.challenger_id
-				if(game_data.game.status !== "completed"){
-					if (turn === this.props.current_user_id) {
-						button = <button className="play-button" onClick={() => this.onPlayClick(game_data.game.id, game_data.game.challenged_id)}>
+				let turn = gameData.game.board.filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
+				if(gameData.game.status !== "completed"){
+					if (turn === this.props.currentUserId) {
+						button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id)}>
 						Play
 						</button>
 					}else{
 						button = <i>'s turn</i>
 					}
 				}else{
-					button = <b>You {game_data.game.winner === this.props.current_user_id ? "Won :)" : "Lost :("}</b>
+					button = <b>You {gameData.game.winner === this.props.currentUserId ? "Won :)" : "Lost :("}</b>
 				}
 				return (
-					<li key={game_data.game.id}>
-					Game vs {game_data.opponent.username}
+					<li key={gameData.game.id}>
+					Game vs {gameData.opponent.username}
 					{button}
 					</li>
 					)
@@ -65,28 +65,28 @@ class Dashboard extends React.Component {
 	render() {
 		return (
 			<div className="dashboard">
-			<h1>Games</h1>
-			<div>
-			<ChallengeForm handleSubmit={(challenged_id) => {
-				Client.challenge({
-					challenged_id: challenged_id
-				})
-			}} />
+				<h1>Games</h1>
+				<div>
+					<ChallengeForm
+						handleSubmit={(challenged_id) => {
+							Client.challenge({challenged_id: challenged_id})
+						}} 
+					/>
+				</div>
+				<ul className="pending">
+					<b>Pending</b>
+					{this.renderGames(this.state.gamesData.pending)}
+				</ul>
+				<ul className="active">
+					<b>Active</b>
+					{this.renderGames(this.state.gamesData.active)}
+				</ul>
+				<ul className="completed">
+					<b>Completed</b>
+					{this.renderGames(this.state.gamesData.completed)}
+				</ul>
 			</div>
-			<ul className="pending">
-			<b>Pending</b>
-			{this.renderGames(this.state.games_data.pending)}
-			</ul>
-			<ul className="active">
-			<b>Active</b>
-			{this.renderGames(this.state.games_data.active)}
-			</ul>
-			<ul className="completed">
-			<b>Completed</b>
-			{this.renderGames(this.state.games_data.completed)}
-			</ul>
-			</div>
-			);
+		);
 	}
 }
 

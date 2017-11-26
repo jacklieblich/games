@@ -18,6 +18,12 @@ class App extends React.Component {
 			signup_error: false,
 			login_error: false
 		};
+		this.login = this.login.bind(this)
+		this.signup = this.signup.bind(this)
+		this.getCurrentUser()
+	}
+
+	getCurrentUser() {
 		Client.getCurrentUser()
 		.then((current_user)=>{
 			this.setState({current_user_id: current_user.id, loading: false})
@@ -27,36 +33,66 @@ class App extends React.Component {
 		})
 	}
 
+	login(login_params) {
+		Client.login(login_params, (user) => {
+			this.setState({current_user_id: user.id})
+		}).catch(this.setState({login_error: true}))
+	}
+
+	signup(user_params) {
+		Client.signup(user_params, (user) => {
+			this.setState({current_user_id: user.id})
+		}).catch(this.setState({signup_error: true}))
+	}
+
 	render() {
 		let content
-		if(this.state.loading){
+		
+		if (this.state.loading) {
 			return <p>loading</p>
 		}
-		if (!this.state.current_user_id){
-			if(this.state.has_account){
-				content = <LoginForm handleSubmit={ (login_params) => {
-					Client.login(login_params, (user) => {
-						this.setState({current_user_id: user.id})
-					}).catch(this.setState({login_error: true}))
-				}} handleSignupClick={ ()=>this.setState({has_account: false})} login_error={this.state.login_error}/>
-			}else{
-				content = <SignupForm handleSubmit={ (user_params) => {
-					Client.signup(user_params, (user) => {
-						this.setState({current_user_id: user.id})
-					}).catch(this.setState({signup_error: true}))
-				}} handleLoginClick={ ()=>this.setState({has_account: true})} signup_error={this.state.signup_error}/>
+
+		if (!this.state.current_user_id) {
+			if (this.state.has_account) {
+				content = 
+				<LoginForm 
+					handleSubmit={this.login} 
+					handleSignupClick={ ()=> {
+						this.setState({has_account: false})
+					}} 
+					login_error={this.state.login_error}
+				/>
+			} else {
+				content =
+				<SignupForm
+					handleSubmit={this.signup}
+					handleLoginClick={ ()=>this.setState({has_account: true})}
+					signup_error={this.state.signup_error}
+				/>
 			}
-		}else{
-			if(!!this.state.game_id){
-				content = <Game game_id={this.state.game_id} current_user_id={this.state.current_user_id} player_x={this.state.player_x} handleBackClick={()=>{
-					this.setState({game_id: false})
-				}}/>
-			}else{
-				content = <Dashboard games_data={this.state.games_data} current_user_id={this.state.current_user_id} handlePlayClick={(game_id, player_x) =>{
-					this.setState({game_id: game_id, player_x: player_x})
-				}}/>
+		} else {
+			if (!!this.state.game_id) {
+				content =
+				<Game
+					game_id={this.state.game_id}
+					current_user_id={this.state.current_user_id}
+					player_x={this.state.player_x}
+					handleBackClick={()=>{
+						this.setState({game_id: false})
+					}}
+				/>
+			} else {
+				content =
+				<Dashboard
+					gamesData={this.state.games_data}
+					currentUserId={this.state.current_user_id}
+					handlePlayClick={(game_id, player_x) =>{
+						this.setState({game_id: game_id, player_x: player_x})
+					}}
+				/>
 			}
 		}
+
 		return (
 			<div className="app">
 			{content}
