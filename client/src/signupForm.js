@@ -33,17 +33,22 @@ class SignupForm extends React.Component {
   }
 
   render() {
+    let error = ""
+    if(this.props.signup_error){
+      error = "Must use unique and correctly formatted email"
+    }
     return (
     	<div className="form-container">
       <form onSubmit={this.onSubmit.bind(this)}>
       <h1>Signup</h1>
+      {error}
       <label>
       username:
       <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
       </label>
       <label>
       email:
-      <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
+      <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
       </label>
       <label>
       password:

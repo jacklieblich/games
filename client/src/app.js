@@ -14,7 +14,9 @@ class App extends React.Component {
 			game_id: false,
 			player_x: false,
 			has_account: false,
-			loading: true
+			loading: true,
+			signup_error: false,
+			login_error: false
 		};
 		Client.getCurrentUser()
 		.then((current_user)=>{
@@ -35,14 +37,14 @@ class App extends React.Component {
 				content = <LoginForm handleSubmit={ (login_params) => {
 					Client.login(login_params, (user) => {
 						this.setState({current_user_id: user.id})
-					})
-				}} handleSignupClick={ ()=>this.setState({has_account: false})}/>
+					}).catch(this.setState({login_error: true}))
+				}} handleSignupClick={ ()=>this.setState({has_account: false})} login_error={this.state.login_error}/>
 			}else{
 				content = <SignupForm handleSubmit={ (user_params) => {
 					Client.signup(user_params, (user) => {
 						this.setState({current_user_id: user.id})
-					})
-				}} handleLoginClick={ ()=>this.setState({has_account: true})}/>
+					}).catch(this.setState({signup_error: true}))
+				}} handleLoginClick={ ()=>this.setState({has_account: true})} signup_error={this.state.signup_error}/>
 			}
 		}else{
 			if(!!this.state.game_id){
