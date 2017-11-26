@@ -1,24 +1,7 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To run locally:
+Must have Postgres installed.
+$ git clone https://github.com/jacklieblich/games.git
+$ bundle && cd client && npm i && cd ..
+$ rake db:create db:migrate
+$ rake start
+App will be served at http://localhost:3000
