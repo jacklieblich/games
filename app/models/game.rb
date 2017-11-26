@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   belongs_to :challenger, class_name: 'User'
   belongs_to :challenged, class_name: 'User'
+  validates_presence_of :challenged_id, :challenger_id
 
   enum status: [ :pending, :active, :completed ]
 
