@@ -36,13 +36,18 @@ class App extends React.Component {
 	login(login_params) {
 		Client.login(login_params, (user) => {
 			this.setState({current_user_id: user.id})
-		}).catch(this.setState({login_error: true}))
+		}).catch(function() {
+			this.setState({login_error: true})
+		}.bind(this)
+		)
 	}
 
 	signup(user_params) {
 		Client.signup(user_params, (user) => {
 			this.setState({current_user_id: user.id})
-		}).catch(this.setState({signup_error: true}))
+		}).catch(function() {
+			this.setState({signup_error: true})
+		}.bind(this))
 	}
 
 	render() {
@@ -56,39 +61,39 @@ class App extends React.Component {
 			if (this.state.has_account) {
 				content = 
 				<LoginForm 
-					handleSubmit={this.login} 
-					handleSignupClick={ ()=> {
-						this.setState({has_account: false})
-					}} 
-					login_error={this.state.login_error}
+				handleSubmit={this.login} 
+				handleSignupClick={ ()=> {
+					this.setState({has_account: false})
+				}} 
+				login_error={this.state.login_error}
 				/>
 			} else {
 				content =
 				<SignupForm
-					handleSubmit={this.signup}
-					handleLoginClick={ ()=>this.setState({has_account: true})}
-					signup_error={this.state.signup_error}
+				handleSubmit={this.signup}
+				handleLoginClick={ ()=>this.setState({has_account: true})}
+				signup_error={this.state.signup_error}
 				/>
 			}
 		} else {
 			if (!!this.state.game_id) {
 				content =
 				<Game
-					game_id={this.state.game_id}
-					current_user_id={this.state.current_user_id}
-					player_x={this.state.player_x}
-					handleBackClick={()=>{
-						this.setState({game_id: false})
-					}}
+				game_id={this.state.game_id}
+				current_user_id={this.state.current_user_id}
+				player_x={this.state.player_x}
+				handleBackClick={()=>{
+					this.setState({game_id: false})
+				}}
 				/>
 			} else {
 				content =
 				<Dashboard
-					gamesData={this.state.games_data}
-					currentUserId={this.state.current_user_id}
-					handlePlayClick={(game_id, player_x) =>{
-						this.setState({game_id: game_id, player_x: player_x})
-					}}
+				gamesData={this.state.games_data}
+				currentUserId={this.state.current_user_id}
+				handlePlayClick={(game_id, player_x) =>{
+					this.setState({game_id: game_id, player_x: player_x})
+				}}
 				/>
 			}
 		}
