@@ -36,13 +36,19 @@ class App extends React.Component {
 	login(login_params) {
 		Client.login(login_params, (user) => {
 			this.setState({current_user_id: user.id})
-		}).catch(this.setState({login_error: true}))
+		}).catch(function() {
+			this.setState({login_error: true})
+		}.bind(this)
+		)
 	}
 
 	signup(user_params) {
 		Client.signup(user_params, (user) => {
 			this.setState({current_user_id: user.id})
-		}).catch(this.setState({signup_error: true}))
+		}).catch(function() {
+			this.setState({signup_error: true})
+		}.bind(this)
+		)
 	}
 
 	render() {
