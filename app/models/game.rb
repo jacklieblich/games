@@ -5,10 +5,7 @@ class Game < ApplicationRecord
 
   enum status: [ :pending, :active, :completed ]
 
-  scope :pending, -> { where(status: 'pending') }
-  scope :active, -> { where(status: 'active') }
-  scope :completed, -> { where(status: 'completed')}
-
+  before_create :create_board
   after_update :set_winner, :unless => "winner"
   after_update :set_active, if: ->(game){game.status == "pending"}
 
@@ -21,50 +18,38 @@ class Game < ApplicationRecord
   end
 
   def self.with_opponent(user)
+    Rails.application.eager_load!
     to_game_and_opponent = ->(game) { { game: game, opponent: game.opponent(user) } }
-    {
-      pending: pending.map(&to_game_and_opponent),
-      active: active.map(&to_game_and_opponent),
-      completed: completed.map(&to_game_and_opponent)
-    }
+    games = {}
+    subclasses.each do |game_type|
+      games[game_type.to_s] = {
+        pending: where(type: game_type.to_s).pending.map(&to_game_and_opponent),
+        active: where(type: game_type.to_s).active.map(&to_game_and_opponent),
+        completed: where(type: game_type.to_s).completed.map(&to_game_and_opponent)
+      }
+    end
+    return games
   end
 
-  def make_move(piece, location, user_id)
-    if piece == turn && player(piece).id == user_id && board[location] == nil
-      board[location] = piece
-      update(board: board)
-    end
+  def create_board
+  end
+
+  def make_move
+  end
+
+  def legal_move
   end
 
   def turn
-    board.count{ |spot| spot != nil} % 2 == 0 ? 'X' : 'O'
   end
 
   def set_winner
-    lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ]
-    lines.size.times do |i|
-      a, b, c = lines[i]
-      if board[a] && board[a] == board[b] && board[a] == board[c]
-        self.update(winner: player(board[a]).id , status:"completed")
-      end
-    end
+  end
+
+  def player
   end
 
   def set_active
     update(status: "active")
   end
-
-  def player(symbol)
-    symbol == 'X' ? challenged : challenger
-  end
-
 end

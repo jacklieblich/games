@@ -7,7 +7,7 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			gamesData: {pending: [], active: [], completed: []}
+			gamesData: []
 		};
 		this.renderGames = this.renderGames.bind(this);
 		this.handlePlayClick = this.props.handlePlayClick.bind(this);
@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
 	}
 
 	loadGames(){
-		Client.games((gamesData) =>{
+		Client.games((gamesData) => {
 			this.setState({gamesData: gamesData})
 		})
 	}
@@ -37,54 +37,73 @@ class Dashboard extends React.Component {
 		this.handlePlayClick(gameId, playerX)
 	}
 
-	renderGames(games) {
+	renderGames() {
 		return (
-			games.map(function(gameData) {
-				let button
-				let turn = gameData.game.board.filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
-				if(gameData.game.status !== "completed"){
-					if (turn === this.props.currentUserId) {
-						button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id)}>
-						Play
-						</button>
-					}else{
-						button = <i>'s turn</i>
-					}
-				}else{
-					button = <b>You {gameData.game.winner === this.props.currentUserId ? "Won :)" : "Lost :("}</b>
-				}
-				return (
-					<li key={gameData.game.id}>
-					Game vs {gameData.opponent.username}
-					{button}
-					</li>
-					)
-			}, this)
+			Object.keys(this.state.gamesData).map((gameType) => this.renderGameLists(gameType, this.state.gamesData[gameType]))
+			// this.gamesData.games.map(function(gameData) {
+			
+			// }, this)
 			)
 	}
+
+	renderGameLists(gameType, games) {
+		return(
+			<div>
+			<h2>{gameType}</h2>
+			 {Object.keys(games).map((key) => 
+   				<ul className={key}>
+   				<h3>{key}</h3>
+   					{this.renderGameList(games[key])}
+   				</ul>
+			)}
+			 </div>
+			 )
+	}
+
+	renderGameList(games) {
+		return(
+			games.map(game =>
+				this.renderGame(game)
+			)
+		)
+	}
+
+	renderGame(gameData) {
+		let button
+		let turn = gameData.game.board.filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
+		if(gameData.game.status !== "completed"){
+			if (turn === this.props.currentUserId) {
+				button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id)}>
+				Play
+				</button>
+			}else{
+				button = <i>'s turn</i>
+			}
+		}else{
+			button = <b>You {gameData.game.winner === this.props.currentUserId ? "Won :)" : "Lost :("}</b>
+		}
+		return (
+			<li key={gameData.game.id}>
+			Game vs {gameData.opponent.username}
+			{button}
+			</li>
+		)
+	}
+
 	render() {
 		return (
 			<div className="dashboard">
 				<h1>Games</h1>
 				<div>
 					<ChallengeForm
-						handleSubmit={(challenged_id) => {
-							Client.challenge({challenged_id: challenged_id})
+						handleSubmit={(challenged_id, game_type) => {
+							Client.challenge({challenged_id, game_type})
 						}} 
 					/>
 				</div>
-				<ul className="pending">
-					<b>Pending</b>
-					{this.renderGames(this.state.gamesData.pending)}
-				</ul>
-				<ul className="active">
-					<b>Active</b>
-					{this.renderGames(this.state.gamesData.active)}
-				</ul>
-				<ul className="completed">
-					<b>Completed</b>
-					{this.renderGames(this.state.gamesData.completed)}
-				</ul>
+				<div>
+				{this.renderGames()}
+				</div>
 			</div>
 		);
 	}
