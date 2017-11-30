@@ -1,3 +1,14 @@
+function gameTypes() {
+	return fetch("games/get_game_types",{
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		}
+	})
+	.then(checkStatus)
+	.then(parseJSON)
+}
+
 function getCurrentUser() {
 	return fetch("/users/get_current_user",{
 		credentials: 'include',
@@ -49,7 +60,7 @@ function otherUsers(cb) {
 	.then(cb);
 }
 
-function challenge(challenged_id) {
+function challenge(challenged_id, game_type) {
 	return fetch("/api/challenge", {
 		credentials: 'include',
 		method: "POST",
@@ -57,7 +68,7 @@ function challenge(challenged_id) {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(challenged_id)
+		body: JSON.stringify(challenged_id, game_type)
 	})
 }
 
@@ -106,5 +117,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes };
 export default Client;

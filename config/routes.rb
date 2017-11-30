@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     put 'move', to: 'games#update'
   end
 
+  get '/games/get_game_types', to: 'games#get_game_types'
+
   mount ActionCable.server => '/cable'
 
   devise_for :users, controllers: {

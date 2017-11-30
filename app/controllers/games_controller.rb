@@ -1,12 +1,8 @@
 class GamesController < ApplicationController
 
 	def create
-		game = Game.create(games_params)
-		game.users.each do |user|
-			ActionCable.server.broadcast("games_for_user: #{user.id}",
-				user.games.with_opponent(user)
-				)
-		end
+		game = game_type.create(games_params)
+		broadcast_for_users(game)
 	end
 
 	def index
@@ -22,17 +18,32 @@ class GamesController < ApplicationController
 	def update
 		game = Game.find(params[:game_id])
 		game.make_move(params[:piece], params[:location], current_user.id)
-		ActionCable.server.broadcast("game_#{game.id}",
+		ActionCable.server.broadcast(
+			"game_#{game.id}",
 			{squares: game.board, xIsNext: game.turn == 'X'}
 			)
-		game.users.each do |user|
-			ActionCable.server.broadcast("games_for_user: #{user.id}",
-				user.games.with_opponent(user)
-				)
-		end
+		broadcast_for_users(game)
+	end
+
+	def get_game_types
+		render json: game_types
 	end
 
 	private
+
+	def broadcast_for_users(game)
+		game.users.each do |user|
+			ActionCable.server.broadcast("games_for_user: #{user.id}", user.games.with_opponent(user))
+		end
+	end
+
+	def game_types
+		Game.subclasses.map(&:to_s)
+	end
+
+	def game_type
+		params[:game_type].constantize if params[:game_type].in? game_types
+	end
 
 	def games_params
 		params[:game][:challenger_id] = current_user.id
