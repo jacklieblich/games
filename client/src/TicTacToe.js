@@ -105,21 +105,13 @@ class Board extends React.Component {
 	}
 }
 
-class Game extends React.Component {
+class TicTacToe extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			game_id: this.props.game_id
-		}
 	}
 	render() {
 		return (
-			<div className="game">
-			<div className="game-board">
-			<Board game_id={this.state.game_id} current_user_id={this.props.current_user_id} player_x={this.props.player_x}/>
-			</div>
-			<button className="back-button" onClick={() => this.props.handleBackClick()}>Back</button>
-			</div>
+			<Board game_id={this.props.gameId} current_user_id={this.props.currentUserId} player_x={this.props.playerX}/>
 			);
 	}
 }
@@ -143,4 +135,4 @@ function calculateWinner(squares) {
 	}
 	return null;
 }
-export default Game;
+export default TicTacToe;

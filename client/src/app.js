@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginForm from "./loginForm";
 import SignupForm from "./signupForm"
-import Game from "./game";
+import GameRouter from "./GameRouter";
 import Client from "./client";
 import Dashboard from "./dashboard";
 import './index.css';
@@ -11,7 +11,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			current_user_id: false,
-			game_id: false,
+			gameId: false,
 			player_x: false,
 			has_account: false,
 			loading: true,
@@ -77,14 +77,15 @@ class App extends React.Component {
 				/>
 			}
 		} else {
-			if (!!this.state.game_id) {
+			if (!!this.state.gameId) {
 				content =
-				<Game
-					game_id={this.state.game_id}
-					current_user_id={this.state.current_user_id}
-					player_x={this.state.player_x}
+				<GameRouter
+					gameType={this.state.gameType}
+					gameId={this.state.gameId}
+					currentUserId={this.state.current_user_id}
+					playerX={this.state.player_x}
 					handleBackClick={()=>{
-						this.setState({game_id: false})
+						this.setState({gameId: false})
 					}}
 				/>
 			} else {
@@ -92,8 +93,8 @@ class App extends React.Component {
 				<Dashboard
 					gamesData={this.state.games_data}
 					currentUserId={this.state.current_user_id}
-					handlePlayClick={(game_id, player_x) =>{
-						this.setState({game_id: game_id, player_x: player_x})
+					handlePlayClick={(gameId, player_x, gameType) =>{
+						this.setState({gameId: gameId, player_x: player_x, gameType: gameType})
 					}}
 				/>
 			}
