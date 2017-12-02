@@ -33,17 +33,14 @@ class Dashboard extends React.Component {
 		}
 		)
 	}
-	onPlayClick(gameId, playerX) {
-		this.handlePlayClick(gameId, playerX)
+	onPlayClick(gameId, playerX, gameType) {
+		this.handlePlayClick(gameId, playerX, gameType)
 	}
 
 	renderGames() {
 		return (
 			Object.keys(this.state.gamesData).map((gameType) => this.renderGameLists(gameType, this.state.gamesData[gameType]))
-			// this.gamesData.games.map(function(gameData) {
-			
-			// }, this)
-			)
+		)
 	}
 
 	renderGameLists(gameType, games) {
@@ -73,7 +70,7 @@ class Dashboard extends React.Component {
 		let turn = gameData.game.board.filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
 		if(gameData.game.status !== "completed"){
 			if (turn === this.props.currentUserId) {
-				button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id)}>
+				button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id, gameData.game.type)}>
 				Play
 				</button>
 			}else{

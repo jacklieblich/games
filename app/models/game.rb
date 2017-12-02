@@ -18,7 +18,6 @@ class Game < ApplicationRecord
   end
 
   def self.with_opponent(user)
-    Rails.application.eager_load!
     to_game_and_opponent = ->(game) { { game: game, opponent: game.opponent(user) } }
     games = {}
     subclasses.each do |game_type|
@@ -51,5 +50,10 @@ class Game < ApplicationRecord
 
   def set_active
     update(status: "active")
+  end
+
+  #include type in game hash returned from 'render json'
+  def as_json(options={})
+    super(options.merge({:methods => :type}))
   end
 end
