@@ -4,20 +4,15 @@ class TicTacToe < Game
 		self.board = Array.new(9) { nil }
 	end
 
-	def make_move(piece, location, user_id)
-		if legal_move(piece, location, user_id)
-			board[location] = piece
+	def make_move(location, user)
+		if legal_move?(location, user)
+			board[location] = user.id
 			update(board: board)
 		end
 	end
 
-	def legal_move(piece, location, user_id)
-		piece == turn && player(piece).id == user_id && board[location] == nil
-	end
-
-
-	def turn
-		board.count{ |spot| spot != nil} % 2 == 0 ? 'X' : 'O'
+	def legal_move?(location, user)
+		users_turn?(user) && board[location] == nil
 	end
 
 	def set_winner
@@ -34,13 +29,11 @@ class TicTacToe < Game
 		lines.size.times do |i|
 			a, b, c = lines[i]
 			if board[a] && board[a] == board[b] && board[a] == board[c]
-				self.update(winner: player(board[a]).id , status:"completed")
+				self.update(winner: board[a] , status:"completed")
 			end
 		end
+		unless winner || board.include?(nil)
+			self.update(status:"completed")
+		end
 	end
-
-	
-  def player(symbol)
-    symbol == 'X' ? challenged : challenger
-  end
 end

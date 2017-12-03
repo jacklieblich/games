@@ -17,38 +17,33 @@ class Board extends React.Component {
 		super(props);
 		this.state = {
 			squares: Array(9).fill(null),
-			xIsNext: true,
+			turn: ""
 		};
 		this.fillBoard = this.fillBoard.bind(this);
-		this.fillBoard()
+		this.fillBoard();
 		this.subscribe = this.subscribe.bind(this);
 		this.subscribe();
 	}
 
 	subscribe(){
-		App.cable.subscriptions.create({channel: 'GameChannel',game_id: this.props.game_id},{
+		App.cable.subscriptions.create({channel: 'GameChannel',game_id: this.props.gameId},{
 			connected: function() { console.log("cable: connected") },
 			disconnected: function() { console.log("cable: disconnected") }, 
-			received: function(game_data) {
-				this.setState(game_data)
+			received: function(gameData) {
+				this.setState(gameData)
 			}.bind(this)
 		}
 		)
 	}
 
-
-	myTurn() {
-		const player_x = this.props.player_x === this.props.current_user_id ? true : false
-		return player_x === this.state.xIsNext
+	fillBoard() {
+		Client.loadGame(this.props.gameId, (game_data) => {
+			this.setState(game_data)
+		})
 	}
 
-	fillBoard() {
-		Client.loadGame(this.props.game_id, (board) => {
-			this.setState({
-				squares: board,
-				xIsNext: board.filter(space => space !== null).length % 2 === 0
-			})
-		})
+	myTurn(){
+		return this.state.turn === this.props.currentUserId
 	}
 
 	handleClick(i) {
@@ -56,18 +51,26 @@ class Board extends React.Component {
 		if (calculateWinner(squares) || squares[i] || !this.myTurn()) {
 			return;
 		}
-		squares[i] = this.state.xIsNext ? 'X' : 'O';
+		squares[i] = this.props.currentUserId;
 		this.setState({
 			squares: squares,
-			xIsNext: !this.state.xIsNext
+			turn: !this.state.turn
 		});
-		Client.updateBoard(this.props.game_id, squares[i], i)
+		Client.updateBoard(this.props.gameId, i)
+	}
+
+	pieceFor(userId) {
+		let piece = null;
+		if (userId != null){
+			piece = this.props.playerX == userId ? 'X' : 'O'
+		}
+		return piece; 
 	}
 
 	renderSquare(i) {
 		return (
 			<Square
-			value={this.state.squares[i]}
+			value={this.pieceFor(this.state.squares[i])}
 			onClick={() => this.handleClick(i)}
 			/>
 			);
@@ -77,9 +80,9 @@ class Board extends React.Component {
 		const winner = calculateWinner(this.state.squares);
 		let status;
 		if (winner) {
-			status = 'Winner: ' + winner;
+			status = 'Winner: ' + this.pieceFor(winner);
 		} else {
-			status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+			status = 'Next player: ' + this.pieceFor(this.state.turn);
 		}
 
 		return (
@@ -111,7 +114,7 @@ class TicTacToe extends React.Component {
 	}
 	render() {
 		return (
-			<Board game_id={this.props.gameId} current_user_id={this.props.currentUserId} player_x={this.props.playerX}/>
+			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId} playerX={this.props.playerX}/>
 			);
 	}
 }

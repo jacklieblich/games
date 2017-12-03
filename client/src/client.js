@@ -90,7 +90,7 @@ function loadGame(game_id, cb) {
 	.then(cb);
 }
 
-function updateBoard(game_id, piece, location) {
+function updateBoard(game_id, location) {
 	return fetch("/api/move", {
 		credentials: 'include',
 		method: "PUT",
@@ -98,7 +98,7 @@ function updateBoard(game_id, piece, location) {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({game_id, piece, location})
+		body: JSON.stringify({game_id, location})
 	})
 }
 

@@ -6,8 +6,36 @@ class Game < ApplicationRecord
   enum status: [ :pending, :active, :completed ]
 
   before_create :create_board
-  after_update :set_winner, :unless => "winner"
+  after_update :set_winner, if: ->(game){game.status == "active"}
   after_update :set_active, if: ->(game){game.status == "pending"}
+
+  def create_board
+  end
+
+  def make_move
+  end
+
+  def legal_move?
+  end
+
+  def set_winner
+  end
+
+  def turn
+    board.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
+  end
+
+  def users_turn?(user)
+    turn == user.id
+  end
+
+  def player_1
+    challenged.id
+  end
+
+  def player_2
+    challenger.id
+  end
 
   def users
   	User.where(id: [challenged, challenger])
@@ -30,29 +58,11 @@ class Game < ApplicationRecord
     return games
   end
 
-  def create_board
-  end
-
-  def make_move
-  end
-
-  def legal_move
-  end
-
-  def turn
-  end
-
-  def set_winner
-  end
-
-  def player
-  end
-
   def set_active
     update(status: "active")
   end
 
-  #include type in game hash returned from 'render json'
+  #include type in game hash returned from 'render json in games controller'
   def as_json(options={})
     super(options.merge({:methods => :type}))
   end
