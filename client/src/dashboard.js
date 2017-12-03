@@ -14,7 +14,14 @@ class Dashboard extends React.Component {
 		this.loadGames = this.loadGames.bind(this);
 		this.loadGames();
 		this.subscribe = this.subscribe.bind(this);
-		this.subscribe();
+	}
+
+	componentDidMount() {
+		this.subscription = this.subscribe();
+	}
+
+	componentWillUnmount() {
+		App.cable.subscriptions.remove(this.subscription);
 	}
 
 	loadGames(){
@@ -24,6 +31,7 @@ class Dashboard extends React.Component {
 	}
 
 	subscribe(){
+		return(
 		App.cable.subscriptions.create('GamesChannel',{
 			connected: function() { console.log("cable: connected") },
 			disconnected: function() { console.log("cable: disconnected") }, 
@@ -31,6 +39,7 @@ class Dashboard extends React.Component {
 				this.setState({gamesData: gamesData})
 			}.bind(this)
 		}
+		)
 		)
 	}
 	onPlayClick(gameId, playerX, gameType) {
@@ -77,7 +86,7 @@ class Dashboard extends React.Component {
 				button = <i>'s turn</i>
 			}
 		}else{
-			button = <b>You {gameData.game.winner === this.props.currentUserId ? "Won :)" : "Lost :("}</b>
+			button = <b>You {gameData.game.winner != null ? gameData.game.winner == this.props.currentUserId ? "Won :)" : "Lost :(" : "tied :|"}</b>
 		}
 		return (
 			<li key={gameData.game.id}>
