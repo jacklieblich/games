@@ -1,3 +1,20 @@
+import App from "./cable";
+
+function endSubscription(subscription) {
+	App.cable.subscriptions.remove(subscription);
+}
+
+function subscribe(args, cb) {
+	return(
+		App.cable.subscriptions.create(args ,{
+			connected: function() { console.log("cable: connected") },
+			disconnected: function() { console.log("cable: disconnected") }, 
+			received: cb
+		}
+		)
+	);
+}
+
 function gameTypes() {
 	return fetch("games/get_game_types",{
 		headers: {
@@ -117,5 +134,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription };
 export default Client;
