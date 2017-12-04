@@ -13,15 +13,14 @@ class Dashboard extends React.Component {
 		this.handlePlayClick = this.props.handlePlayClick.bind(this);
 		this.loadGames = this.loadGames.bind(this);
 		this.loadGames();
-		this.subscribe = this.subscribe.bind(this);
 	}
 
 	componentDidMount() {
-		this.subscription = this.subscribe();
+		this.subscription = Client.subscribe({channel: 'GamesChannel'}, (gamesData) => this.setState({gamesData: gamesData}));
 	}
 
 	componentWillUnmount() {
-		App.cable.subscriptions.remove(this.subscription);
+		Client.endSubscription(this.subscription)
 	}
 
 	loadGames(){
@@ -30,18 +29,6 @@ class Dashboard extends React.Component {
 		})
 	}
 
-	subscribe(){
-		return(
-		App.cable.subscriptions.create('GamesChannel',{
-			connected: function() { console.log("cable: connected") },
-			disconnected: function() { console.log("cable: disconnected") }, 
-			received: function(gamesData) {
-				this.setState({gamesData: gamesData})
-			}.bind(this)
-		}
-		)
-		)
-	}
 	onPlayClick(gameId, playerX, gameType) {
 		this.handlePlayClick(gameId, playerX, gameType)
 	}

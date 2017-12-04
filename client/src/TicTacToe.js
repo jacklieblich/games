@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.css';
 import Client from "./client";
-import App from "./cable";
 
 function Square(props) {
 	const classes = `square ${props.value}`;
@@ -21,19 +20,7 @@ class Board extends React.Component {
 		};
 		this.fillBoard = this.fillBoard.bind(this);
 		this.fillBoard();
-		this.subscribe = this.subscribe.bind(this);
-		this.subscribe();
-	}
-
-	subscribe(){
-		App.cable.subscriptions.create({channel: 'GameChannel',game_id: this.props.gameId},{
-			connected: function() { console.log("cable: connected") },
-			disconnected: function() { console.log("cable: disconnected") }, 
-			received: function(gameData) {
-				this.setState(gameData)
-			}.bind(this)
-		}
-		)
+		Client.subscribe({channel: 'GameChannel', game_id: this.props.gameId}, (gameData) => this.setState(gameData));
 	}
 
 	fillBoard() {
