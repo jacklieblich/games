@@ -42,6 +42,7 @@ body {
     .game-board{
       width: 525px;
       margin: 0 auto;
+      max-width: 90%;
       .status{
         margin-bottom: 20px;
         font-size: 40px;
@@ -58,21 +59,29 @@ body {
               outline: none;
             }
             &.X{
-              background-color: #ff4500;
+              background: url(images/X.png);
+              background-size: cover;
             }
             &.O{
-              background-color: #00bfff;
+              background: url(images/O.png);
+              background-size: cover;
             }
           }
         }
       }
       .tic-tac-toe{
+        .board-row{
         .space{
           border-radius: 0;
-          width: 175px;
-          height: 175px;
+          width: calc(100% / 3);
+          height: 0;
+          padding-bottom: calc(100% / 3 - 8px);
           font-size: 150px;
+          @media (max-width: 625px){
+            font-size: 85px;
+          }
         }
+      }
       }
       .connect-4{
         .board{

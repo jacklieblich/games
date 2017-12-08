@@ -6,7 +6,6 @@ function Square(props) {
 	const classes = `space ${props.value}`;
 	return (
 		<button className={classes} onClick={props.onClick}>
-		{props.value}
 		</button>
 		);
 }
