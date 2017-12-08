@@ -63,7 +63,7 @@ class Dashboard extends React.Component {
 
 	renderGame(gameData) {
 		let button
-		let turn = gameData.game.board.filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
+		let turn = [].concat.apply([], gameData.game.board).filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
 		if(gameData.game.status !== "completed"){
 			if (turn === this.props.currentUserId) {
 				button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id, gameData.game.type)}>

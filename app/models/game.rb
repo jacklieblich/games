@@ -22,7 +22,6 @@ class Game < ApplicationRecord
   end
 
   def turn
-    board.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
   end
 
   def users_turn?(user)
