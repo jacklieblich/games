@@ -3,7 +3,7 @@ import './index.css';
 import Client from "./client";
 
 function Square(props) {
-	const classes = `square ${props.value}`;
+	const classes = `space ${props.value}`;
 	return (
 		<button className={classes} onClick={props.onClick}>
 		{props.value}
@@ -73,7 +73,7 @@ class Board extends React.Component {
 		}
 
 		return (
-			<div>
+			<div className="tic-tac-toe">
 			<div className="status">{status}</div>
 			<div className="board-row">
 			{this.renderSquare(0)}
@@ -101,7 +101,7 @@ class TicTacToe extends React.Component {
 	}
 	render() {
 		return (
-			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId} playerX={this.props.playerX}/>
+			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId} playerX={this.props.player1}/>
 			);
 	}
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import TicTacToe from "./TicTacToe";
+import Connect4 from "./Connect4";
 
 class GameRouter extends React.Component {
 	constructor(props) {
@@ -10,8 +11,11 @@ class GameRouter extends React.Component {
 		let game
 		switch(this.props.gameType) {
 			case "TicTacToe":
-				game = <TicTacToe gameId={this.props.gameId} currentUserId={this.props.currentUserId} playerX={this.props.playerX}/>;
-				break
+				game = <TicTacToe gameId={this.props.gameId} currentUserId={this.props.currentUserId} player1={this.props.playerX}/>;
+				break;
+			case "Connect4":
+				game = <Connect4 gameId={this.props.gameId} currentUserId={this.props.currentUserId} player1={this.props.playerX}/>;
+				break;
 		}
 		return game
 	}

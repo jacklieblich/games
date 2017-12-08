@@ -15,6 +15,10 @@ class TicTacToe < Game
 		users_turn?(user) && board[location] == nil
 	end
 
+	def turn
+		board.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
+	end
+
 	def set_winner
 		lines = [
 			[0, 1, 2],
