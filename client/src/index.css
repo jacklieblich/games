@@ -31,7 +31,8 @@ body {
         margin-left: 6px; }
   body .game .game-board {
     width: 525px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    max-width: 90%; }
     body .game .game-board .status {
       margin-bottom: 20px;
       font-size: 40px; }
@@ -45,14 +46,20 @@ body {
         body .game .game-board .tic-tac-toe .board-row .space:focus, body .game .game-board .connect-4 .board-row .space:focus {
           outline: none; }
         body .game .game-board .tic-tac-toe .board-row .space.X, body .game .game-board .connect-4 .board-row .space.X {
-          background-color: #ff4500; }
+          background: url(images/X.png);
+          background-size: cover; }
         body .game .game-board .tic-tac-toe .board-row .space.O, body .game .game-board .connect-4 .board-row .space.O {
-          background-color: #00bfff; }
-    body .game .game-board .tic-tac-toe .space {
+          background: url(images/O.png);
+          background-size: cover; }
+    body .game .game-board .tic-tac-toe .board-row .space {
       border-radius: 0;
-      width: 175px;
-      height: 175px;
+      width: calc(100% / 3);
+      height: 0;
+      padding-bottom: calc(100% / 3 - 8px);
       font-size: 150px; }
+      @media (max-width: 625px) {
+        body .game .game-board .tic-tac-toe .board-row .space {
+          font-size: 85px; } }
     body .game .game-board .connect-4 .board {
       display: flex; }
       body .game .game-board .connect-4 .board .board-row {
