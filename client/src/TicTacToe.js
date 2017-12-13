@@ -15,11 +15,12 @@ class Board extends React.Component {
 		super(props);
 		this.state = {
 			squares: Array(9).fill(null),
-			turn: ""
+			turn: "",
+			player1: ""
 		};
 		this.fillBoard = this.fillBoard.bind(this);
 		this.fillBoard();
-		Client.subscribe({channel: 'GameChannel', game_id: this.props.gameId}, (gameData) => this.setState(gameData));
+		Client.subscribe({channel: 'GameChannel', game_id: this.props.gameId}, (gameData) => this.setState({squares: gameData.squares, turn: gameData.turn}));
 	}
 
 	fillBoard() {
@@ -47,8 +48,9 @@ class Board extends React.Component {
 
 	pieceFor(userId) {
 		let piece = null;
+		const playerX = this.state.player1
 		if (userId != null){
-			piece = this.props.playerX == userId ? 'X' : 'O'
+			piece = playerX == userId ? 'X' : 'O'
 		}
 		return piece; 
 	}
@@ -100,7 +102,7 @@ class TicTacToe extends React.Component {
 	}
 	render() {
 		return (
-			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId} playerX={this.props.player1}/>
+			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId}/>
 			);
 	}
 }

@@ -1,16 +1,17 @@
 import React from "react";
+import { Link, Redirect } from 'react-router-dom'
+import { Authentication } from './Authentication';
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      redirectToReferrer: false
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = props.handleSubmit;
-    this.handleSignupClick = props.handleSignupClick;
   }
 
   handleChange(event) {
@@ -24,26 +25,23 @@ class LoginForm extends React.Component {
 
   onSubmit(event){
     event.preventDefault();
-    this.handleSubmit({user: {password: this.state.password, email: this.state.email}});
-  }
-
-  onSignupClick(event){
-    event.preventDefault();
-    this.handleSignupClick();
+    Authentication.login(
+      {user: {password: this.state.password, email: this.state.email}},
+      () => this.setState({redirectToReferrer: true})
+    );
   }
 
   render() {
-    let error = ""
+    const redirectToReferrer = this.state.redirectToReferrer
 
-    if(this.props.login_error) {
-      error = "incorrect login info"
+    if (redirectToReferrer === true) {
+      return <Redirect to='/' />
     }
 
     return (
       <div className="form-container">
         <form onSubmit={this.onSubmit.bind(this)}>
           <h1>Login</h1>
-          {error}
           <label>
             email:
             <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
@@ -54,7 +52,7 @@ class LoginForm extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        <a href="" onClick={this.onSignupClick.bind(this)}>create account</a>
+        <Link to='/signup'>create account</Link>
       </div>
       );
   }

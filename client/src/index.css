@@ -83,6 +83,10 @@ body {
     margin: 20px auto 0;
     width: 200px;
     height: 40px;
-    border: 1px solid black; }
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    line-height: 40px; }
     body .game .back-button:hover {
       background-color: grey; }
