@@ -12,9 +12,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			gameId: false,
-			player_x: false,
-			loading: true,
+			loading: true
 		};
 		Authentication.getCurrentUser(() => this.setState({loading: false}))
 	}
