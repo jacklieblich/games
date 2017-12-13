@@ -2,15 +2,18 @@ import React from 'react';
 import ChallengeForm from "./challengeForm";
 import Client from "./client";
 import App from "./cable";
+import { Authentication } from "./Authentication";
+import { Redirect, Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			currentUser: Authentication.currentUser,
 			gamesData: []
 		};
+		this.onSignOutClick = this.onSignOutClick.bind(this);
 		this.renderGames = this.renderGames.bind(this);
-		this.handlePlayClick = this.props.handlePlayClick.bind(this);
 		this.loadGames = this.loadGames.bind(this);
 		this.loadGames();
 	}
@@ -61,19 +64,21 @@ class Dashboard extends React.Component {
 		)
 	}
 
+	onSignOutClick() {
+		Authentication.signout(() => this.setState({currentUser: null}))
+	}
+
 	renderGame(gameData) {
 		let button
 		let turn = [].concat.apply([], gameData.game.board).filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
 		if(gameData.game.status !== "completed"){
-			if (turn === this.props.currentUserId) {
-				button = <button className="play-button" onClick={() => this.onPlayClick(gameData.game.id, gameData.game.challenged_id, gameData.game.type)}>
-				Play
-				</button>
+			if (turn === this.state.currentUser.id) {
+				button = <Link to={`/games/${gameData.game.type}/${gameData.game.id}`}>Play</Link>
 			}else{
 				button = <i>'s turn</i>
 			}
 		}else{
-			button = <b>You {gameData.game.winner != null ? gameData.game.winner == this.props.currentUserId ? "Won :)" : "Lost :(" : "tied :|"}</b>
+			button = <b>You {gameData.game.winner != null ? gameData.game.winner == this.state.currentUser.id ? "Won :)" : "Lost :(" : "tied :|"}</b>
 		}
 		return (
 			<li key={gameData.game.id}>
@@ -84,6 +89,11 @@ class Dashboard extends React.Component {
 	}
 
 	render() {
+
+    	if (this.state.currentUser === null) {
+    		return <Redirect to='/login' />
+   		}
+
 		return (
 			<div className="dashboard">
 				<h1>Games</h1>
@@ -97,6 +107,7 @@ class Dashboard extends React.Component {
 				<div>
 				{this.renderGames()}
 				</div>
+				<button onClick={this.onSignOutClick}>signout</button>
 			</div>
 		);
 	}

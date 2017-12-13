@@ -16,7 +16,7 @@ function subscribe(args, cb) {
 }
 
 function gameTypes() {
-	return fetch("games/get_game_types",{
+	return fetch("/games/get_game_types",{
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function signup(signup_params, cb) {
 	.then(cb);
 }
 
-function login(login_params, cb) {
+function login(login_params) {
 	return fetch("/users/sign_in", {
 		credentials: 'include',
 		method: "POST",
@@ -65,7 +65,18 @@ function login(login_params, cb) {
 	})
 	.then(checkStatus)
 	.then(parseJSON)
-	.then(cb);
+}
+
+function signout(){
+	return fetch("/users/sign_out", {
+		credentials: 'include',
+		method: "DELETE",
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		}
+	})
+	.then(checkStatus)
 }
 
 function otherUsers(cb) {
@@ -134,5 +145,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout };
 export default Client;

@@ -39,12 +39,13 @@ class Board extends React.Component {
 		super(props);
 		this.state = {
 			squares: Array(7).fill(Array()),
-			turn: ""
+			turn: "",
+			player1: ""
 		};
 		this.fillBoard = this.fillBoard.bind(this);
 		this.fillBoard();
 		this.handleClick = this.handleClick.bind(this);
-		Client.subscribe({channel: 'GameChannel', game_id: this.props.gameId}, (gameData) => this.setState(gameData));
+		Client.subscribe({channel: 'GameChannel', game_id: this.props.gameId}, (gameData) => this.setState({squares: gameData.squares, turn: gameData.turn}));
 	}
 
 	fillBoard() {
@@ -74,7 +75,7 @@ class Board extends React.Component {
 	renderBoard() {
 		let columns = []
 		this.state.squares.forEach((column, index) => {
-			columns.push(<Column spaces={column} columnNumber = {index} handleClick = {this.handleClick} player1={this.props.player1}/>)
+			columns.push(<Column spaces={column} columnNumber = {index} handleClick = {this.handleClick} player1={this.state.player1}/>)
 		}
 		)
 		return(
@@ -86,9 +87,9 @@ class Board extends React.Component {
 		const winner = calculateWinner(this.state.squares);
 		let status;
 		if (winner) {
-			status = 'Winner: ' + pieceFor(winner, this.props.player1);
+			status = 'Winner: ' + pieceFor(winner, this.state.player1);
 		} else {
-			status = 'Next player: ' + pieceFor(this.state.turn, this.props.player1);
+			status = 'Next player: ' + pieceFor(this.state.turn, this.state.player1);
 		}
 
 		return (
@@ -108,7 +109,7 @@ class Connect4 extends React.Component {
 	}
 	render() {
 		return (
-			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId} player1={this.props.player1}/>
+			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId}/>
 			);
 	}
 }

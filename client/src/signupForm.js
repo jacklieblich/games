@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, Redirect } from 'react-router-dom'
+import { Authentication } from './Authentication';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -6,12 +8,11 @@ class SignupForm extends React.Component {
     this.state = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      redirectToReferrer: false
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = props.handleSubmit;
-    this.handleLoginClick = props.handleLoginClick;
   }
 
   handleChange(event) {
@@ -25,26 +26,23 @@ class SignupForm extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.handleSubmit({user: {username: this.state.username, password: this.state.password, email: this.state.email}});
-  }
-  
-  onLoginClick(event) {
-  	event.preventDefault();
-  	this.handleLoginClick();
+    Authentication.signup(
+      {user: {username: this.state.username, password: this.state.password, email: this.state.email}},
+      () => this.setState({redirectToReferrer: true})
+    );
   }
 
   render() {
-    let error = ""
+    const redirectToReferrer = this.state.redirectToReferrer
 
-    if (this.props.signup_error) {
-      error = "Must use unique and correctly formatted email"
+    if (redirectToReferrer === true) {
+      return <Redirect to='/' />
     }
 
     return (
     	<div className="form-container">
         <form onSubmit={this.onSubmit.bind(this)}>
           <h1>Signup</h1>
-          {error}
           <label>
             username:
             <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
@@ -59,7 +57,7 @@ class SignupForm extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        already have an account?<a href="" onClick={this.onLoginClick.bind(this)}>login</a>
+        already have an account?<Link to='/login'>login</Link>
       </div>
       );
   }

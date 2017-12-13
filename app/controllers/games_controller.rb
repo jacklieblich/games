@@ -12,7 +12,7 @@ class GamesController < ApplicationController
 
 	def show
 		game = Game.find(params[:id])
-		render json: {squares: game.board, turn: game.turn} 
+		render json: {squares: game.board, turn: game.turn, player1: game.player_1} 
 	end
 
 	def update

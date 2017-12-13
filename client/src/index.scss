@@ -115,6 +115,10 @@ body {
     width: 200px;
     height: 40px;
     border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    line-height: 40px;
     &:hover{
       background-color: grey;
     }
