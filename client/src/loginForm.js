@@ -8,7 +8,8 @@ class LoginForm extends React.Component {
     this.state = {
       email: '',
       password: '',
-      redirectToReferrer: false
+      redirectToReferrer: false,
+      error: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,8 +28,9 @@ class LoginForm extends React.Component {
     event.preventDefault();
     Authentication.login(
       {user: {password: this.state.password, email: this.state.email}},
-      () => this.setState({redirectToReferrer: true})
-    );
+      () => this.setState({redirectToReferrer: true}),
+      (error) => error.response.json().then((response) => this.setState({error: response.error}))
+    )
   }
 
   render() {
@@ -42,6 +44,7 @@ class LoginForm extends React.Component {
       <div className="form-container">
         <form onSubmit={this.onSubmit.bind(this)}>
           <h1>Login</h1>
+          <p className="error">{this.state.error}</p>
           <label>
             email:
             <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
