@@ -4,7 +4,7 @@ Must have Postgres installed.
 
 $ git clone https://github.com/jacklieblich/games.git
 
-$ bundle && cd client && npm i && cd ..
+$ cd games && bundle && cd client && npm i && cd ..
 
 $ rake db:create db:migrate
 
