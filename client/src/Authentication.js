@@ -7,15 +7,17 @@ export const Authentication = {
   	.then((currentUser) => this.currentUser = currentUser)
   	.then(cb)
   },
-  login(login_params, cb) {
+  login(login_params, cb, handleError) {
   	Client.login(login_params)
   	.then((currentUser)=> this.currentUser = currentUser)
   	.then(cb)
+    .catch(handleError)
   },
-  signup(user_params, cb){
+  signup(user_params, cb, handleError){
   	Client.signup(user_params)
   	.then((currentUser) => this.currentUser = currentUser)
-	.then(cb)
+	  .then(cb)
+    .catch(handleError)
   },
   signout(cb) {
   	Client.signout()

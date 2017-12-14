@@ -14,6 +14,8 @@ body {
       margin-bottom: 10px; }
       body .form-container form h1 {
         text-align: center; }
+      body .form-container form p.error {
+        color: #e53935; }
       body .form-container form label {
         text-align: left;
         display: block;
