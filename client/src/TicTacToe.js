@@ -10,23 +10,18 @@ function Square(props) {
 		);
 }
 
-class Board extends React.Component {
+class TicTacToe extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			squares: Array(9).fill(null),
-			turn: "",
-			player1: ""
-		};
-		this.fillBoard = this.fillBoard.bind(this);
-		this.fillBoard();
-		Client.subscribe({channel: 'GameChannel', game_id: this.props.gameId}, (gameData) => this.setState({squares: gameData.squares, turn: gameData.turn}));
+			board: props.board,
+			turn: props.turn,
+			player1: props.player1
+		}
 	}
 
-	fillBoard() {
-		Client.loadGame(this.props.gameId, (game_data) => {
-			this.setState(game_data)
-		})
+	componentWillReceiveProps(nextProps) {
+		this.setState(nextProps)
 	}
 
 	myTurn(){
@@ -34,13 +29,13 @@ class Board extends React.Component {
 	}
 
 	handleClick(i) {
-		const squares = this.state.squares.slice();
-		if (calculateWinner(squares) || squares[i] || !this.myTurn()) {
+		const board = this.state.board.slice();
+		if (this.props.winner || board[i] || !this.myTurn()) {
 			return;
 		}
-		squares[i] = this.props.currentUserId;
+		board[i] = this.props.currentUserId;
 		this.setState({
-			squares: squares,
+			board: board,
 			turn: !this.state.turn
 		});
 		Client.updateBoard(this.props.gameId, i)
@@ -58,14 +53,14 @@ class Board extends React.Component {
 	renderSquare(i) {
 		return (
 			<Square
-			value={this.pieceFor(this.state.squares[i])}
+			value={this.pieceFor(this.state.board[i])}
 			onClick={() => this.handleClick(i)}
 			/>
 			);
 	}
 
 	render() {
-		const winner = calculateWinner(this.state.squares);
+		const winner = this.props.winner;
 		let status;
 		if (winner) {
 			status = 'Winner: ' + this.pieceFor(winner);
@@ -96,34 +91,4 @@ class Board extends React.Component {
 	}
 }
 
-class TicTacToe extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<Board gameId={this.props.gameId} currentUserId={this.props.currentUserId}/>
-			);
-	}
-}
-
-function calculateWinner(squares) {
-	const lines = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
-	[0, 4, 8],
-	[2, 4, 6],
-	];
-	for (let i = 0; i < lines.length; i++) {
-		const [a, b, c] = lines[i];
-		if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-			return squares[a];
-		}
-	}
-	return null;
-}
 export default TicTacToe;

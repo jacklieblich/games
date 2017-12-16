@@ -15,6 +15,18 @@ function subscribe(args, cb) {
 	);
 }
 
+function bothWatching(gameId, cb){
+	return fetch("/games/both_watching",{
+		method: "POST",
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(gameId)
+	})
+	.then(checkStatus)
+}
+
 function gameTypes() {
 	return fetch("/games/get_game_types",{
 		headers: {
@@ -145,5 +157,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, bothWatching };
 export default Client;

@@ -1,7 +1,6 @@
 import React from 'react';
 import ChallengeForm from "./challengeForm";
 import Client from "./client";
-import App from "./cable";
 import { Authentication } from "./Authentication";
 import { Redirect, Link } from 'react-router-dom';
 
