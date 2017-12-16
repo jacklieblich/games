@@ -1,4 +1,4 @@
-class TicTacToe < Game
+class Hex < Game
 
 	def create_board
 		self.board = Array.new(9) { nil }

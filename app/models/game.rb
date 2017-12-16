@@ -6,8 +6,8 @@ class Game < ApplicationRecord
   enum status: [ :pending, :active, :completed ]
 
   before_create :create_board
-  after_update :set_winner, if: ->(game){game.status == "active"}
-  after_update :set_active, if: ->(game){game.status == "pending"}
+  after_update :set_winner, if: -> (game) { game.status == "active" }
+  after_update :set_active, if: -> (game) { game.status == "pending" }
 
   def create_board
   end
