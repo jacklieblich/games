@@ -12,7 +12,7 @@ class GamesController < ApplicationController
 
 	def show
 		game = Game.find(params[:id])
-		render json: {squares: game.board, turn: game.turn, player1: game.player_1} 
+		render json: {board: game.board, turn: game.turn, player1: game.player_1, winner: game.winner} 
 	end
 
 	def update
@@ -20,13 +20,20 @@ class GamesController < ApplicationController
 		game.make_move(params[:location], current_user)
 		ActionCable.server.broadcast(
 			"game_#{game.id}",
-			{squares: game.board, turn: game.turn}
+			{board: game.board, turn: game.turn, winner: game.winner}
 			)
 		broadcast_for_users(game)
 	end
 
 	def get_game_types
 		render json: game_types
+	end
+
+	def both_watching
+		ActionCable.server.broadcast(
+			"game_#{params[:game_id]}",
+			{opponentWatching: true}
+		)
 	end
 
 	private

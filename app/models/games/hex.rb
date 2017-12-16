@@ -15,10 +15,6 @@ class Hex < Game
     users_turn?(user) && board[row][col].nil?
   end
 
-  def turn
-    board.flatten.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
-  end
-
   def set_winner
     winner = findWinner(board)
     if winner
