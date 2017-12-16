@@ -2,7 +2,6 @@ import React from 'react';
 import LoginForm from "./loginForm";
 import SignupForm from "./signupForm"
 import GameRouter from "./GameRouter";
-import Client from "./client";
 import Dashboard from "./dashboard";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Authentication } from './Authentication';
