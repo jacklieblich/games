@@ -15,10 +15,6 @@ class Connect4 < Game
 		users_turn?(user) && board[row].include?(nil)
 	end
 
-	def turn
-		board.flatten.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
-	end
-
 	def set_winner
 		p "hello"
 		#rows
@@ -56,7 +52,7 @@ class Connect4 < Game
 				end
 			end
 		end
-		
+
 		unless board.any?{|arr| arr.include?(nil)}
 			self.update(status:"completed")
 		end

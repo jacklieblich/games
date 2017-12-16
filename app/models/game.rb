@@ -21,8 +21,9 @@ class Game < ApplicationRecord
   def set_winner
   end
 
-  def turn
-  end
+	def turn
+		board.flatten.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
+	end
 
   def users_turn?(user)
     turn == user.id
