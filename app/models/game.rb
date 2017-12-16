@@ -6,8 +6,8 @@ class Game < ApplicationRecord
   enum status: [ :pending, :active, :completed ]
 
   before_create :create_board
-  after_update :set_winner, if: ->(game){game.status == "active"}
-  after_update :set_active, if: ->(game){game.status == "pending"}
+  after_update :set_winner, if: -> (game) { game.status == "active" }
+  after_update :set_active, if: -> (game) { game.status == "pending" }
 
   def create_board
   end
@@ -21,8 +21,9 @@ class Game < ApplicationRecord
   def set_winner
   end
 
-  def turn
-  end
+	def turn
+		board.flatten.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
+	end
 
   def users_turn?(user)
     turn == user.id
