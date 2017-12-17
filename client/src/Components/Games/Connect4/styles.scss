@@ -1,0 +1,33 @@
+.connect-4-board {
+  .board{
+    display: flex;
+    .board-row{
+      display: flex;
+      flex-direction: column-reverse;
+      background-color: darkblue;
+      display: flex;
+      width: calc(100% / 7);
+      .space{
+        padding: 0;
+        border-color: darkblue;
+        border-radius: 50%;
+        width: 100%;
+        height: 0;
+        padding-bottom: calc(100% - 8px);
+        box-sizing: border-box;
+        background-color: #fff;
+        border: 4px solid black;
+        transition: background-color 0.5s ease;
+        &:focus{
+          outline: none;
+        }
+        &.yellow{
+          background-color: yellow;
+        }
+        &.red{
+          background-color: red;
+        }
+      }
+    }
+  }
+}

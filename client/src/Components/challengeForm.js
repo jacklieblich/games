@@ -1,5 +1,5 @@
 import React from "react";
-import Client from "./client";
+import Client from "../api";
 
 class ChallengeForm extends React.Component {
   constructor(props) {
