@@ -1,0 +1,63 @@
+.hex-board {
+
+  $boardWidth: 800px;
+  $hexWidth: $boardWidth / 11;
+  $hexHeight: $hexWidth * 1.1508610692;
+
+  .board {
+    max-width: $boardWidth;
+  }
+
+
+  .board {
+
+    &.player1 svg.empty:hover polygon {
+      fill: red !important;
+    }
+
+    &.player2 svg.empty:hover polygon {
+      fill: blue!important;
+    }
+  }
+
+  .row {
+    width:800px;
+    display: flex;
+    position: relative;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i + 1}) {
+        left: #{$i* ($hexWidth/ 2)};
+        margin-top: -1 * $hexHeight / 3
+      }
+    }
+
+    svg {
+      width: $hexWidth;
+      height: $hexHeight;
+
+      &.player1 {
+        polygon {
+          fill: red !important;
+        }
+      }
+
+      &.player2 {
+        polygon {
+          fill: blue !important;
+        }
+      }
+
+
+      polygon {
+        cursor: pointer;
+        fill: white !important;
+        stroke: gray!important;
+        stroke-width: 10 !important;
+
+      }
+    }
+
+
+  }
+
+}
