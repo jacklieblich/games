@@ -1,15 +1,16 @@
 import React from "react";
 import { Link, Redirect } from 'react-router-dom'
-import { Authentication } from './Authentication';
+import { Authentication } from '../Authentication';
 
-class LoginForm extends React.Component {
+class SignupForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
       email: '',
       password: '',
       redirectToReferrer: false,
-      error: ""
+      errors: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,13 +25,13 @@ class LoginForm extends React.Component {
     });
   }
 
-  onSubmit(event){
+  onSubmit(event) {
     event.preventDefault();
-    Authentication.login(
-      {user: {password: this.state.password, email: this.state.email}},
+    Authentication.signup(
+      {user: {username: this.state.username, password: this.state.password, email: this.state.email}},
       () => this.setState({redirectToReferrer: true}),
-      (error) => error.response.json().then((response) => this.setState({error: response.error}))
-    )
+      (error) => error.response.json().then((response) => this.setState({errors: response.errors}))
+    );
   }
 
   render() {
@@ -40,11 +41,17 @@ class LoginForm extends React.Component {
       return <Redirect to='/' />
     }
 
+    const errors = Object.keys(this.state.errors).map((key, index) => <p className="error">{key + " " + this.state.errors[key]}</p>)
+
     return (
-      <div className="form-container">
+    	<div className="form-container">
         <form onSubmit={this.onSubmit.bind(this)}>
-          <h1>Login</h1>
-          <p className="error">{this.state.error}</p>
+          <h1>Signup</h1>
+            {errors}
+          <label>
+            username:
+            <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+          </label>
           <label>
             email:
             <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
@@ -55,10 +62,10 @@ class LoginForm extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        <Link to='/signup'>create account</Link>
+        already have an account?<Link to='/login'>login</Link>
       </div>
       );
   }
 }
 
-export default LoginForm;
+export default SignupForm;

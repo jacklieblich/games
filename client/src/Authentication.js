@@ -1,4 +1,4 @@
-import Client from "./client";
+import Client from "./api";
 
 export const Authentication = {
   currentUser: null,
