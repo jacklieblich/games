@@ -1,6 +1,7 @@
 import React from 'react';
 import TicTacToe from "../Games/TicTacToe";
 import Connect4 from "../Games/Connect4";
+import Hex from "../Games/Hex";
 import { Authentication } from '../../Authentication';
 import { Link } from 'react-router-dom';
 import Client from "../../api";
@@ -54,6 +55,9 @@ class GameRouter extends React.Component {
 				break;
 			case "Connect4":
 				game = <Connect4 gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner}/>;
+				break;
+			case "Hex":
+				game = <Hex gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner}/>;
 				break;
 		}
 		return game

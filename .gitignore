@@ -21,3 +21,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+node_modules
+client/build/*
+public/static/*

@@ -1,0 +1,55 @@
+.hex-board .board {
+  max-width: 800px; }
+
+.hex-board .board.player1 svg.empty:hover polygon {
+  fill: red !important; }
+
+.hex-board .board.player2 svg.empty:hover polygon {
+  fill: blue !important; }
+
+.hex-board .row {
+  width: 800px;
+  display: flex;
+  position: relative; }
+  .hex-board .row:nth-child(2) {
+    left: 36.36364px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(3) {
+    left: 72.72727px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(4) {
+    left: 109.09091px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(5) {
+    left: 145.45455px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(6) {
+    left: 181.81818px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(7) {
+    left: 218.18182px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(8) {
+    left: 254.54545px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(9) {
+    left: 290.90909px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(10) {
+    left: 327.27273px;
+    margin-top: -27.89966px; }
+  .hex-board .row:nth-child(11) {
+    left: 363.63636px;
+    margin-top: -27.89966px; }
+  .hex-board .row svg {
+    width: 72.72727px;
+    height: 83.69899px; }
+    .hex-board .row svg.player1 polygon {
+      fill: red !important; }
+    .hex-board .row svg.player2 polygon {
+      fill: blue !important; }
+    .hex-board .row svg polygon {
+      cursor: pointer;
+      fill: white !important;
+      stroke: gray !important;
+      stroke-width: 10 !important; }
