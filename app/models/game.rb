@@ -8,6 +8,7 @@ class Game < ApplicationRecord
   before_create :create_board
   after_update :set_winner, if: -> (game) { game.status == "active" }
   after_update :set_active, if: -> (game) { game.status == "pending" }
+  after_create :send_challenged_email
 
   def create_board
   end
@@ -60,6 +61,10 @@ class Game < ApplicationRecord
 
   def set_active
     update(status: "active")
+  end
+
+  def send_challenged_email
+    UserMailer.challenged_email(self.challenged_id, self.id).deliver_now
   end
 
   #include type in game hash returned from 'render json in games controller'
