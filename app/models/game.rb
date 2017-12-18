@@ -8,7 +8,7 @@ class Game < ApplicationRecord
   before_create :create_board
   after_update :set_winner, if: -> (game) { game.status == "active" }
   after_update :set_active, if: -> (game) { game.status == "pending" }
-  after_create :send_challenged_email
+  # after_create :send_challenged_email
 
   def create_board
   end
