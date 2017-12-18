@@ -14,7 +14,11 @@ gem 'pg'
 gem 'foreman', '~> 0.82.0'
 gem "thor", "~> 0.19.1"
 gem 'redis', '~> 3.2'
+gem 'dotenv-rails', groups: [:development, :test]
 
+#emails
+gem "letter_opener", :group => :development
+gem 'sidekiq'
 
 gem 'devise'
 group :development, :test do
