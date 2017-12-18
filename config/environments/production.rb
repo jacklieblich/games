@@ -77,4 +77,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.web_socket_server_url = "wss://dry-hollows-83799.herokuapp.com/cable"
+
+  config.action_mailer.default_url_options = { :host => "https://dry-hollows-83799.herokuapp.com" }
 end
