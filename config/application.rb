@@ -30,5 +30,6 @@ module Api
     config.middleware.use ActionDispatch::Session::CookieStore
     
     config.action_dispatch.perform_deep_munge = false
+    config.active_job.queue_adapter = :sidekiq
 end
 end
