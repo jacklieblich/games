@@ -35,10 +35,11 @@ class SignupForm extends React.Component {
   }
 
   render() {
+    const { referrer } = this.props.location.state || { referrer: { pathname: '/' } }
     const redirectToReferrer = this.state.redirectToReferrer
 
     if (redirectToReferrer === true) {
-      return <Redirect to='/' />
+      return <Redirect to={referrer} />
     }
 
     const errors = Object.keys(this.state.errors).map((key, index) => <p className="error">{key + " " + this.state.errors[key]}</p>)
@@ -62,7 +63,11 @@ class SignupForm extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        already have an account?<Link to='/login'>login</Link>
+        already have an account?
+        <Link to={{
+          pathname: '/login',
+          state: { referrer: referrer }
+        }}>login</Link>
       </div>
       );
   }
