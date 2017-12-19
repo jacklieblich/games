@@ -3,7 +3,7 @@ class GameChannel < ApplicationCable::Channel
   	game = Game.find(params[:game_id])
     ActionCable.server.broadcast(
 		"game_#{game.id}",
-		{opponentWatching: true}
+		{isWatching: current_user.id}
 	)
     stream_from "game_#{params[:game_id]}"
   end
@@ -12,7 +12,7 @@ class GameChannel < ApplicationCable::Channel
   	game = Game.find(params[:game_id])
     ActionCable.server.broadcast(
 		"game_#{game.id}",
-		{opponentWatching: false}
+		{stoppedWatching: current_user.id}
 	)
   end
 end

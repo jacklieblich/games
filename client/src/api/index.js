@@ -15,9 +15,10 @@ function subscribe(args, cb) {
 	);
 }
 
-function bothWatching(gameId, cb){
-	return fetch("/games/both_watching",{
+function imWatching(gameId, cb){
+	return fetch("/games/im_watching",{
 		method: "POST",
+		credentials: 'include',
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
@@ -157,5 +158,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, bothWatching };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching };
 export default Client;

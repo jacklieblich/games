@@ -16,7 +16,8 @@ class GameRouter extends React.Component {
 			turn: "",
 			player1 : "",
 			winner: false,
-			gameId: this.props.match.params.gameId
+			gameId: this.props.match.params.gameId,
+			opponentId: ""
 		}
 		this.fillBoard = this.fillBoard.bind(this);
 		this.fillBoard();
@@ -25,10 +26,11 @@ class GameRouter extends React.Component {
 	componentDidMount() {
 		this.subscription = Client.subscribe({channel: 'GameChannel', game_id: this.state.gameId},
 			(gameData) => {
-				if(gameData.opponentWatching == true && this.state.opponentWatching != true){
-					Client.bothWatching({game_id: this.state.gameId})
+				if ('stoppedWatching' in gameData || 'isWatching' in gameData){
+					this.handleOpponentWatching(gameData);
+				}else{
+					this.setState(gameData)
 				}
-				this.setState(gameData)
 			}
 		)
 	}
@@ -41,6 +43,20 @@ class GameRouter extends React.Component {
 		Client.loadGame(this.state.gameId, (game_data) => {
 			this.setState(game_data)
 		})
+	}
+
+	handleOpponentWatching(gameData) {
+		if (gameData.stoppedWatching === this.state.opponentId){
+			this.setState({opponentWatching: false})
+		}
+		//cant hide watching status by closing secondary connection
+		if (gameData.stoppedWatching === Authentication.currentUser.id){
+			Client.imWatching({game_id: this.state.gameId})
+		}
+		if (gameData.isWatching === this.state.opponentId && !this.state.opponentWatching){
+			this.setState({opponentWatching: true})
+			Client.imWatching({game_id: this.state.gameId})
+		}
 	}
 
 	renderGame() {
