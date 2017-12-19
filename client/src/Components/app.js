@@ -27,7 +27,7 @@ class App extends React.Component {
 				<Switch>
   					<Route path='/signup' component={SignupForm}/>
   					<Route path='/login' component={LoginForm}/>
-  					<Route path='/games/:gameType/:gameId' component={Game}/>
+  					<PrivateRoute path='/games/:gameType/:gameId' component={Game}/>
   					<PrivateRoute component={Dashboard} currentUserId={this.state.currentUserId}/>
 				</Switch>
 			</div>
@@ -39,7 +39,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     Authentication.currentUser !== null
       ? <Component {...props} />
-      : <Redirect to='/login' />
+      : <Redirect to={{
+		  pathname: '/login',
+		  state: { referrer: props.location }
+		}}/>
   )} />
 )
 

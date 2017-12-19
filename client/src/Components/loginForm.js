@@ -34,10 +34,11 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { referrer } = this.props.location.state || { referrer: { pathname: '/' } }
     const redirectToReferrer = this.state.redirectToReferrer
 
     if (redirectToReferrer === true) {
-      return <Redirect to='/' />
+      return <Redirect to={referrer} />
     }
 
     return (
@@ -55,7 +56,12 @@ class LoginForm extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        <Link to='/signup'>create account</Link>
+        <Link to={{
+          pathname: '/signup',
+          state: { referrer: referrer }
+        }}>
+          create account
+        </Link>
       </div>
       );
   }
