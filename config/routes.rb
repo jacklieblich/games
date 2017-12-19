@@ -22,4 +22,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/get_current_user', :to => 'users/sessions#get_current_user'
   end
+  
+  if Rails.env.development?
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
 end
