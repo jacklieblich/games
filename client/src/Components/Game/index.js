@@ -75,6 +75,8 @@ class GameRouter extends React.Component {
 			case "Hex":
 				game = <Hex gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner}/>;
 				break;
+			default:
+				throw new Error(gameType + " is not a game type");
 		}
 		return game
 
