@@ -1,6 +1,5 @@
 import React from 'react';
 import ChallengeForm from "./challengeForm";
-import App from "../cable";
 import Client from "../api";
 import { Authentication } from "../Authentication";
 import { Redirect, Link } from 'react-router-dom';
@@ -44,10 +43,10 @@ class Dashboard extends React.Component {
 
 	renderGameLists(gameType, games) {
 		return(
-			<div>
+			<div key={gameType}>
 			<h2>{gameType}</h2>
 			 {Object.keys(games).map((key) =>
-   				<ul className={key}>
+   				<ul className={key} key={key}>
    				<h3>{key}</h3>
    					{this.renderGameList(games[key])}
    				</ul>
@@ -78,7 +77,7 @@ class Dashboard extends React.Component {
 				button = <i>'s turn</i>
 			}
 		}else{
-			button = <b>You {gameData.game.winner != null ? gameData.game.winner == this.state.currentUser.id ? "Won :)" : "Lost :(" : "tied :|"}</b>
+			button = <b>You {gameData.game.winner != null ? gameData.game.winner === this.state.currentUser.id ? "Won :)" : "Lost :(" : "tied :|"}</b>
 		}
 		return (
 			<li key={gameData.game.id}>

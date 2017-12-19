@@ -59,7 +59,7 @@ class ChallengeForm extends React.Component {
   gamePicker() {
     return(
       <select value={this.state.selectedGameType} onChange={this.handleGameChange}>
-        {this.state.gameTypes.map((gameType) => <option value={gameType}>{gameType}</option>)}
+        {this.state.gameTypes.map((gameType) => <option value={gameType} key={gameType}>{gameType}</option>)}
       </select>
     );
   }

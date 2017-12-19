@@ -3,20 +3,17 @@ import Client from "../../../api";
 import './styles.css';
 
 class Column extends React.Component{
-	constructor(props){
-		super(props);
-	}
 
 	renderColumn() {
 		return(
-			this.props.spaces.map((value) => this.renderSquare(value))
+			this.props.spaces.map((value, index) => this.renderSquare(value, index))
 		);
 	}
 
-	renderSquare(user_id) {
+	renderSquare(user_id, index) {
 		const classes = `space ${pieceFor(user_id, this.props.player1)}`;
 		return (
-			<div className={classes}>
+			<div className={classes} key={index}>
 			</div>
 			);
 	}
@@ -70,7 +67,7 @@ class Connect4 extends React.Component {
 	renderBoard() {
 		let columns = []
 		this.state.board.forEach((column, index) => {
-			columns.push(<Column spaces={column} columnNumber = {index} handleClick = {this.handleClick} player1={this.state.player1}/>)
+			columns.push(<Column spaces={column} key={index} columnNumber = {index} handleClick = {this.handleClick} player1={this.state.player1}/>)
 		}
 		)
 		return(
@@ -100,7 +97,7 @@ class Connect4 extends React.Component {
 
 function pieceFor(user_id, player1) {
 	let piece = "yellow"
-	if(user_id == player1){
+	if(parseInt(user_id, 10) === player1){
 		piece = "red"
 	}else{
 		if(user_id == null){
