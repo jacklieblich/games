@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get '/games/get_game_types', to: 'games#get_game_types'
   post '/games/im_watching', to: 'games#im_watching'
+  post '/games/nudge', to: 'games#nudge'
 
   mount ActionCable.server => '/cable'
 

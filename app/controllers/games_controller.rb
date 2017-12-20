@@ -36,6 +36,10 @@ class GamesController < ApplicationController
 		)
 	end
 
+	def nudge
+		SendNudgeEmailJob.perform_later(params[:user_id], params[:game_id])
+	end
+
 	private
 
 	def broadcast_for_users(game)

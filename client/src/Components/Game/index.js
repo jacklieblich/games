@@ -20,6 +20,7 @@ class GameRouter extends React.Component {
 			opponentId: ""
 		}
 		this.fillBoard = this.fillBoard.bind(this);
+		this.nudge = this.nudge.bind(this);
 		this.fillBoard();
 	}
 
@@ -91,6 +92,10 @@ class GameRouter extends React.Component {
 		);
 	}
 
+	nudge() {
+		Client.nudge(this.state.opponentId, this.state.gameId)
+	}
+
 	render() {
 		const winner = this.state.winner;
 		let status;
@@ -103,6 +108,7 @@ class GameRouter extends React.Component {
 		return (
 			<div className="game">
 				<div className="status">{status}</div>
+				<button onClick={this.nudge}>nudge</button>
 				<div className="game-board">
 					{this.renderGame()}
 				</div>

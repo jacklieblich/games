@@ -143,6 +143,17 @@ function updateBoard(game_id, location) {
 	})
 }
 
+function nudge(user_id, game_id) {
+	return fetch("games/nudge", {
+		method: "POST",
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({user_id, game_id})
+	})
+}
+
 function checkStatus(response) {
 	if (response.status >= 200 && response.status < 300) {
 		return response;
@@ -158,5 +169,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching, nudge };
 export default Client;
