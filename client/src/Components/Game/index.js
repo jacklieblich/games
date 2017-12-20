@@ -82,6 +82,15 @@ class GameRouter extends React.Component {
 
 	}
 
+	renderOpponentWatching() {
+		return(
+			<div className="spinner">
+				<div className="double-bounce1"></div>
+				<div className="double-bounce2"></div>
+			</div>
+		);
+	}
+
 	render() {
 		const winner = this.state.winner;
 		let status;
@@ -97,7 +106,7 @@ class GameRouter extends React.Component {
 				<div className="game-board">
 					{this.renderGame()}
 				</div>
-				<p>{this.state.opponentWatching ? "opponentWatching" : ""}</p>
+				{this.state.opponentWatching && this.renderOpponentWatching()}
 				<Link to='/' className="back-button">Back</Link>
 			</div>
 			);
