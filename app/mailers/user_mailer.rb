@@ -9,4 +9,12 @@ class UserMailer < ApplicationMailer
 		@game_type = game.type
 		mail(to: @user.email, subject: 'you have been challenged!')
 	end
+
+	def nudge_email(user_id, game_id)
+		game = Game.find(game_id)
+		@user = User.find(user_id)
+		@url  = root_url + "#/games/" + game.type + "/" + game_id.to_s
+		@opponent = game.opponent(@user)
+		mail(to: @user.email, subject: @opponent.username + " is waiting for you!")
+	end
 end

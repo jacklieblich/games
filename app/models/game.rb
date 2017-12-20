@@ -64,7 +64,7 @@ class Game < ApplicationRecord
   end
 
   def send_challenged_email
-    SendEmailJob.perform_later(self.challenged_id, self.id)
+    SendChallengedEmailJob.perform_later(self.challenged_id, self.id)
   end
 
   #include type in game hash returned from 'render json in games controller'

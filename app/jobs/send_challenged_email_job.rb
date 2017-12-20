@@ -1,4 +1,4 @@
-class SendEmailJob < ApplicationJob
+class SendChallengedEmailJob < ApplicationJob
   queue_as :default
 
   def perform(user_id, game_id)
