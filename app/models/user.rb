@@ -9,4 +9,12 @@ class User < ApplicationRecord
 	def games
 		games_as_challenged.or(games_as_challenger)
 	end
+
+	def active_games
+		games.active.ordered_by_latest_activity.for_display(self)
+	end
+
+	def completed_games
+		games.completed.ordered_by_latest_activity.for_display(self)
+	end
 end

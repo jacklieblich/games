@@ -37,29 +37,20 @@ class Dashboard extends React.Component {
 
 	renderGames() {
 		return (
-			Object.keys(this.state.gamesData).map((gameType) => this.renderGameLists(gameType, this.state.gamesData[gameType]))
+			Object.keys(this.state.gamesData).map((gameType) => this.renderGameList(gameType, this.state.gamesData[gameType]))
 		)
 	}
 
-	renderGameLists(gameType, games) {
+	renderGameList(gameType, games) {
 		return(
 			<div key={gameType}>
 			<h2>{gameType}</h2>
-			 {Object.keys(games).map((key) =>
-   				<ul className={key} key={key}>
-   				<h3>{key}</h3>
-   					{this.renderGameList(games[key])}
-   				</ul>
-			)}
-			 </div>
-			 )
-	}
-
-	renderGameList(games) {
-		return(
-			games.map(game =>
+			<ul>
+			{games.map(game =>
 				this.renderGame(game)
-			)
+			)}
+			</ul>
+			</div>
 		)
 	}
 
@@ -68,21 +59,23 @@ class Dashboard extends React.Component {
 	}
 
 	renderGame(gameData) {
-		let button
-		let turn = [].concat.apply([], gameData.game.board).filter(space => space !== null).length % 2 === 0 ? gameData.game.challenged_id : gameData.game.challenger_id
-		if(gameData.game.status !== "completed"){
-			if (turn === this.state.currentUser.id) {
-				button = <Link to={`/games/${gameData.game.type}/${gameData.game.id}`}>Play</Link>
-			}else{
-				button = <i>'s turn</i>
+		let text
+		if (gameData.game.status !== "completed") {
+			text = gameData.opponent.username
+		}else {
+			let result
+			if (gameData.game.winner != null) {
+				result = gameData.game.winner === this.state.currentUser.id ? "Won :)" : "Lost :("
+			}else {
+				result = "tied :|"
 			}
-		}else{
-			button = <b>You {gameData.game.winner != null ? gameData.game.winner === this.state.currentUser.id ? "Won :)" : "Lost :(" : "tied :|"}</b>
+			text = "You " + result + " vs " + gameData.opponent.username
 		}
 		return (
 			<li key={gameData.game.id}>
-			Game vs {gameData.opponent.username}
-			{button}
+				<Link to={`/games/${gameData.game.type}/${gameData.game.id}`}>
+					<span className={"game-logo " + gameData.game.type}></span><span className="game-text">{text}<span className="time-ago">{gameData.time_ago} ago</span></span>
+				</Link>
 			</li>
 		)
 	}

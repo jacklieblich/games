@@ -1,13 +1,16 @@
+include ActionView::Helpers::DateHelper
+
 class Game < ApplicationRecord
   belongs_to :challenger, class_name: 'User'
   belongs_to :challenged, class_name: 'User'
   validates_presence_of :challenged_id, :challenger_id
 
-  enum status: [ :pending, :active, :completed ]
+  enum status: [:active, :completed ]
+
+  scope :ordered_by_latest_activity, -> { order(updated_at: :desc)}
 
   before_create :create_board
   after_update :set_winner, if: -> (game) { game.status == "active" }
-  after_update :set_active, if: -> (game) { game.status == "pending" }
   after_create :send_challenged_email
 
   def create_board
@@ -46,17 +49,9 @@ class Game < ApplicationRecord
     user == challenger ? challenged : challenger
   end
 
-  def self.with_opponent(user)
-    to_game_and_opponent = ->(game) { { game: game, opponent: game.opponent(user) } }
-    games = {}
-    subclasses.each do |game_type|
-      games[game_type.to_s] = {
-        pending: where(type: game_type.to_s).pending.map(&to_game_and_opponent),
-        active: where(type: game_type.to_s).active.map(&to_game_and_opponent),
-        completed: where(type: game_type.to_s).completed.map(&to_game_and_opponent)
-      }
-    end
-    return games
+  def self.for_display(user)
+    to_game_and_opponent = ->(game) { { game: game, opponent: game.opponent(user), time_ago: time_ago_in_words(game.updated_at) } }
+    all.map(&to_game_and_opponent)
   end
 
   def set_active
@@ -71,4 +66,8 @@ class Game < ApplicationRecord
   def as_json(options={})
     super(options.merge({:methods => :type}))
   end
+end
+
+Dir["#{Rails.root}/app/models/games/*.rb"].each do |file|
+  require_dependency file
 end
