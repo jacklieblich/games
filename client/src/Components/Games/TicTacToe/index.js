@@ -60,17 +60,8 @@ class TicTacToe extends React.Component {
 	}
 
 	render() {
-		const winner = this.props.winner;
-		let status;
-		if (winner) {
-			status = 'Winner: ' + this.pieceFor(winner);
-		} else {
-			status = 'Next player: ' + this.pieceFor(this.state.turn);
-		}
-
 		return (
 			<div className="tic-tac-toe-board">
-			<div className="status">{status}</div>
 			<div className="board-row">
 			{this.renderSquare(0)}
 			{this.renderSquare(1)}

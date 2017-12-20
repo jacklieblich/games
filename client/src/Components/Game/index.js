@@ -83,8 +83,17 @@ class GameRouter extends React.Component {
 	}
 
 	render() {
+		const winner = this.state.winner;
+		let status;
+		if (winner) {
+			console.log(winner)
+			status = this.state.winner === Authentication.currentUser.id ? "You Won! Congrats!" : "You Lost. Bummer."
+		} else {
+			status = this.state.turn === Authentication.currentUser.id ? "Your Turn" : "Opponent's Turn"
+		}
 		return (
 			<div className="game">
+				<div className="status">{status}</div>
 				<div className="game-board">
 					{this.renderGame()}
 				</div>

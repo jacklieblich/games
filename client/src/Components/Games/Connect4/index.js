@@ -76,17 +76,8 @@ class Connect4 extends React.Component {
 	}
 
 	render() {
-		const winner = this.props.winner;
-		let status;
-		if (winner) {
-			status = 'Winner: ' + pieceFor(winner, this.state.player1);
-		} else {
-			status = 'Next player: ' + pieceFor(this.state.turn, this.state.player1);
-		}
-
 		return (
 			<div className="connect-4-board">
-			<div className="status">{status}</div>
 			<div className="board">
 			{this.renderBoard()}
 			</div>

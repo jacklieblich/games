@@ -1,12 +1,12 @@
 .game {
+  .status{
+    margin-bottom: 20px;
+    font-size: 40px;
+  }
   .game-board{
     width: 525px;
     margin: 0 auto;
     max-width: 90%;
-    .status{
-      margin-bottom: 20px;
-      font-size: 40px;
-    }
     .board-row{
     }
   }
