@@ -6,8 +6,7 @@ class GamesController < ApplicationController
 	end
 
 	def index
-		games = current_user.games.with_opponent(current_user)
-		render json: games
+		render json: games_for_display(current_user)
 	end
 
 	def show
@@ -42,9 +41,15 @@ class GamesController < ApplicationController
 
 	private
 
+	def games_for_display(user)
+		active_games = user.active_games
+		completed_games = user.completed_games
+		return {activeGames: active_games, completedGames: completed_games}
+	end
+
 	def broadcast_for_users(game)
 		game.users.each do |user|
-			ActionCable.server.broadcast("games_for_user: #{user.id}", user.games.with_opponent(user))
+			ActionCable.server.broadcast("games_for_user: #{user.id}", games_for_display(user))
 		end
 	end
 

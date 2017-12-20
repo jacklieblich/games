@@ -36,8 +36,35 @@ body {
     ul{
       list-style: none;
       padding: 0;
-      .play-button{
-        margin-left: 6px;
+      li{
+        margin:10px;
+        a{
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          span.game-logo{
+            height: 40px;
+            width: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 10px;
+            &.TicTacToe{
+              background-image: url(Components/images/TicTacToe.png);
+            }
+            &.Connect4{
+              background-image: url(Components/images/Connect4.png);
+            }
+          }
+          span.game-text{
+            font-size: 25px;
+          }
+          span.time-ago{
+            margin-left: 10px;
+            font-size: 10px;
+            font-style: italic;
+          }
+        }
       }
     }
   }
