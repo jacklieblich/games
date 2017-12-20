@@ -106,8 +106,10 @@ class GameRouter extends React.Component {
 				<div className="game-board">
 					{this.renderGame()}
 				</div>
-				{this.state.opponentWatching && this.renderOpponentWatching()}
-				<Link to='/' className="back-button">Back</Link>
+				<div className="bottom-game-section">
+					{this.state.opponentWatching && this.renderOpponentWatching()}
+					<Link to='/' className="back-button">Back</Link>
+				</div>
 			</div>
 			);
 	}
