@@ -17,7 +17,8 @@ class GameRouter extends React.Component {
 			player1 : "",
 			winner: false,
 			gameId: this.props.match.params.gameId,
-			opponentId: ""
+			opponentId: "",
+			lastMove: ""
 		}
 		this.fillBoard = this.fillBoard.bind(this);
 		this.nudge = this.nudge.bind(this);
@@ -30,6 +31,13 @@ class GameRouter extends React.Component {
 				if ('stoppedWatching' in gameData || 'isWatching' in gameData){
 					this.handleOpponentWatching(gameData);
 				}else{
+					const newBoard = [].concat.apply([], gameData.board);
+					const oldBoard = [].concat.apply([], this.state.board);
+					for(let i = 0; i < oldBoard.length; i++){
+						if (newBoard[i] !== oldBoard[i]){
+							this.setState({lastMove: i})
+						}
+					}
 					this.setState(gameData)
 				}
 			}
@@ -68,13 +76,13 @@ class GameRouter extends React.Component {
 
 		switch(gameType) {
 			case "TicTacToe":
-				game = <TicTacToe gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner}/>;
+				game = <TicTacToe gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner} lastMove={this.state.lastMove}/>;
 				break;
 			case "Connect4":
-				game = <Connect4 gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner}/>;
+				game = <Connect4 gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner} lastMove={this.state.lastMove}/>;
 				break;
 			case "Hex":
-				game = <Hex gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner}/>;
+				game = <Hex gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner} lastMove={this.state.lastMove}/>;
 				break;
 			default:
 				throw new Error(gameType + " is not a game type");
@@ -100,7 +108,6 @@ class GameRouter extends React.Component {
 		const winner = this.state.winner;
 		let status;
 		if (winner) {
-			console.log(winner)
 			status = this.state.winner === Authentication.currentUser.id ? "You Won! Congrats!" : "You Lost. Bummer."
 		} else {
 			status = this.state.turn === Authentication.currentUser.id ? "Your Turn" : "Opponent's Turn"

@@ -5,6 +5,8 @@
   .game .status {
     margin-bottom: 20px;
     font-size: 40px; }
+  .game .last-move {
+    border-color: #7cfc00 !important; }
   .game .bottom-game-section {
     display: flex;
     justify-content: center;
