@@ -43,7 +43,6 @@ body {
       border-radius: 4px;
       background-color: white;
       li{
-        padding: 10px;
         &:not(:last-of-type){
           border-bottom: 1px solid lightgrey;
         }
@@ -51,6 +50,7 @@ body {
           background-color: lightgrey;
         }
         a{
+          padding: 10px;
           text-decoration: none;
           display: flex;
           align-items: center;
