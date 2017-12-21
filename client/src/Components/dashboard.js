@@ -42,9 +42,12 @@ class Dashboard extends React.Component {
 	}
 
 	renderGameList(gameType, games) {
+		const withSpaces = gameType.replace( /([A-Z])/g, " $1" );
+		const capitalized = withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
+		
 		return(
 			<div key={gameType}>
-			<h2>{gameType}</h2>
+			<h2>{capitalized}</h2>
 			<ul>
 			{games.map(game =>
 				this.renderGame(game)
@@ -65,11 +68,11 @@ class Dashboard extends React.Component {
 		}else {
 			let result
 			if (gameData.game.winner != null) {
-				result = gameData.game.winner === this.state.currentUser.id ? "Won :)" : "Lost :("
+				result = gameData.game.winner === this.state.currentUser.id ? String.fromCodePoint(55356, 57286) : String.fromCodePoint(55358, 56614)
 			}else {
-				result = "tied :|"
+				result = String.fromCodePoint(55357, 56404)
 			}
-			text = "You " + result + " vs " + gameData.opponent.username
+			text = result + " " + gameData.opponent.username
 		}
 		return (
 			<li key={gameData.game.id}>
