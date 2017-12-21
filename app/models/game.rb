@@ -9,7 +9,7 @@ class Game < ApplicationRecord
 
   scope :ordered_by_latest_activity, -> { order(updated_at: :desc)}
 
-  before_create :create_board
+  before_create :create_board, :set_player_1
   after_update :set_winner, if: -> (game) { game.status == "active" }
   after_create :send_challenged_email
 
@@ -25,6 +25,10 @@ class Game < ApplicationRecord
   def set_winner
   end
 
+  def set_player_1
+    self.player_1 = [challenged_id, challenger_id].sample
+  end
+
 	def turn
 		board.flatten.count{ |spot| spot != nil} % 2 == 0 ? player_1 : player_2
 	end
@@ -33,12 +37,8 @@ class Game < ApplicationRecord
     turn == user.id
   end
 
-  def player_1
-    challenged.id
-  end
-
   def player_2
-    challenger.id
+    users.where.not(id: player_1).first.id
   end
 
   def users
