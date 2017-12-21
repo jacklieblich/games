@@ -44,7 +44,8 @@ body {
         text-decoration: none;
         display: flex;
         align-items: center;
-        font-size: 14px; }
+        font-size: 14px;
+        justify-content: space-between; }
         body .dashboard ul li a span.game-logo {
           height: 40px;
           width: 40px;
@@ -56,8 +57,13 @@ body {
           body .dashboard ul li a span.game-logo.Connect4 {
             background-image: url(Components/images/Connect4.png); }
         body .dashboard ul li a span.game-text {
-          font-size: 25px; }
+          font-size: 25px;
+          width: calc(100% - 110px);
+          text-align: left; }
         body .dashboard ul li a span.time-ago {
           margin-left: 10px;
           font-size: 10px;
           font-style: italic; }
+        body .dashboard ul li a span.turn {
+          width: 60px;
+          text-align: left; }

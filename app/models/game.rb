@@ -50,7 +50,7 @@ class Game < ApplicationRecord
   end
 
   def self.for_display(user)
-    to_game_and_opponent = ->(game) { { game: game, opponent: game.opponent(user), time_ago: time_ago_in_words(game.updated_at) } }
+    to_game_and_opponent = ->(game) { { game: game, opponent: game.opponent(user), time_ago: time_ago_in_words(game.updated_at), turn: game.turn } }
     all.map(&to_game_and_opponent)
   end
 
