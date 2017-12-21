@@ -33,11 +33,23 @@ body {
 
   .dashboard{
     text-align: center;
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
     ul{
       list-style: none;
       padding: 0;
+      border: 1px solid lightgrey;
+      border-radius: 4px;
+      background-color: white;
       li{
-        margin:10px;
+        padding: 10px;
+        &:not(:last-of-type){
+          border-bottom: 1px solid lightgrey;
+        }
+        &:hover{
+          background-color: lightgrey;
+        }
         a{
           text-decoration: none;
           display: flex;
