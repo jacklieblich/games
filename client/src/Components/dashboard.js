@@ -63,8 +63,10 @@ class Dashboard extends React.Component {
 
 	renderGame(gameData) {
 		let text
+		let turn = ""
 		if (gameData.game.status !== "completed") {
 			text = gameData.opponent.username
+			turn = this.state.currentUser.id === gameData.turn ? "Go!" : "waiting..."
 		}else {
 			let result
 			if (gameData.game.winner != null) {
@@ -77,7 +79,9 @@ class Dashboard extends React.Component {
 		return (
 			<li key={gameData.game.id}>
 				<Link to={`/games/${gameData.game.type}/${gameData.game.id}`}>
-					<span className={"game-logo " + gameData.game.type}></span><span className="game-text">{text}<span className="time-ago">{gameData.time_ago} ago</span></span>
+					<span className={"game-logo " + gameData.game.type}></span>
+					<span className="game-text">{text}<span className="time-ago">{gameData.time_ago} ago</span></span>
+					<span className="turn">{turn}</span>
 				</Link>
 			</li>
 		)
