@@ -25,12 +25,22 @@ body {
         display: block;
         margin: 0 auto; }
   body .dashboard {
-    text-align: center; }
+    text-align: center;
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto; }
     body .dashboard ul {
       list-style: none;
-      padding: 0; }
+      padding: 0;
+      border: 1px solid lightgrey;
+      border-radius: 4px;
+      background-color: white; }
       body .dashboard ul li {
-        margin: 10px; }
+        padding: 10px; }
+        body .dashboard ul li:not(:last-of-type) {
+          border-bottom: 1px solid lightgrey; }
+        body .dashboard ul li:hover {
+          background-color: lightgrey; }
         body .dashboard ul li a {
           text-decoration: none;
           display: flex;
