@@ -11,7 +11,8 @@ class Column extends React.Component{
 	}
 
 	renderSquare(user_id, index) {
-		const classes = `space ${pieceFor(user_id, this.props.player1)}`;
+		const lastMove = this.props.lastMove !== "" && (this.props.lastMove - this.props.columnNumber*6) === index ? "last-move" : ""
+		const classes = `space ${pieceFor(user_id, this.props.player1)} ${lastMove}`;
 		return (
 			<div className={classes} key={index}>
 			</div>
@@ -67,7 +68,7 @@ class Connect4 extends React.Component {
 	renderBoard() {
 		let columns = []
 		this.state.board.forEach((column, index) => {
-			columns.push(<Column spaces={column} key={index} columnNumber = {index} handleClick = {this.handleClick} player1={this.state.player1}/>)
+			columns.push(<Column spaces={column} key={index} columnNumber = {index} handleClick = {this.handleClick} player1={this.state.player1} lastMove={this.myTurn() ? this.props.lastMove : ""}/>)
 		}
 		)
 		return(

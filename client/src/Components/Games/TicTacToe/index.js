@@ -3,7 +3,7 @@ import Client from "../../../api";
 import './styles.css';
 
 function Square(props) {
-	const classes = `space ${props.value}`;
+	const classes = `space ${props.value} ${props.lastMove}`;
 	return (
 		<button className={classes} onClick={props.onClick}>
 		</button>
@@ -54,6 +54,7 @@ class TicTacToe extends React.Component {
 		return (
 			<Square
 			value={this.pieceFor(this.state.board[i])}
+			lastMove={this.props.lastMove === i && this.myTurn() ? "last-move" : ""}
 			onClick={() => this.handleClick(i)}
 			/>
 			);
