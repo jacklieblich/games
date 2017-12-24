@@ -6,6 +6,7 @@ body {
     text-align: center; }
     body .form-container form {
       width: 400px;
+      max-width: 90%;
       margin: 0 auto;
       border: 1px solid black;
       border-radius: 4px;

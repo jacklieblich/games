@@ -4,8 +4,10 @@ body {
   background-color: #e7fcff;
   .form-container{
     text-align: center;
+
     form{
       width: 400px;
+      max-width: 90%;
       margin: 0 auto;
       border: 1px solid black;
       border-radius: 4px;
