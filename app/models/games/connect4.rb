@@ -16,7 +16,6 @@ class Connect4 < Game
 	end
 
 	def set_winner
-		p "hello"
 		#rows
 		(0..3).each do |col|
 			(0..5).each do |row|

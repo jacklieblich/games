@@ -1,10 +1,10 @@
 .hex-board .board {
   max-width: 800px; }
 
-.hex-board .board.player1 svg.empty:hover polygon {
+.hex-board .board.red svg.empty:hover polygon {
   fill: red !important; }
 
-.hex-board .board.player2 svg.empty:hover polygon {
+.hex-board .board.blue svg.empty:hover polygon {
   fill: blue !important; }
 
 .hex-board .row {
@@ -44,9 +44,9 @@
   .hex-board .row svg {
     width: 72.72727px;
     height: 83.69899px; }
-    .hex-board .row svg.player1 polygon {
+    .hex-board .row svg.red polygon {
       fill: red !important; }
-    .hex-board .row svg.player2 polygon {
+    .hex-board .row svg.blue polygon {
       fill: blue !important; }
     .hex-board .row svg polygon {
       cursor: pointer;

@@ -25,49 +25,40 @@ class Hex extends React.Component {
 
   handleClick(i) {
     const board = this.state.board.slice();
-    if (this.props.winner || !board[i].includes(null) || !this.myTurn()) {
+    if (this.props.winner || board[i.rowIndex][i.columnIndex] !== null || !this.myTurn()) {
       return;
     }
-    const lowestOpenSpace = board[i].indexOf(null)
-    board[i][lowestOpenSpace] = this.props.currentUserId;
+    board[i.rowIndex][i.columnIndex] = this.props.currentUserId;
     this.setState({
       board: board,
       turn: !this.state.turn
     });
-    Client.updateBoard(this.props.gameId, i)
+    Client.updateBoard(this.props.gameId, [i.rowIndex, i.columnIndex])
   }
 
   render() {
-    const winner = this.props.winner;
-    let status;
-    if (winner) {
-      status = 'Winner: ' + pieceFor(winner, this.state.player1);
-    } else {
-      status = 'Next player: ' + pieceFor(this.state.turn, this.state.player1);
-    }
-
+    const classes = `board ${pieceFor(this.props.currentUserId, this.state.player1)}`;
     return (
       <div className="hex-board">
-        <div className="status">{status}</div>
-        <div className="board">
+        <div className={classes}>
           {this.state.board.map((row, rowIndex) =>
             <div className="row">
               {row.map((piece, columnIndex) =>
                 <HexPiece
-                  piece={piece}
-                  onClick={this.handleClick.bind(this, rowIndex, columnIndex)}
+                  className={piece !== null ? pieceFor(piece, this.state.player1) : ' empty '}
+                  onClick={() => this.handleClick({rowIndex: rowIndex, columnIndex: columnIndex})}
                 />
               )}
             </div>
           )}
         </div>
-      </div>
+        </div>
     );
   }
 }
 
 function pieceFor(user_id, player1) {
-  let piece = "yellow"
+  let piece = "blue"
   if(user_id == player1){
     piece = "red"
   }else{
