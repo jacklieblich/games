@@ -5,7 +5,7 @@ class HexPiece extends Component {
   render() {
     return (
       <Hexagon
-        className={this.props.piece !== 0 ? 'player' + this.props.piece : ' empty '}
+        className={this.props.className}
         onClick={this.props.onClick}
       />
     );

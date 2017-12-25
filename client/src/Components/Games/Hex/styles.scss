@@ -11,11 +11,11 @@
 
   .board {
 
-    &.player1 svg.empty:hover polygon {
+    &.red svg.empty:hover polygon {
       fill: red !important;
     }
 
-    &.player2 svg.empty:hover polygon {
+    &.blue svg.empty:hover polygon {
       fill: blue!important;
     }
   }
@@ -35,13 +35,13 @@
       width: $hexWidth;
       height: $hexHeight;
 
-      &.player1 {
+      &.red {
         polygon {
           fill: red !important;
         }
       }
 
-      &.player2 {
+      &.blue {
         polygon {
           fill: blue !important;
         }
