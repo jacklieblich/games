@@ -87,6 +87,20 @@ class Dashboard extends React.Component {
 		)
 	}
 
+	renderRecord() {
+		if (Object.keys(this.state.gamesData).length > 0) {
+			const wins = this.state.gamesData.completedGames.filter(gameData => gameData.game.winner === this.state.currentUser.id).length
+			const losses = this.state.gamesData.completedGames.filter(gameData => gameData.game.winner !== this.state.currentUser.id && gameData.game.winner !== null).length
+			const ties = this.state.gamesData.completedGames.filter(gameData => gameData.game.winner === null).length
+			return(
+				<div>
+					<h4>Record</h4>
+					<p>{wins} - {losses} - {ties}</p>
+				</div>
+				)
+		}
+	}
+
 	render() {
 
     	if (this.state.currentUser === null) {
@@ -104,6 +118,7 @@ class Dashboard extends React.Component {
 					/>
 				</div>
 				<div>
+				{this.renderRecord()}
 				{this.renderGames()}
 				</div>
 				<button onClick={this.onSignOutClick}>signout</button>
