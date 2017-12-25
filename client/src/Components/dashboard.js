@@ -1,5 +1,4 @@
 import React from 'react';
-import ChallengeForm from "./challengeForm";
 import Client from "../api";
 import { Authentication } from "../Authentication";
 import { Redirect, Link } from 'react-router-dom';
@@ -14,10 +13,10 @@ class Dashboard extends React.Component {
 		this.onSignOutClick = this.onSignOutClick.bind(this);
 		this.renderGames = this.renderGames.bind(this);
 		this.loadGames = this.loadGames.bind(this);
-		this.loadGames();
 	}
 
 	componentDidMount() {
+		this.loadGames();
 		this.subscription = Client.subscribe({channel: 'GamesChannel'}, (gamesData) => this.setState({gamesData: gamesData}));
 	}
 
@@ -111,11 +110,7 @@ class Dashboard extends React.Component {
 			<div className="dashboard">
 				<h1>Games</h1>
 				<div>
-					<ChallengeForm
-						handleSubmit={(challenged_id, game_type) => {
-							Client.challenge({challenged_id, game_type})
-						}}
-					/>
+					<Link to="/challenge">Challenge Someone!</Link>
 				</div>
 				<div>
 				{this.renderRecord()}

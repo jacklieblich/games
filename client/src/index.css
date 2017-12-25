@@ -58,6 +58,8 @@ body {
             background-image: url(Components/images/TicTacToe.png); }
           body .dashboard ul li a span.game-logo.Connect4 {
             background-image: url(Components/images/Connect4.png); }
+          body .dashboard ul li a span.game-logo.Hex {
+            background-image: url(Components/images/Hex.jpg); }
         body .dashboard ul li a span.game-text {
           font-size: 25px;
           width: calc(100% - 110px);
@@ -72,3 +74,41 @@ body {
         body .dashboard ul li a span.turn {
           width: 60px;
           text-align: left; }
+  body .challenge-form {
+    text-align: center; }
+    body .challenge-form .game-picker {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around; }
+      body .challenge-form .game-picker .game-button-wrapper {
+        width: 100%;
+        max-width: 250px; }
+        body .challenge-form .game-picker .game-button-wrapper .button {
+          margin-bottom: 20px;
+          height: 200px;
+          width: 100%;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          cursor: pointer; }
+          body .challenge-form .game-picker .game-button-wrapper .button.TicTacToe {
+            background-image: url(Components/images/TicTacToe.png); }
+          body .challenge-form .game-picker .game-button-wrapper .button.Connect4 {
+            background-image: url(Components/images/Connect4.png); }
+          body .challenge-form .game-picker .game-button-wrapper .button.Hex {
+            background-image: url(Components/images/Hex.jpg); }
+    body .challenge-form .opponent-picker {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border: 1px solid lightgrey;
+      border-radius: 4px;
+      max-width: 500px;
+      margin: 0 auto; }
+      body .challenge-form .opponent-picker a {
+        padding: 20px;
+        text-decoration: none; }
+        body .challenge-form .opponent-picker a:not(:last-of-type) {
+          border-bottom: 1px solid lightgrey; }
+        body .challenge-form .opponent-picker a:hover {
+          background-color: lightgrey; }

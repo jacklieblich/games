@@ -62,6 +62,10 @@ class Game < ApplicationRecord
     SendChallengedEmailJob.perform_later(self.challenged_id, self.id)
   end
 
+  def self.games_for_users(user_1, user_2)
+    user_1.games & user_2.games
+  end
+
   #include type in game hash returned from 'render json in games controller'
   def as_json(options={})
     super(options.merge({:methods => :type}))

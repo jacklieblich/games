@@ -3,6 +3,7 @@ import LoginForm from "./loginForm";
 import SignupForm from "./signupForm"
 import Game from "./Game";
 import Dashboard from "./dashboard";
+import ChallengeForm from "./challengeForm";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Authentication } from '../Authentication';
 import '../index.css';
@@ -28,6 +29,7 @@ class App extends React.Component {
   					<Route path='/signup' component={SignupForm}/>
   					<Route path='/login' component={LoginForm}/>
   					<PrivateRoute path='/games/:gameType/:gameId' component={Game}/>
+  					<PrivateRoute path='/challenge' component={ChallengeForm}/>
   					<PrivateRoute component={Dashboard} currentUserId={this.state.currentUserId}/>
 				</Switch>
 			</div>

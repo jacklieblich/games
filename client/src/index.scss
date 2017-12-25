@@ -71,6 +71,9 @@ body {
             &.Connect4{
               background-image: url(Components/images/Connect4.png);
             }
+            &.Hex{
+              background-image: url(Components/images/Hex.jpg);
+            }
           }
           span.game-text{
             font-size: 25px;
@@ -89,6 +92,55 @@ body {
             width: 60px;
             text-align: left;
           }
+        }
+      }
+    }
+  }
+  .challenge-form{
+    text-align: center;
+    .game-picker{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      .game-button-wrapper{
+        width: 100%;
+        max-width: 250px;
+        .button{
+          margin-bottom: 20px;
+          height: 200px;
+          width: 100%;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          cursor: pointer;
+          &.TicTacToe{
+            background-image: url(Components/images/TicTacToe.png);
+          }
+          &.Connect4{
+            background-image: url(Components/images/Connect4.png);
+          }
+          &.Hex{
+            background-image: url(Components/images/Hex.jpg);
+          }
+        }
+      }
+    }
+    .opponent-picker{
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border: 1px solid lightgrey;
+      border-radius: 4px;
+      max-width: 500px;
+      margin: 0 auto;
+      a{
+        padding: 20px;
+        text-decoration: none;
+        &:not(:last-of-type){
+          border-bottom: 1px solid lightgrey;
+        }
+        &:hover{
+          background-color: lightgrey;
         }
       }
     }
