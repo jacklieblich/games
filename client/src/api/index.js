@@ -85,12 +85,12 @@ function facebookLogin(){
 		credentials: 'include',
 		method: "GET",
 		headers: {
+			'Access-Control-Allow-Origin':'https://dry-hollows-83799.herokuapp.com',
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		}
 	})
 	.then(checkStatus)
-	.then((response) => console.log(response))
 }
 
 function signout(){
