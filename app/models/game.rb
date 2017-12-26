@@ -76,7 +76,7 @@ class Game < ApplicationRecord
 
   def no_active_game
     if Game.where(type: type, status: "active", challenged_id: challenged_id, challenger_id: challenger_id).or(Game.where(type: type, status: "active", challenged_id: challenger_id, challenger_id: challenged_id)).count > 0
-      errors.add(:challenged_id, "Already have active game of " + type + " against " + challenged.username + ".")
+      errors.add(:challenged_id, "You already have an active game of " + type + " against " + challenged.username + ".")
     end
   end
 end
