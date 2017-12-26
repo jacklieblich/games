@@ -10,7 +10,6 @@ class ChallengeForm extends React.Component {
       gameTypes: [],
       selectedGameType: ""
     };
-    this.handleUserChange = this.handleUserChange.bind(this);
     this.handleGameChange = this.handleGameChange.bind(this);
     this.handleSubmit = props.handleSubmit;
     this.playerPicker = this.playerPicker.bind(this);
@@ -31,17 +30,8 @@ class ChallengeForm extends React.Component {
     })
   }
 
-  handleUserChange(event) {
-    this.setState({selectedUser: event.target.value});
-  }
-
   handleGameChange(event) {
     this.setState({selectedGameType: event.target.value})
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-    this.handleSubmit(this.state.selectedUser, this.state.selectedGameType)
   }
 
   playerPicker() {
@@ -51,7 +41,9 @@ class ChallengeForm extends React.Component {
         <div className="opponent-picker">
           {this.state.users.map((userInfo) => <Link to="/" onClick={() => {
             Client.challenge({challenged_id: userInfo.user.id, game_type: this.state.selectedGameType})}
-          } key={userInfo.user.id}>{userInfo.user.username + " record: " +userInfo.record.wins + " - " + userInfo.record.losses + " - " + userInfo.record.ties}</Link>)}
+          } key={userInfo.user.id}>
+            {userInfo.user.username} <br />  {userInfo.record.wins + " - " + userInfo.record.losses + " - " + userInfo.record.ties}
+          </Link>)}
         </div>
       </div>
     );

@@ -129,7 +129,7 @@ body {
       max-width: 500px;
       margin: 0 auto; }
       body .challenge-form .opponent-picker a {
-        padding: 20px;
+        padding: 14px;
         text-decoration: none; }
         body .challenge-form .opponent-picker a:not(:last-of-type) {
           border-bottom: 1px solid lightgrey; }
