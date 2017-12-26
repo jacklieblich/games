@@ -1,6 +1,7 @@
 import React from "react";
 import Client from "../api";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { Flash } from './flash';
 
 class ChallengeForm extends React.Component {
   constructor(props) {
@@ -11,7 +12,6 @@ class ChallengeForm extends React.Component {
       selectedGameType: ""
     };
     this.handleGameChange = this.handleGameChange.bind(this);
-    this.handleSubmit = props.handleSubmit;
     this.playerPicker = this.playerPicker.bind(this);
     this.gamePicker = this.gamePicker.bind(this);
     this.getOtherUsers();
@@ -40,8 +40,12 @@ class ChallengeForm extends React.Component {
         <h3>Select Opponent</h3>
         <div className="opponent-picker">
           {this.state.users.map((userInfo) => <Link to="/" onClick={() => {
-            Client.challenge({challenged_id: userInfo.user.id, game_type: this.state.selectedGameType})}
-          } key={userInfo.user.id}>
+            Client.challenge(
+              userInfo.user.id,
+              this.state.selectedGameType,
+              (errors) => errors.response.json().then(response => Flash.errors = response)
+            )
+          }} key={userInfo.user.id}>
             {userInfo.user.username} <br />  {userInfo.record.wins + " - " + userInfo.record.losses + " - " + userInfo.record.ties}
           </Link>)}
         </div>

@@ -2,7 +2,11 @@ class GamesController < ApplicationController
 
 	def create
 		game = game_type.create(games_params)
-		broadcast_for_users(game)
+		if game.errors.any?
+			render json: {errorMessage: game.errors}, status: 403
+		else
+			broadcast_for_users(game)
+		end
 	end
 
 	def index
@@ -32,7 +36,7 @@ class GamesController < ApplicationController
 		ActionCable.server.broadcast(
 			"game_#{params[:game_id]}",
 			{isWatching: current_user.id}
-		)
+			)
 	end
 
 	def nudge

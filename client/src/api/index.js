@@ -101,7 +101,7 @@ function otherUsers(cb) {
 	.then(cb);
 }
 
-function challenge(challenged_id, game_type) {
+function challenge(challenged_id, game_type, errorHandler) {
 	return fetch("/api/challenge", {
 		credentials: 'include',
 		method: "POST",
@@ -109,8 +109,10 @@ function challenge(challenged_id, game_type) {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(challenged_id, game_type)
+		body: JSON.stringify({challenged_id: challenged_id, game_type: game_type})
 	})
+	.then(checkStatus)
+	.catch(errorHandler);
 }
 
 function games(cb) {

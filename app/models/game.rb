@@ -4,6 +4,7 @@ class Game < ApplicationRecord
   belongs_to :challenger, class_name: 'User'
   belongs_to :challenged, class_name: 'User'
   validates_presence_of :challenged_id, :challenger_id
+  validate :no_active_game, on: :create
 
   enum status: [:active, :completed ]
 
@@ -69,6 +70,14 @@ class Game < ApplicationRecord
   #include type in game hash returned from 'render json in games controller'
   def as_json(options={})
     super(options.merge({:methods => :type}))
+  end
+
+  private
+
+  def no_active_game
+    if Game.where(type: type, status: "active", challenged_id: challenged_id, challenger_id: challenger_id).or(Game.where(type: type, status: "active", challenged_id: challenger_id, challenger_id: challenged_id)).count > 0
+      errors.add(:challenged_id, "Already have active game of " + type + " against " + challenged.username + ".")
+    end
   end
 end
 
