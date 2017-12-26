@@ -8,7 +8,8 @@ class Dashboard extends React.Component {
 		super(props);
 		this.state = {
 			currentUser: Authentication.currentUser,
-			gamesData: []
+			gamesData: [],
+			loading: true
 		};
 		this.onSignOutClick = this.onSignOutClick.bind(this);
 		this.renderGames = this.renderGames.bind(this);
@@ -25,9 +26,7 @@ class Dashboard extends React.Component {
 	}
 
 	loadGames(){
-		Client.games((gamesData) => {
-			this.setState({gamesData: gamesData})
-		})
+		Client.games((gamesData) => this.setState({gamesData: gamesData, loading: false}))
 	}
 
 	onPlayClick(gameId, playerX, gameType) {
@@ -92,7 +91,7 @@ class Dashboard extends React.Component {
 			const losses = this.state.gamesData.completedGames.filter(gameData => gameData.game.winner !== this.state.currentUser.id && gameData.game.winner !== null).length
 			const ties = this.state.gamesData.completedGames.filter(gameData => gameData.game.winner === null).length
 			return(
-				<div>
+				<div className="record">
 					<h4>Record</h4>
 					<p>{wins} - {losses} - {ties}</p>
 				</div>
@@ -106,14 +105,24 @@ class Dashboard extends React.Component {
     		return <Redirect to='/login' />
    		}
 
+   		if (this.state.loading) {
+   			return(
+   				<div className="spinner">
+				  <div className="double-bounce1"></div>
+				  <div className="double-bounce2"></div>
+				</div>
+   			)
+   		}
+
 		return (
 			<div className="dashboard">
-				<h1>Games</h1>
-				<div>
-					<Link to="/challenge">Challenge Someone!</Link>
+				<div className="dashboard-header">
+					<div className="challenge-button">
+						<Link to="/challenge">Play!</Link>
+					</div>
+					{this.renderRecord()}
 				</div>
 				<div>
-				{this.renderRecord()}
 				{this.renderGames()}
 				</div>
 				<button onClick={this.onSignOutClick}>signout</button>
