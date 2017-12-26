@@ -2,6 +2,7 @@ import React from 'react';
 import Client from "../api";
 import { Authentication } from "../Authentication";
 import { Redirect, Link } from 'react-router-dom';
+import { Flash } from './flash';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -99,6 +100,14 @@ class Dashboard extends React.Component {
 		}
 	}
 
+	renderFlashErrors() {
+		const errors = Flash.renderErrors()
+		if (errors !== null) {
+			return <div className="flash">{errors}</div>
+		}
+		
+	}
+
 	render() {
 
     	if (this.state.currentUser === null) {
@@ -116,6 +125,7 @@ class Dashboard extends React.Component {
 
 		return (
 			<div className="dashboard">
+				{this.renderFlashErrors()}
 				<div className="dashboard-header">
 					<div className="challenge-button">
 						<Link to="/challenge">Play!</Link>
