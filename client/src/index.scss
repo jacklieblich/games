@@ -60,6 +60,7 @@ body {
           text-decoration: none;
           font-size: 30px;
           text-transform: uppercase;
+          transition: all .3s ease;
           &:hover{
             color: red;
             background-color: white;
