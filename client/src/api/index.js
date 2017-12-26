@@ -80,6 +80,19 @@ function login(login_params) {
 	.then(parseJSON)
 }
 
+function facebookLogin(){
+	return fetch("/users/auth/facebook", {
+		credentials: 'include',
+		method: "GET",
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		}
+	})
+	.then(checkStatus)
+	.then((response) => console.log(response))
+}
+
 function signout(){
 	return fetch("/users/sign_out", {
 		credentials: 'include',
@@ -171,5 +184,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching, nudge };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching, nudge, facebookLogin };
 export default Client;

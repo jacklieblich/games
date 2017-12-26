@@ -1,4 +1,5 @@
 import React from "react";
+import Client from "../api/index";
 import { Link, Redirect } from 'react-router-dom'
 import { Authentication } from '../Authentication';
 
@@ -44,6 +45,7 @@ class LoginForm extends React.Component {
     return (
       <div className="form-container">
         <form onSubmit={this.onSubmit.bind(this)}>
+        <div onClick={() => Client.facebookLogin()}>facebook</div>
           <h1>Login</h1>
           <p className="error">{this.state.error}</p>
           <label>
