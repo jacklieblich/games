@@ -93,7 +93,7 @@ class GameRouter extends React.Component {
 
 	renderOpponentWatching() {
 		return(
-			<div className="spinner">
+			<div className="blue-dot">
 				<div className="double-bounce1"></div>
 				<div className="double-bounce2"></div>
 			</div>
