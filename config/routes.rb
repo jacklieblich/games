@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'games#index'
 
+  get '/privacy', to: 'application#privacy'
+
   scope '/api' do
     post :challenge, to: 'games#create'
     get :users, to: 'users#index'
