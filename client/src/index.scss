@@ -2,10 +2,45 @@ body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
   background-color: #e7fcff;
+  .facebook{
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url(Components/images/facebook_logo.svg);
+    font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  .no-facebook{
+    width: 280px;
+    text-align: right;
+    margin: 5px auto 0;
+    color: #1976d2;
+    cursor: pointer;
+  }
+  .facebook-login{
+    background-image: url(Components/images/facebook_logo.svg);
+    position: absolute;
+    right: 5px;
+    top:calc(100% + 5px);
+    height: 25px;
+    width: 25px;
+    background-size: cover;
+    cursor: pointer;
+    border-radius: 2px;
+  }
   .form-container{
     text-align: center;
 
     form{
+      position: relative;
       width: 400px;
       max-width: 90%;
       margin: 0 auto;
