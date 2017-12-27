@@ -62,6 +62,9 @@ class SignupForm extends React.Component {
             <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit" />
+          <div className="facebook-login" onClick={() => {
+          window.location = process.env.REACT_APP_API_URL + "/users/auth/facebook?origin=" + encodeURIComponent(window.location.origin+ "/#" + referrer.pathname)
+        }}></div>
         </form>
         already have an account?
         <Link to={{

@@ -80,19 +80,6 @@ function login(login_params) {
 	.then(parseJSON)
 }
 
-function facebookLogin(){
-	return fetch("/users/auth/facebook", {
-		credentials: 'include',
-		method: "GET",
-		headers: {
-			'Access-Control-Allow-Origin':'https://dry-hollows-83799.herokuapp.com',
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-		}
-	})
-	.then(checkStatus)
-}
-
 function signout(){
 	return fetch("/users/sign_out", {
 		credentials: 'include',
@@ -184,5 +171,5 @@ function parseJSON(response) {
 	return response.json();
 }
 
-const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching, nudge, facebookLogin };
+const Client = { login, otherUsers, challenge, games, loadGame, updateBoard, signup, getCurrentUser, gameTypes, subscribe, endSubscription, signout, imWatching, nudge };
 export default Client;

@@ -14,8 +14,8 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start": "REACT_APP_API_URL=ws://localhost:3001/cable react-scripts start",
-    "build": "REACT_APP_API_URL=wss://dry-hollows-83799.herokuapp.com/cable react-scripts build",
+    "start": "REACT_APP_SOCKET_URL=ws://localhost:3001/cable REACT_APP_API_URL=http://localhost:3001 react-scripts start",
+    "build": "REACT_APP_SOCKET_URL=wss://dry-hollows-83799.herokuapp.com/cable REACT_APP_API_URL=https://dry-hollows-83799.herokuapp.com react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

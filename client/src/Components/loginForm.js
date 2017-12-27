@@ -10,7 +10,8 @@ class LoginForm extends React.Component {
       email: '',
       password: '',
       redirectToReferrer: false,
-      error: ""
+      error: "",
+      facebook: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,10 +43,22 @@ class LoginForm extends React.Component {
       return <Redirect to={referrer} />
     }
 
+    if (this.state.facebook){
+      return(
+        <div>
+        <div className="facebook" onClick={() => {
+          window.location = process.env.REACT_APP_API_URL + "/users/auth/facebook?origin=" + encodeURIComponent(window.location.origin+ "/#" + referrer.pathname)
+        }}>
+          login with facebook
+        </div>
+        <p className="no-facebook" onClick={() => this.setState({facebook: false})}>I'd rather not.</p>
+        </div>
+      )
+    }
+
     return (
       <div className="form-container">
         <form onSubmit={this.onSubmit.bind(this)}>
-        <div onClick={() => Client.facebookLogin()}>facebook</div>
           <h1>Login</h1>
           <p className="error">{this.state.error}</p>
           <label>
@@ -57,6 +70,9 @@ class LoginForm extends React.Component {
             <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit" />
+          <div className="facebook-login" onClick={() => {
+          window.location = process.env.REACT_APP_API_URL + "/users/auth/facebook?origin=" + encodeURIComponent(window.location.origin+ "/#" + referrer.pathname)
+        }}></div>
         </form>
         <Link to={{
           pathname: '/signup',
