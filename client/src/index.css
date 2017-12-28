@@ -74,7 +74,9 @@ body {
       border: 1px solid #ebccd1;
       padding: 15px;
       border-radius: 4px;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      width: 90%;
+      margin: 0 auto; }
     body .dashboard .dashboard-header {
       display: flex;
       width: 90%;
