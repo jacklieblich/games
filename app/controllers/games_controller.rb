@@ -23,7 +23,7 @@ class GamesController < ApplicationController
 		game.make_move(params[:location], current_user)
 		ActionCable.server.broadcast(
 			"game_#{game.id}",
-			{board: game.board, turn: game.turn, winner: game.winner}
+			{board: game.board, turn: game.turn, winner: game.winner, nudgable: true}
 			)
 		broadcast_for_users(game)
 	end

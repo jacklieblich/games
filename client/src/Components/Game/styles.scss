@@ -2,9 +2,30 @@
   width: 525px;
   margin: 0 auto;
   max-width: 90%;
+  .nudge{
+    background: transparent;
+    border-radius: 2px;
+    border: 1px solid black;
+    padding: 3px 10px;
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    &:hover{
+      background: #81D4FA;
+    }
+  }
   .status{
     margin-bottom: 20px;
     font-size: 40px;
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    p{
+      margin: 0;
+    }
   }
   .last-move{
     border-color: #7cfc00 !important;
@@ -23,6 +44,8 @@
       text-align: center;
       line-height: 40px;
       margin-top: 20px;
+      max-width: calc(100% - 140px);
+      border-radius: 2px;
       &:hover{
         background-color: grey;
       }

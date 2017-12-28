@@ -2,9 +2,27 @@
   width: 525px;
   margin: 0 auto;
   max-width: 90%; }
+  .game .nudge {
+    background: transparent;
+    border-radius: 2px;
+    border: 1px solid black;
+    padding: 3px 10px;
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: 10px; }
+    .game .nudge:hover {
+      background: #81D4FA; }
   .game .status {
     margin-bottom: 20px;
-    font-size: 40px; }
+    font-size: 40px;
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center; }
+    .game .status p {
+      margin: 0; }
   .game .last-move {
     border-color: #7cfc00 !important; }
   .game .bottom-game-section {
@@ -20,7 +38,9 @@
       color: black;
       text-align: center;
       line-height: 40px;
-      margin-top: 20px; }
+      margin-top: 20px;
+      max-width: calc(100% - 140px);
+      border-radius: 2px; }
       .game .bottom-game-section .back-button:hover {
         background-color: grey; }
     .game .bottom-game-section .blue-dot {
