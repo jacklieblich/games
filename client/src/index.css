@@ -1,7 +1,10 @@
+html, body, #root, .app, .dashboard {
+  min-height: 100vh; }
+
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-  background-color: #e7fcff; }
+  font-family: 'Roboto', sans-serif;
+  margin: 20px 0 0;
+  background-color: #2196f3; }
   body .facebook {
     background-repeat: no-repeat;
     background-size: 100%;
@@ -21,7 +24,7 @@ body {
     width: 280px;
     text-align: right;
     margin: 5px auto 0;
-    color: #1976d2;
+    color: #3c5898;
     cursor: pointer; }
   body .facebook-login {
     background-image: url(Components/images/facebook_logo.svg);
@@ -58,10 +61,13 @@ body {
         display: block;
         margin: 0 auto; }
   body .dashboard {
+    max-width: 1440px;
     text-align: center;
-    width: 500px;
-    max-width: 100%;
-    margin: 0 auto; }
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    flex-direction: column; }
     body .dashboard .flash {
       color: #a94442;
       background-color: #f2dede;
@@ -70,73 +76,140 @@ body {
       border-radius: 4px;
       margin-bottom: 10px; }
     body .dashboard .dashboard-header {
-      position: relative; }
+      display: flex;
+      width: 90%;
+      margin: 0 auto;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px; }
       body .dashboard .dashboard-header .record {
-        position: absolute;
-        right: 0;
-        top: 0; }
+        color: white;
+        opacity: .9; }
+        body .dashboard .dashboard-header .record h4 {
+          margin: 0 0 5px; }
+        body .dashboard .dashboard-header .record p {
+          margin: 0; }
       body .dashboard .dashboard-header .challenge-button a {
         margin: 0 auto;
-        background: red;
-        width: 100px;
-        height: 100px;
+        background: white;
+        opacity: .5;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
-        border: 4px solid red;
+        color: #757575;
         text-decoration: none;
-        font-size: 30px;
+        font-size: 45px;
         text-transform: uppercase;
         transition: all .3s ease; }
         body .dashboard .dashboard-header .challenge-button a:hover {
-          color: red;
-          background-color: white; }
-    body .dashboard ul {
-      list-style: none;
-      padding: 0;
-      border: 1px solid lightgrey;
-      border-radius: 4px;
-      background-color: white; }
-      body .dashboard ul li:not(:last-of-type) {
-        border-bottom: 1px solid lightgrey; }
-      body .dashboard ul li:hover {
-        background-color: lightgrey; }
-      body .dashboard ul li a {
-        padding: 10px;
-        text-decoration: none;
+          opacity: 1;
+          background-color: white;
+          color: black; }
+    body .dashboard > div {
+      width: 100%; }
+      body .dashboard > div .completedGames, body .dashboard > div .activeGames {
+        margin-bottom: 10px;
+        width: 100%; }
+      body .dashboard > div .completedGames {
+        margin-bottom: 30px; }
+        body .dashboard > div .completedGames ul li.your-turn, body .dashboard > div .completedGames ul li.opponent-turn {
+          opacity: .9; }
+          body .dashboard > div .completedGames ul li.your-turn a, body .dashboard > div .completedGames ul li.opponent-turn a {
+            padding-top: 5px; }
+            body .dashboard > div .completedGames ul li.your-turn a p.turn, body .dashboard > div .completedGames ul li.opponent-turn a p.turn {
+              font-size: 24px;
+              line-height: 28px; }
+            body .dashboard > div .completedGames ul li.your-turn a p.game-text, body .dashboard > div .completedGames ul li.opponent-turn a p.game-text {
+              margin-top: 0; }
+      body .dashboard > div ul {
+        list-style: none;
+        padding: 0;
         display: flex;
-        align-items: center;
-        font-size: 14px;
-        justify-content: space-between; }
-        body .dashboard ul li a span.game-logo {
-          height: 40px;
-          width: 40px;
-          background-size: contain;
-          background-repeat: no-repeat;
-          margin-right: 10px;
-          background-position: center; }
-          body .dashboard ul li a span.game-logo.TicTacToe {
-            background-image: url(Components/images/TicTacToe.png); }
-          body .dashboard ul li a span.game-logo.Connect4 {
-            background-image: url(Components/images/Connect4.png); }
-          body .dashboard ul li a span.game-logo.Hex {
-            background-image: url(Components/images/Hex.jpg); }
-        body .dashboard ul li a span.game-text {
-          font-size: 25px;
-          width: calc(100% - 110px);
-          text-align: left; }
-          @media (max-width: 479px) {
-            body .dashboard ul li a span.game-text {
-              font-size: 20px; } }
-        body .dashboard ul li a span.time-ago {
-          margin-left: 10px;
-          font-size: 10px;
-          font-style: italic; }
-        body .dashboard ul li a span.turn {
-          width: 60px;
-          text-align: left; }
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin: 0 auto;
+        width: 1020px; }
+        @media (max-width: 1099px) {
+          body .dashboard > div ul {
+            width: 850px; } }
+        @media (max-width: 929px) {
+          body .dashboard > div ul {
+            width: 680px; } }
+        @media (max-width: 768px) {
+          body .dashboard > div ul {
+            width: 664px; } }
+        @media (max-width: 703px) {
+          body .dashboard > div ul {
+            width: 498px; } }
+        @media (max-width: 537px) {
+          body .dashboard > div ul {
+            width: 332px; } }
+        body .dashboard > div ul li {
+          background-color: white;
+          width: 150px;
+          margin: 0 10px 30px;
+          border-radius: 4px;
+          transition: all .3s ease;
+          box-sizing: border-box; }
+          @media (max-width: 768px) {
+            body .dashboard > div ul li {
+              margin-left: 8px;
+              margin-right: 8px; } }
+          body .dashboard > div ul li.your-turn {
+            opacity: .9; }
+            body .dashboard > div ul li.your-turn p.turn {
+              color: #28a745; }
+          body .dashboard > div ul li.opponent-turn {
+            opacity: .5; }
+            body .dashboard > div ul li.opponent-turn p.turn {
+              color: black; }
+          body .dashboard > div ul li.winner {
+            border: 3px solid gold; }
+          body .dashboard > div ul li.loser {
+            border: 3px solid red; }
+          body .dashboard > div ul li.tie {
+            border: 3px solid #cd7f32; }
+          body .dashboard > div ul li:hover {
+            opacity: 1; }
+          body .dashboard > div ul li a {
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            text-align: center;
+            padding-bottom: 2px; }
+            body .dashboard > div ul li a .game-logo {
+              display: block;
+              height: 0;
+              padding-bottom: 70%;
+              margin: 0 auto;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center; }
+              body .dashboard > div ul li a .game-logo.TicTacToe {
+                background-image: url(Components/images/TicTacToe.png); }
+              body .dashboard > div ul li a .game-logo.Connect4 {
+                background-image: url(Components/images/Connect4.png); }
+              body .dashboard > div ul li a .game-logo.Hex {
+                background-image: url(Components/images/Hex.jpg); }
+            body .dashboard > div ul li a p {
+              margin: 0; }
+              body .dashboard > div ul li a p.game-text {
+                margin-top: 8px;
+                margin-bottom: 8px;
+                font-size: 18px;
+                color: #001dbf; }
+              body .dashboard > div ul li a p.time-ago {
+                font-size: 10px;
+                font-style: italic;
+                text-align: right;
+                margin-top: 8px;
+                color: grey; }
+              body .dashboard > div ul li a p.turn {
+                font-size: 13px; }
   body .challenge-form {
     text-align: center; }
     body .challenge-form .game-picker {
@@ -175,6 +248,23 @@ body {
           border-bottom: 1px solid lightgrey; }
         body .challenge-form .opponent-picker a:hover {
           background-color: lightgrey; }
+  body .signout {
+    background-image: url(Components/images/logout.svg);
+    background-position: 10px;
+    background-repeat: no-repeat;
+    padding: 10px 20px 10px 30px;
+    background-size: 14px;
+    border-radius: 2px;
+    border: none;
+    background-color: white;
+    opacity: .5;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    transition: all .3s ease; }
+    body .signout:hover {
+      opacity: 1; }
   body .spinner {
     margin: 100px auto;
     width: 50px;

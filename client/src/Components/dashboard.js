@@ -41,12 +41,9 @@ class Dashboard extends React.Component {
 	}
 
 	renderGameList(gameType, games) {
-		const withSpaces = gameType.replace( /([A-Z])/g, " $1" );
-		const capitalized = withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
 		
 		return(
-			<div key={gameType}>
-			<h2>{capitalized}</h2>
+			<div key={gameType} className={gameType}>
 			<ul>
 			{games.map(game =>
 				this.renderGame(game)
@@ -62,25 +59,42 @@ class Dashboard extends React.Component {
 
 	renderGame(gameData) {
 		let text
+		let result
 		let turn = ""
+		let classes = ""
 		if (gameData.game.status !== "completed") {
+			classes += this.state.currentUser.id === gameData.turn ? "your-turn" : "opponent-turn"
 			text = gameData.opponent.username
 			turn = this.state.currentUser.id === gameData.turn ? "Go!" : "waiting..."
 		}else {
-			let result
 			if (gameData.game.winner != null) {
-				result = gameData.game.winner === this.state.currentUser.id ? String.fromCodePoint(55356, 57286) : String.fromCodePoint(55358, 56614)
+				result = gameData.game.winner === this.state.currentUser.id ? "winner" : "loser" 
 			}else {
-				result = String.fromCodePoint(55357, 56404)
+				result = "tie"
 			}
-			text = result + " " + gameData.opponent.username
+			let resultDisplay
+			switch(result) {
+				case "winner":
+					resultDisplay = String.fromCodePoint(55356, 57286)
+					break;
+				case "loser":
+					resultDisplay = String.fromCodePoint(55358, 56614)
+					break;
+				case "tie":
+					resultDisplay = String.fromCodePoint(55357, 56404)
+					break;
+			}
+			classes += result
+			turn = resultDisplay
+			text = gameData.opponent.username
 		}
 		return (
-			<li key={gameData.game.id}>
+			<li key={gameData.game.id} className={classes}>
 				<Link to={`/games/${gameData.game.type}/${gameData.game.id}`}>
-					<span className={"game-logo " + gameData.game.type}></span>
-					<span className="game-text">{text}<span className="time-ago">{gameData.time_ago} ago</span></span>
-					<span className="turn">{turn}</span>
+					<p className="turn">{turn}</p>
+					<p className="game-text">{text}</p>
+					<div className={"game-logo " + gameData.game.type}></div>
+					<p className="time-ago">{gameData.time_ago} ago</p>
 				</Link>
 			</li>
 		)
@@ -129,16 +143,16 @@ class Dashboard extends React.Component {
 		return (
 			<div className="dashboard">
 				{this.renderFlashErrors()}
-				<div className="dashboard-header">
-					<div className="challenge-button">
-						<Link to="/challenge">Play!</Link>
-					</div>
+				<aside className="dashboard-header">
 					{this.renderRecord()}
-				</div>
+					<div className="challenge-button">
+						<Link to="/challenge">+</Link>
+					</div>
+				</aside>
 				<div>
 				{this.renderGames()}
 				</div>
-				<button onClick={this.onSignOutClick}>signout</button>
+				<button className="signout" onClick={this.onSignOutClick}>Sign Out</button>
 			</div>
 		);
 	}
