@@ -22,7 +22,6 @@ class GameRouter extends React.Component {
 			nudgable: true
 		}
 		this.fillBoard = this.fillBoard.bind(this);
-		//this.nudge = this.nudge.bind(this);
 		this.fillBoard();
 	}
 
