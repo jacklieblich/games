@@ -11,7 +11,7 @@ class User < ApplicationRecord
   end
 
   def active_games
-  	games.active.ordered_by_latest_activity.for_display(self)
+  	games.active.ordered_by_latest_activity.for_display(self).sort_by{|game_data| game_data[:game].users_turn?(self) ? 0 : 1 }
   end
 
   def completed_games

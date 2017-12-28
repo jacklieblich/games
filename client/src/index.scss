@@ -1,7 +1,10 @@
+html, body, #root, .app, .dashboard{
+  min-height: 100vh;
+} 
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-  background-color: #e7fcff;
+  font-family: 'Roboto', sans-serif;
+  margin: 20px 0 0;
+  background-color: #2196f3;
   .facebook{
     background-repeat: no-repeat;
     background-size: 100%;
@@ -22,7 +25,7 @@ body {
     width: 280px;
     text-align: right;
     margin: 5px auto 0;
-    color: #1976d2;
+    color: #3c5898;
     cursor: pointer;
   }
   .facebook-login{
@@ -69,10 +72,13 @@ body {
   }
 
   .dashboard{
+    max-width: 1440px;
     text-align: center;
-    width: 500px;
-    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
+    display: flex;
+    position: relative;
+    flex-direction: column;
     .flash{
       color: #a94442;
       background-color: #f2dede;
@@ -82,88 +88,180 @@ body {
       margin-bottom: 10px;
     }
     .dashboard-header{
-      position: relative;
+      display: flex;
+      width: 90%;
+      margin: 0 auto;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
       .record{
-        position: absolute;
-        right: 0;
-        top: 0;
+        color: white;
+        opacity: .9;
+        h4{
+          margin:0 0 5px;
+        }
+        p{
+          margin: 0
+        }
+
       }
       .challenge-button{ 
         a{
           margin: 0 auto;
-          background: red;
-          width: 100px;
-          height: 100px;
+          background: white;
+          opacity: .5;
+          width: 60px;
+          height: 60px;
           border-radius: 50%;
           display: flex;
           justify-content: center;
           align-items: center;
-          color: white;
-          border: 4px solid red;
+          color: #757575;
           text-decoration: none;
-          font-size: 30px;
+          font-size: 45px;
           text-transform: uppercase;
           transition: all .3s ease;
           &:hover{
-            color: red;
+            opacity: 1;
             background-color: white;
+            color: black;
           }
         }
       }
     }
-    ul{
-      list-style: none;
-      padding: 0;
-      border: 1px solid lightgrey;
-      border-radius: 4px;
-      background-color: white;
-      li{
-        &:not(:last-of-type){
-          border-bottom: 1px solid lightgrey;
+    >div{
+      width: 100%;
+      .completedGames, .activeGames{
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      .completedGames{
+        margin-bottom: 30px;
+        ul{
+          li.your-turn, li.opponent-turn{
+            opacity: .9;
+            a{
+              padding-top: 5px;
+              p{
+                &.turn{
+                  font-size: 24px;
+                  line-height: 28px;
+                }
+                &.game-text{
+                  margin-top: 0;
+                }
+              }
+            }
+          }
         }
-        &:hover{
-          background-color: lightgrey;
+      }
+      ul{
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin: 0 auto;
+        width: 1020px;
+        @media (max-width: 1099px) {
+          width: 850px;
         }
-        a{
-          padding: 10px;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          font-size: 14px;
-          justify-content: space-between;
-          span.game-logo{
-            height: 40px;
-            width: 40px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            margin-right: 10px;
-            background-position: center;
-            &.TicTacToe{
-              background-image: url(Components/images/TicTacToe.png);
-            }
-            &.Connect4{
-              background-image: url(Components/images/Connect4.png);
-            }
-            &.Hex{
-              background-image: url(Components/images/Hex.jpg);
+        @media (max-width: 929px) {
+          width: 680px;
+        }
+        @media (max-width: 768px) {
+          width: 664px;
+        }
+        @media (max-width: 703px) {
+          width: 498px;
+        }
+        @media (max-width: 537px) {
+          width: 332px;
+        }
+        li{
+          background-color: white;
+          width: 150px;
+          margin: 0 10px 30px;
+          border-radius: 4px;
+          transition: all .3s ease;
+          box-sizing: border-box;
+          @media (max-width: 768px) {
+            margin-left: 8px;
+            margin-right: 8px;
+          }
+          &.your-turn{
+            opacity: .9;
+            p{
+              &.turn{
+                color: #28a745;
+              }
             }
           }
-          span.game-text{
-            font-size: 25px;
-            width: calc(100% - 110px);
-            text-align: left;
-            @media (max-width: 479px) {
-              font-size: 20px;
+          &.opponent-turn{
+            opacity: .5;
+            p{
+              &.turn{
+                color: black;
+              }
             }
           }
-          span.time-ago{
-            margin-left: 10px;
-            font-size: 10px;
-            font-style: italic;
+          &.winner{
+            border: 3px solid gold;
           }
-          span.turn{
-            width: 60px;
-            text-align: left;
+          &.loser{
+            border: 3px solid red;
+          }
+          &.tie{
+            border: 3px solid #cd7f32;
+          }
+          &:hover{
+            opacity: 1;
+          }
+          a{
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            text-align: center;
+            padding-bottom: 2px;
+            .game-logo{
+              display: block;
+              height: 0;
+              padding-bottom: 70%;
+              margin: 0 auto;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              &.TicTacToe{
+                background-image: url(Components/images/TicTacToe.png);
+              }
+              &.Connect4{
+                background-image: url(Components/images/Connect4.png);
+              }
+              &.Hex{
+                background-image: url(Components/images/Hex.jpg);
+              }
+            }
+            p{
+              margin: 0;
+              &.game-text{
+                margin-top: 8px;
+                margin-bottom: 8px;
+                font-size: 18px;
+                color: #001dbf;
+              }
+              &.time-ago{
+                font-size: 10px;
+                font-style: italic;
+                text-align: right;
+                margin-top: 8px;
+                color: grey;
+              }
+              &.turn{
+                font-size: 13px;
+              }
+            }
           }
         }
       }
@@ -216,6 +314,26 @@ body {
           background-color: lightgrey;
         }
       }
+    }
+  }
+
+  .signout{
+    background-image: url(Components/images/logout.svg);
+    background-position: 10px;
+    background-repeat: no-repeat;
+    padding: 10px 20px 10px 30px;
+    background-size: 14px;
+    border-radius: 2px;
+    border: none;
+    background-color: white;
+    opacity: .5;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    transition: all .3s ease;
+    &:hover{
+      opacity: 1;
     }
   }
 
