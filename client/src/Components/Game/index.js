@@ -18,10 +18,11 @@ class GameRouter extends React.Component {
 			winner: false,
 			gameId: this.props.match.params.gameId,
 			opponentId: "",
-			lastMove: ""
+			lastMove: "",
+			nudgable: true
 		}
 		this.fillBoard = this.fillBoard.bind(this);
-		this.nudge = this.nudge.bind(this);
+		//this.nudge = this.nudge.bind(this);
 		this.fillBoard();
 	}
 
@@ -100,8 +101,20 @@ class GameRouter extends React.Component {
 		);
 	}
 
-	nudge() {
-		Client.nudge(this.state.opponentId, this.state.gameId)
+	renderNudge() {
+		if(!this.myTurn() && this.state.nudgable && !this.state.winner && !this.state.opponentWatching){
+			return <button className="nudge" onClick={() => {
+				Client.nudge(this.state.opponentId, this.state.gameId)
+				this.setState({nudgable: false})
+			}}>( •_•)σ</button>
+		}
+	}
+
+	myTurn(){
+		console.log(this.state.turn)
+		console.log(Authentication.currentUser.id)
+		console.log(this.state.turn === Authentication.currentUser.id)
+		return this.state.turn === Authentication.currentUser.id
 	}
 
 	render() {
@@ -114,13 +127,13 @@ class GameRouter extends React.Component {
 		}
 		return (
 			<div className="game">
-				<div className="status">{status}</div>
-				<button onClick={this.nudge}>nudge</button>
+				<div className="status"><p>{status}</p></div>
 				<div className="game-board">
 					{this.renderGame()}
 				</div>
 				<div className="bottom-game-section">
 					{this.state.opponentWatching && this.renderOpponentWatching()}
+					{this.renderNudge()}
 					<Link to='/' className="back-button">Back</Link>
 				</div>
 			</div>
