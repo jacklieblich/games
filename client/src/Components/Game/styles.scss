@@ -3,17 +3,19 @@
   margin: 0 auto;
   max-width: 90%;
   .nudge{
-    background: transparent;
+    background: white;
+    opacity: .5;
     border-radius: 2px;
-    border: 1px solid black;
+    border: none;
     padding: 3px 10px;
     display: block;
     cursor: pointer;
     position: absolute;
     left: 0px;
     top: 10px;
+    transition: all .3s ease;
     &:hover{
-      background: #81D4FA;
+      opacity: 1;
     }
   }
   .status{
@@ -34,21 +36,12 @@
     display: flex;
     justify-content: center;
     position: relative;
-    .back-button{
+    .game-btn{
       display: block;
-      width: 200px;
-      height: 40px;
-      border: 1px solid black;
-      text-decoration: none;
-      color: black;
-      text-align: center;
-      line-height: 40px;
       margin-top: 20px;
-      max-width: calc(100% - 140px);
       border-radius: 2px;
-      &:hover{
-        background-color: grey;
-      }
+      position: initial;
+      text-align: center;
     }
 
     .blue-dot {
@@ -61,7 +54,7 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: #1ba6dd;
+        background-color: #ffeb3b;
         opacity: 0.6;
         position: absolute;
         top: 0;

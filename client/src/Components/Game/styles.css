@@ -3,17 +3,19 @@
   margin: 0 auto;
   max-width: 90%; }
   .game .nudge {
-    background: transparent;
+    background: white;
+    opacity: .5;
     border-radius: 2px;
-    border: 1px solid black;
+    border: none;
     padding: 3px 10px;
     display: block;
     cursor: pointer;
     position: absolute;
     left: 0px;
-    top: 10px; }
+    top: 10px;
+    transition: all .3s ease; }
     .game .nudge:hover {
-      background: #81D4FA; }
+      opacity: 1; }
   .game .status {
     margin-bottom: 20px;
     font-size: 40px;
@@ -29,20 +31,12 @@
     display: flex;
     justify-content: center;
     position: relative; }
-    .game .bottom-game-section .back-button {
+    .game .bottom-game-section .game-btn {
       display: block;
-      width: 200px;
-      height: 40px;
-      border: 1px solid black;
-      text-decoration: none;
-      color: black;
-      text-align: center;
-      line-height: 40px;
       margin-top: 20px;
-      max-width: calc(100% - 140px);
-      border-radius: 2px; }
-      .game .bottom-game-section .back-button:hover {
-        background-color: grey; }
+      border-radius: 2px;
+      position: initial;
+      text-align: center; }
     .game .bottom-game-section .blue-dot {
       width: 40px;
       height: 40px;
@@ -53,7 +47,7 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: #1ba6dd;
+        background-color: #ffeb3b;
         opacity: 0.6;
         position: absolute;
         top: 0;

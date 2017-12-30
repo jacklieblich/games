@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>default_avatar</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="100" height="100" rx="50"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="100" height="100" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="100" height="100" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="v4---InVision" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="desktop-hd-/-your-profile-/-empty" transform="translate(-535.000000, -257.000000)">
+            <g id="Group-3" transform="translate(535.000000, 257.000000)">
+                <g id="default_avatar">
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Rectangle-6" stroke="#DAE1E7" mask="url(#mask-2)" stroke-width="1.11111111" fill="#FFFFFF">
+                        <use mask="url(#mask-4)" xlink:href="#path-1"></use>
+                    </g>
+                    <path d="M50.7238127,72.8377065 C64.6766448,72.8377065 75.9876501,61.5070444 75.9876501,47.5299644 C75.9876501,33.5528843 64.6766448,22.2222222 50.7238127,22.2222222 C36.7709806,22.2222222 25.4599753,33.5528843 25.4599753,47.5299644 C25.4599753,61.5070444 36.7709806,72.8377065 50.7238127,72.8377065 Z M71.7635365,69.3634597 C66.3065476,74.6416424 58.8900955,77.8982426 50.7238127,77.8982426 C42.4867912,77.8982426 35.0107164,74.5869776 29.5405903,69.2267979 C19.7554008,75.9444849 13.3333333,87.2195902 13.3333333,100 L87.7777778,100 C87.7787883,87.3046242 81.4395862,76.0973437 71.7635365,69.3634597 Z" id="Combined-Shape" fill="#DAE1E7" mask="url(#mask-3)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

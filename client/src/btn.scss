@@ -1,0 +1,17 @@
+.btn{
+	color: black;
+	background-color: white;
+	text-decoration: none;
+	opacity: .5;
+	border-radius: 2px;
+	transition: all .3s ease;
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+	padding: 10px 0;
+	width: 100px;
+	bottom: 20px;
+	&:hover{
+		opacity: 1;
+	}
+}

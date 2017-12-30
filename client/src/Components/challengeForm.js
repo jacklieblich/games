@@ -2,6 +2,7 @@ import React from "react";
 import Client from "../api";
 import { Link } from 'react-router-dom';
 import { Flash } from './flash';
+import { Spinner } from './Spinner';
 
 class ChallengeForm extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class ChallengeForm extends React.Component {
     this.state = {
       users: [],
       gameTypes: [],
-      selectedGameType: ""
+      selectedGameType: "",
+      loading: true
     };
     this.handleGameChange = this.handleGameChange.bind(this);
     this.playerPicker = this.playerPicker.bind(this);
@@ -21,6 +23,7 @@ class ChallengeForm extends React.Component {
   getGameTypes() {
     Client.gameTypes().then((gameTypes) => {
       this.setState({gameTypes})
+      this.setState({loading: false})
   })
   }
 
@@ -46,7 +49,11 @@ class ChallengeForm extends React.Component {
               (errors) => errors.response.json().then(response => Flash.errors = response)
             )
           }} key={userInfo.user.id}>
-            {userInfo.user.username} <br />  {userInfo.record.wins + " - " + userInfo.record.losses + " - " + userInfo.record.ties}
+            <p className="username">{userInfo.user.username}</p>
+            <div className="user-image">
+              {userInfo.user.uid && <img src={`https://graph.facebook.com/v2.11/${userInfo.user.uid}/picture?type=normal`}/>}
+            </div>
+            <p className="record">{userInfo.record.wins + " - " + userInfo.record.losses + " - " + userInfo.record.ties}</p>
           </Link>)}
         </div>
       </div>
@@ -58,13 +65,30 @@ class ChallengeForm extends React.Component {
       <div>
         <h3>Select Game</h3>
         <div className="game-picker">
-        {this.state.gameTypes.map((gameType) => <div className="game-button-wrapper">{gameType}<div className={`button ${gameType}`} onClick={() => this.setState({selectedGameType: gameType})} key={gameType}></div></div>)}
+        {this.state.gameTypes.map((gameType) => {
+            const withSpaces = gameType.replace( /([A-Z])/g, " $1" );
+            const capitalized = withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
+            return(
+              <div className="game-button-wrapper">
+                <h1>{capitalized}</h1>
+                <div className={`button ${gameType}`} onClick={() => this.setState({selectedGameType: gameType})} key={gameType}></div>
+              </div>
+            )
+          }
+        )}
         </div>
       </div>
     );
   }
 
+  renderGame() {
+
+  }
+
   render() {
+    if(this.state.loading) {
+      return Spinner()
+    }
     let step = this.gamePicker
     if (this.state.selectedGameType !== "") {
       step = this.playerPicker
@@ -72,6 +96,7 @@ class ChallengeForm extends React.Component {
     return (
           <div className="challenge-form">
           {step()}
+          <Link to="/" className="btn back-button">Back</Link>
           </div>
     );
   }
