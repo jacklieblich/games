@@ -79,6 +79,7 @@ class Connect4 extends React.Component {
 	render() {
 		return (
 			<div className="connect-4-board">
+			<p>Your piece: <div className={`piece-display ${pieceFor(this.props.currentUserId, this.props.player1)}`}></div></p>
 			<div className="board">
 			{this.renderBoard()}
 			</div>

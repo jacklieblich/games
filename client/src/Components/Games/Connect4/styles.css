@@ -1,3 +1,14 @@
+.connect-4-board .piece-display {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: bottom; }
+  .connect-4-board .piece-display.red {
+    background-color: red; }
+  .connect-4-board .piece-display.yellow {
+    background-color: yellow; }
+
 .connect-4-board .board {
   display: flex; }
   .connect-4-board .board .board-row {

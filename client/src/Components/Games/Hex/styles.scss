@@ -1,5 +1,17 @@
 .hex-board {
-
+  .piece-display{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: bottom;
+    &.red{
+      background-color: red;
+    }
+    &.blue{
+      background-color: yellow;
+    }
+  }
   $boardWidth: 800px;
   $hexWidth: $boardWidth / 11;
   $hexHeight: $hexWidth * 1.1508610692;

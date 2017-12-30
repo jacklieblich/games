@@ -1,3 +1,14 @@
+.hex-board .piece-display {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: bottom; }
+  .hex-board .piece-display.red {
+    background-color: red; }
+  .hex-board .piece-display.blue {
+    background-color: yellow; }
+
 .hex-board .board {
   max-width: 800px; }
 
