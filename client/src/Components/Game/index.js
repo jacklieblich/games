@@ -5,6 +5,7 @@ import Hex from "../Games/Hex";
 import { Authentication } from '../../Authentication';
 import { Link } from 'react-router-dom';
 import Client from "../../api";
+import { Spinner } from '../Spinner';
 import './styles.css';
 
 class GameRouter extends React.Component {
@@ -19,7 +20,8 @@ class GameRouter extends React.Component {
 			gameId: this.props.match.params.gameId,
 			opponentId: "",
 			lastMove: "",
-			nudgable: true
+			nudgable: true,
+			loading: true
 		}
 		this.fillBoard = this.fillBoard.bind(this);
 		this.fillBoard();
@@ -51,6 +53,7 @@ class GameRouter extends React.Component {
 	fillBoard() {
 		Client.loadGame(this.state.gameId, (game_data) => {
 			this.setState(game_data)
+			this.setState({loading: false})
 		})
 	}
 
@@ -117,6 +120,10 @@ class GameRouter extends React.Component {
 	}
 
 	render() {
+
+		if (this.state.loading) {
+			return Spinner()
+		}
 		const winner = this.state.winner;
 		let status;
 		if (winner) {
@@ -133,7 +140,7 @@ class GameRouter extends React.Component {
 				<div className="bottom-game-section">
 					{this.state.opponentWatching && this.renderOpponentWatching()}
 					{this.renderNudge()}
-					<Link to='/' className="back-button">Back</Link>
+					<Link to='/' className="btn game-btn">Back</Link>
 				</div>
 			</div>
 			);

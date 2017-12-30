@@ -6,6 +6,7 @@ import Dashboard from "./dashboard";
 import ChallengeForm from "./challengeForm";
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Authentication } from '../Authentication';
+import { Spinner } from './Spinner';
 import '../index.css';
 
 class App extends React.Component {
@@ -21,13 +22,7 @@ class App extends React.Component {
 
 		if (this.state.loading) {
 			return (
-				<div className="spinner">
-				  <div className="rect1"></div>
-				  <div className="rect2"></div>
-				  <div className="rect3"></div>
-				  <div className="rect4"></div>
-				  <div className="rect5"></div>
-				</div>
+				Spinner()
 			);
 		}
 

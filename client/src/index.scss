@@ -1,5 +1,7 @@
-html, body, #root, .app, .dashboard{
+@import 'btn'; 
+html, body, #root, .app, .dashboard, .challenge-form, .game{
   min-height: 100vh;
+  position: relative;
 } 
 body {
   font-family: 'Roboto', sans-serif;
@@ -270,14 +272,32 @@ body {
     }
   }
   .challenge-form{
+    position: relative;
     text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 60px;
+    h3{
+      margin-bottom: 30px;
+    }
     .game-picker{
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
       .game-button-wrapper{
+        background-color: white;
+        opacity: .9;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px;
         width: 100%;
         max-width: 250px;
+        transition: all .3s ease;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        &:hover{
+          opacity: 1;
+        }
         .button{
           margin-bottom: 20px;
           height: 200px;
@@ -300,20 +320,41 @@ body {
     }
     .opponent-picker{
       display: flex;
-      flex-direction: column;
-      background-color: white;
-      border: 1px solid lightgrey;
-      border-radius: 4px;
-      max-width: 500px;
-      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: space-around;
       a{
-        padding: 14px;
+        margin: 10px;
         text-decoration: none;
-        &:not(:last-of-type){
-          border-bottom: 1px solid lightgrey;
-        }
+        background-color: white;
+        opacity: .9;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        max-width: 200px;
+        transition: all .3s ease;
+        margin-bottom: 15px;
+        box-sizing: border-box;
         &:hover{
-          background-color: lightgrey;
+          opacity: 1;
+        }
+        .user-name{
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+        .user-image{
+          margin: 0 auto;
+          width: 100px;
+          height: 100Px;
+          background-image: url(Components/images/default_user.svg);
+          background-size: cover;
+          img{
+            width: 100%;
+          }
+        }
+        .record{
+          margin-top: 10px;
+          margin-bottom: 0;
         }
       }
     }
@@ -348,7 +389,7 @@ body {
   }
 
   .spinner > div {
-    background-color: #2196f3;
+    background-color: #ffeb3b;
     height: 100%;
     width: 6px;
     display: inline-block;

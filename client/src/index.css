@@ -1,5 +1,22 @@
-html, body, #root, .app, .dashboard {
-  min-height: 100vh; }
+.btn {
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  opacity: .5;
+  border-radius: 2px;
+  transition: all .3s ease;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  padding: 10px 0;
+  width: 100px;
+  bottom: 20px; }
+  .btn:hover {
+    opacity: 1; }
+
+html, body, #root, .app, .dashboard, .challenge-form, .game {
+  min-height: 100vh;
+  position: relative; }
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -213,14 +230,30 @@ body {
               body .dashboard > div ul li a p.turn {
                 font-size: 13px; }
   body .challenge-form {
-    text-align: center; }
+    position: relative;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 60px; }
+    body .challenge-form h3 {
+      margin-bottom: 30px; }
     body .challenge-form .game-picker {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around; }
       body .challenge-form .game-picker .game-button-wrapper {
+        background-color: white;
+        opacity: .9;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px;
         width: 100%;
-        max-width: 250px; }
+        max-width: 250px;
+        transition: all .3s ease;
+        margin-bottom: 15px;
+        box-sizing: border-box; }
+        body .challenge-form .game-picker .game-button-wrapper:hover {
+          opacity: 1; }
         body .challenge-form .game-picker .game-button-wrapper .button {
           margin-bottom: 20px;
           height: 200px;
@@ -237,19 +270,37 @@ body {
             background-image: url(Components/images/Hex.jpg); }
     body .challenge-form .opponent-picker {
       display: flex;
-      flex-direction: column;
-      background-color: white;
-      border: 1px solid lightgrey;
-      border-radius: 4px;
-      max-width: 500px;
-      margin: 0 auto; }
+      flex-wrap: wrap;
+      justify-content: space-around; }
       body .challenge-form .opponent-picker a {
-        padding: 14px;
-        text-decoration: none; }
-        body .challenge-form .opponent-picker a:not(:last-of-type) {
-          border-bottom: 1px solid lightgrey; }
+        margin: 10px;
+        text-decoration: none;
+        background-color: white;
+        opacity: .9;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        max-width: 200px;
+        transition: all .3s ease;
+        margin-bottom: 15px;
+        box-sizing: border-box; }
         body .challenge-form .opponent-picker a:hover {
-          background-color: lightgrey; }
+          opacity: 1; }
+        body .challenge-form .opponent-picker a .user-name {
+          margin-top: 0;
+          margin-bottom: 10px; }
+        body .challenge-form .opponent-picker a .user-image {
+          margin: 0 auto;
+          width: 100px;
+          height: 100Px;
+          background-image: url(Components/images/default_user.svg);
+          background-size: cover; }
+          body .challenge-form .opponent-picker a .user-image img {
+            width: 100%; }
+        body .challenge-form .opponent-picker a .record {
+          margin-top: 10px;
+          margin-bottom: 0; }
   body .signout {
     background-image: url(Components/images/logout.svg);
     background-position: 10px;
@@ -274,7 +325,7 @@ body {
     text-align: center;
     font-size: 10px; }
   body .spinner > div {
-    background-color: #2196f3;
+    background-color: #ffeb3b;
     height: 100%;
     width: 6px;
     display: inline-block;
