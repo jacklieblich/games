@@ -40,6 +40,7 @@ class Hex extends React.Component {
     const classes = `board ${pieceFor(this.props.currentUserId, this.state.player1)}`;
     return (
       <div className="hex-board">
+        <p>Your piece: <div className={`piece-display ${pieceFor(this.props.currentUserId, this.props.player1)}`}></div></p>
         <div className={classes}>
           {this.state.board.map((row, rowIndex) =>
             <div className="row">
