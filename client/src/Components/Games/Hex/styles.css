@@ -7,7 +7,7 @@
   .hex-board .piece-display.red {
     background-color: red; }
   .hex-board .piece-display.blue {
-    background-color: yellow; }
+    background-color: blue; }
 
 .hex-board .board {
   max-width: 800px; }
