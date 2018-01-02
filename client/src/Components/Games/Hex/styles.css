@@ -1,66 +1,66 @@
-.hex-board .piece-display {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: bottom; }
-  .hex-board .piece-display.red {
-    background-color: red; }
-  .hex-board .piece-display.blue {
-    background-color: blue; }
-
-.hex-board .board {
-  max-width: 800px; }
-
-.hex-board .board.red svg.empty:hover polygon {
-  fill: red !important; }
-
-.hex-board .board.blue svg.empty:hover polygon {
-  fill: blue !important; }
-
-.hex-board .row {
-  width: 800px;
-  display: flex;
-  position: relative; }
-  .hex-board .row:nth-child(2) {
-    left: 36.36364px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(3) {
-    left: 72.72727px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(4) {
-    left: 109.09091px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(5) {
-    left: 145.45455px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(6) {
-    left: 181.81818px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(7) {
-    left: 218.18182px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(8) {
-    left: 254.54545px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(9) {
-    left: 290.90909px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(10) {
-    left: 327.27273px;
-    margin-top: -27.89966px; }
-  .hex-board .row:nth-child(11) {
-    left: 363.63636px;
-    margin-top: -27.89966px; }
-  .hex-board .row svg {
-    width: 72.72727px;
-    height: 83.69899px; }
-    .hex-board .row svg.red polygon {
-      fill: red !important; }
-    .hex-board .row svg.blue polygon {
-      fill: blue !important; }
-    .hex-board .row svg polygon {
-      cursor: pointer;
-      fill: white !important;
-      stroke: gray !important;
-      stroke-width: 10 !important; }
+.hex-board {
+  width: 85%;
+  margin: 0 auto; }
+  .hex-board .piece-display {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: bottom; }
+    .hex-board .piece-display.red {
+      background-color: red; }
+    .hex-board .piece-display.blue {
+      background-color: blue; }
+  .hex-board .board {
+    max-width: 100%;
+    width: 83%; }
+  .hex-board .board.red svg.empty:hover polygon {
+    fill: red !important; }
+  .hex-board .board.blue svg.empty:hover polygon {
+    fill: blue !important; }
+  .hex-board .row {
+    width: 100%;
+    display: flex;
+    position: relative; }
+    .hex-board .row:nth-child(2) {
+      left: 3.77273%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(3) {
+      left: 7.54545%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(4) {
+      left: 11.31818%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(5) {
+      left: 15.09091%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(6) {
+      left: 18.86364%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(7) {
+      left: 22.63636%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(8) {
+      left: 26.40909%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(9) {
+      left: 30.18182%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(10) {
+      left: 33.95455%;
+      margin-top: -2.89459%; }
+    .hex-board .row:nth-child(11) {
+      left: 37.72727%;
+      margin-top: -2.89459%; }
+    .hex-board .row svg {
+      width: 7.54545%;
+      height: 8.68377%; }
+      .hex-board .row svg.red polygon {
+        fill: red !important; }
+      .hex-board .row svg.blue polygon {
+        fill: blue !important; }
+      .hex-board .row svg polygon {
+        cursor: pointer;
+        fill: white !important;
+        stroke: gray !important;
+        stroke-width: 10 !important; }

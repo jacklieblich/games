@@ -1,4 +1,7 @@
 .tic-tac-toe-board {
+  width: 525px;
+  max-width: 100%;
+  margin: 0 auto;
   .board-row{
     display: flex;
     .space{

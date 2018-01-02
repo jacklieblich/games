@@ -1,4 +1,6 @@
 .hex-board {
+  width: 85%;
+  margin: 0 auto;
   .piece-display{
     height: 20px;
     width: 20px;
@@ -12,12 +14,14 @@
       background-color: blue;
     }
   }
-  $boardWidth: 800px;
+  $boardWidth: 83%;
   $hexWidth: $boardWidth / 11;
   $hexHeight: $hexWidth * 1.1508610692;
 
   .board {
-    max-width: $boardWidth;
+    max-width: 100%;
+    width: $boardWidth;
+
   }
 
 
@@ -33,7 +37,7 @@
   }
 
   .row {
-    width:800px;
+    width:100%;
     display: flex;
     position: relative;
     @for $i from 1 through 10 {
