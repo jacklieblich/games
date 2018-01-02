@@ -1,36 +1,39 @@
-.connect-4-board .piece-display {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: bottom; }
-  .connect-4-board .piece-display.red {
-    background-color: red; }
-  .connect-4-board .piece-display.yellow {
-    background-color: yellow; }
-
-.connect-4-board .board {
-  display: flex; }
-  .connect-4-board .board .board-row {
-    display: flex;
-    flex-direction: column-reverse;
-    background-color: darkblue;
-    display: flex;
-    width: calc(100% / 7); }
-    .connect-4-board .board .board-row .space {
-      padding: 0;
-      border-color: darkblue;
-      border-radius: 50%;
-      width: 100%;
-      height: 0;
-      padding-bottom: calc(100% - 8px);
-      box-sizing: border-box;
-      background-color: #fff;
-      border: 4px solid black;
-      transition: background-color 0.5s ease; }
-      .connect-4-board .board .board-row .space:focus {
-        outline: none; }
-      .connect-4-board .board .board-row .space.yellow {
-        background-color: yellow; }
-      .connect-4-board .board .board-row .space.red {
-        background-color: red; }
+.connect-4-board {
+  width: 525px;
+  max-width: 100%;
+  margin: 0 auto; }
+  .connect-4-board .piece-display {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: bottom; }
+    .connect-4-board .piece-display.red {
+      background-color: red; }
+    .connect-4-board .piece-display.yellow {
+      background-color: yellow; }
+  .connect-4-board .board {
+    display: flex; }
+    .connect-4-board .board .board-row {
+      display: flex;
+      flex-direction: column-reverse;
+      background-color: darkblue;
+      display: flex;
+      width: calc(100% / 7); }
+      .connect-4-board .board .board-row .space {
+        padding: 0;
+        border-color: darkblue;
+        border-radius: 50%;
+        width: 100%;
+        height: 0;
+        padding-bottom: calc(100% - 8px);
+        box-sizing: border-box;
+        background-color: #fff;
+        border: 4px solid black;
+        transition: background-color 0.5s ease; }
+        .connect-4-board .board .board-row .space:focus {
+          outline: none; }
+        .connect-4-board .board .board-row .space.yellow {
+          background-color: yellow; }
+        .connect-4-board .board .board-row .space.red {
+          background-color: red; }

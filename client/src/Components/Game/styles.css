@@ -1,7 +1,6 @@
 .game {
-  width: 525px;
-  margin: 0 auto;
-  max-width: 90%; }
+  width: 90%;
+  margin: 0 auto; }
   .game .nudge {
     background: white;
     opacity: .5;
