@@ -23,22 +23,13 @@ body {
   margin: 20px 0 0;
   background-color: #2196f3; }
   body .facebook {
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-image: url(Components/images/facebook_logo.svg);
-    font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 25px;
-    color: white;
-    text-align: center;
-    padding-top: 8px;
-    width: 280px;
-    height: 280px;
-    margin: 0 auto;
+    width: 250px;
+    margin: 150px auto 0;
     cursor: pointer;
-    box-sizing: border-box;
-    border-radius: 4px; }
+    display: block;
+    border-radius: 3px; }
   body .no-facebook {
-    width: 280px;
+    width: 250px;
     text-align: right;
     margin: 5px auto 0;
     color: #3c5898;

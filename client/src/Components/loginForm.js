@@ -1,5 +1,5 @@
 import React from "react";
-import Client from "../api/index";
+import facebook from "./images/facebook.png"
 import { Link, Redirect } from 'react-router-dom'
 import { Authentication } from '../Authentication';
 
@@ -46,11 +46,9 @@ class LoginForm extends React.Component {
     if (this.state.facebook){
       return(
         <div>
-        <div className="facebook" onClick={() => {
+        <img className="facebook" src={facebook} onClick={() => {
           window.location = process.env.REACT_APP_API_URL + "/users/auth/facebook?origin=" + encodeURIComponent(window.location.origin+ "/#" + referrer.pathname)
-        }}>
-          login with facebook
-        </div>
+        }}/>
         <p className="no-facebook" onClick={() => this.setState({facebook: false})}>I'd rather not.</p>
         </div>
       )
