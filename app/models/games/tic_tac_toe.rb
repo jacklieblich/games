@@ -36,4 +36,9 @@ class TicTacToe < Game
 			self.update(status:"completed")
 		end
 	end
+
+	def color_for_user(user_id)
+    return "X" if user_id == player_1
+    return "O" if user_id == player_2
+  end
 end

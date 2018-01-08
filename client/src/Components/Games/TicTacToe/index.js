@@ -43,9 +43,8 @@ class TicTacToe extends React.Component {
 
 	pieceFor(userId) {
 		let piece = null;
-		const playerX = this.state.player1
 		if (userId != null){
-			piece = playerX === parseInt(userId, 10) ? 'X' : 'O'
+			piece = this.state.player1 === parseInt(userId, 10) ? this.props.player1Piece : this.props.player2Piece
 		}
 		return piece;
 	}

@@ -36,17 +36,31 @@ class Hex extends React.Component {
     Client.updateBoard(this.props.gameId, [i.rowIndex, i.columnIndex])
   }
 
+  pieceFor(userId) {
+    let piece = this.props.player2Piece
+    if(parseInt(userId, 10) === this.props.player1){
+      piece = this.props.player1Piece
+    }else{
+      if(userId === null){
+        piece = "empty"
+      }
+    }
+    return(
+      piece
+    );
+  }
+
   render() {
-    const classes = `board ${pieceFor(this.props.currentUserId, this.state.player1)}`;
+    const classes = `board ${this.pieceFor(this.props.currentUserId)}`;
     return (
       <div className="hex-board">
-        <p>Your piece: <div className={`piece-display ${pieceFor(this.props.currentUserId, this.props.player1)}`}></div></p>
         <div className={classes}>
           {this.state.board.map((row, rowIndex) =>
-            <div className="row">
+            <div className="row" key={rowIndex}>
               {row.map((piece, columnIndex) =>
                 <HexPiece
-                  className={piece !== null ? pieceFor(piece, this.state.player1) : ' empty '}
+                  key={rowIndex*11 + columnIndex}
+                  className={piece !== null ? this.pieceFor(piece) : ' empty '}
                   onClick={() => this.handleClick({rowIndex: rowIndex, columnIndex: columnIndex})}
                 />
               )}
@@ -56,20 +70,6 @@ class Hex extends React.Component {
         </div>
     );
   }
-}
-
-function pieceFor(user_id, player1) {
-  let piece = "blue"
-  if(user_id == player1){
-    piece = "red"
-  }else{
-    if(user_id == null){
-      piece = "empty"
-    }
-  }
-  return(
-    piece
-  );
 }
 
 export default Hex;

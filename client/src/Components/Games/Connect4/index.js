@@ -10,9 +10,9 @@ class Column extends React.Component{
 		);
 	}
 
-	renderSquare(user_id, index) {
+	renderSquare(userId, index) {
 		const lastMove = this.props.lastMove !== "" && (this.props.lastMove - this.props.columnNumber*6) === index ? "last-move" : ""
-		const classes = `space ${pieceFor(user_id, this.props.player1)} ${lastMove}`;
+		const classes = `space ${this.pieceFor(userId)} ${lastMove}`;
 		return (
 			<div className={classes} key={index}>
 			</div>
@@ -21,6 +21,20 @@ class Column extends React.Component{
 
 	onClick(i) {
 		this.props.handleClick(i)
+	}
+
+	pieceFor(userId) {
+		let piece = this.props.player2Piece
+		if(parseInt(userId, 10) === this.props.player1){
+			piece = this.props.player1Piece
+		}else{
+			if(userId === null){
+				piece = "empty"
+			}
+		}
+		return(
+			piece
+		);
 	}
 
 	render() {
@@ -68,7 +82,18 @@ class Connect4 extends React.Component {
 	renderBoard() {
 		let columns = []
 		this.state.board.forEach((column, index) => {
-			columns.push(<Column spaces={column} key={index} columnNumber = {index} handleClick = {this.handleClick} player1={this.state.player1} lastMove={this.myTurn() ? this.props.lastMove : ""}/>)
+			columns.push(
+				<Column 
+					spaces={column}
+					key={index}
+					columnNumber = {index}
+					handleClick = {this.handleClick}
+					player1={this.state.player1}
+					lastMove={this.myTurn() ? this.props.lastMove : ""}
+					player1Piece={this.props.player1Piece}
+					player2Piece={this.props.player2Piece}
+				/>
+			)
 		}
 		)
 		return(
@@ -79,27 +104,12 @@ class Connect4 extends React.Component {
 	render() {
 		return (
 			<div className="connect-4-board">
-			<p>Your piece: <div className={`piece-display ${pieceFor(this.props.currentUserId, this.props.player1)}`}></div></p>
 			<div className="board">
 			{this.renderBoard()}
 			</div>
 			</div>
 			);
 	}
-}
-
-function pieceFor(user_id, player1) {
-	let piece = "yellow"
-	if(parseInt(user_id, 10) === player1){
-		piece = "red"
-	}else{
-		if(user_id == null){
-			piece = "empty"
-		}
-	}
-	return(
-		piece
-	);
 }
 
 export default Connect4;
