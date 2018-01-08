@@ -67,7 +67,7 @@ class UserPicker extends React.Component {
     return (
           <div className="challenge-form">
           {this.playerPicker()}
-          <Link to="/" className="btn back-button">Back</Link>
+          <Link to="/challenge" className="btn back-button">Back</Link>
           </div>
     );
   }
