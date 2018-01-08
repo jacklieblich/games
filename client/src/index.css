@@ -264,7 +264,7 @@ body {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around; }
-      body .challenge-form .opponent-picker a {
+      body .challenge-form .opponent-picker .opponent {
         margin: 10px;
         text-decoration: none;
         background-color: white;
@@ -277,20 +277,20 @@ body {
         transition: all .3s ease;
         margin-bottom: 15px;
         box-sizing: border-box; }
-        body .challenge-form .opponent-picker a:hover {
+        body .challenge-form .opponent-picker .opponent:hover {
           opacity: 1; }
-        body .challenge-form .opponent-picker a .user-name {
+        body .challenge-form .opponent-picker .opponent .user-name {
           margin-top: 0;
           margin-bottom: 10px; }
-        body .challenge-form .opponent-picker a .user-image {
+        body .challenge-form .opponent-picker .opponent .user-image {
           margin: 0 auto;
           width: 100px;
           height: 100Px;
           background-image: url(Components/images/default_user.svg);
           background-size: cover; }
-          body .challenge-form .opponent-picker a .user-image img {
+          body .challenge-form .opponent-picker .opponent .user-image img {
             width: 100%; }
-        body .challenge-form .opponent-picker a .record {
+        body .challenge-form .opponent-picker .opponent .record {
           margin-top: 10px;
           margin-bottom: 0; }
   body .signout {
