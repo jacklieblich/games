@@ -5,7 +5,7 @@ html, body, #root, .app, .dashboard, .challenge-form, .game{
 } 
 body {
   font-family: 'Roboto', sans-serif;
-  margin: 20px 0 0;
+  margin: 0;
   background-color: #2196f3;
   .facebook{
     width: 250px;
@@ -85,10 +85,9 @@ body {
     .dashboard-header{
       display: flex;
       width: 90%;
-      margin: 0 auto;
+      margin: 10px auto 15px;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
       .record{
         color: white;
         opacity: .9;
@@ -267,14 +266,15 @@ body {
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
-    padding-bottom: 60px;
     h3{
-      margin-bottom: 30px;
+      margin: 0;
+      padding: 20px 0;
     }
     .game-picker{
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
+      padding-bottom: 60px;
       .game-button-wrapper{
         text-decoration: none;
         background-color: white;
@@ -314,6 +314,7 @@ body {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
+      padding-bottom: 60px;
       .opponent{
         margin: 10px;
         text-decoration: none;

@@ -21,7 +21,7 @@ html, body, #root, .app, .dashboard, .challenge-form, .game {
 
 body {
   font-family: 'Roboto', sans-serif;
-  margin: 20px 0 0;
+  margin: 0;
   background-color: #2196f3; }
   body .facebook {
     width: 250px;
@@ -89,10 +89,9 @@ body {
     body .dashboard .dashboard-header {
       display: flex;
       width: 90%;
-      margin: 0 auto;
+      margin: 10px auto 15px;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px; }
+      align-items: center; }
       body .dashboard .dashboard-header .record {
         color: white;
         opacity: .9; }
@@ -225,14 +224,15 @@ body {
     position: relative;
     text-align: center;
     max-width: 900px;
-    margin: 0 auto;
-    padding-bottom: 60px; }
+    margin: 0 auto; }
     body .challenge-form h3 {
-      margin-bottom: 30px; }
+      margin: 0;
+      padding: 20px 0; }
     body .challenge-form .game-picker {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around; }
+      justify-content: space-around;
+      padding-bottom: 60px; }
       body .challenge-form .game-picker .game-button-wrapper {
         text-decoration: none;
         background-color: white;
@@ -264,7 +264,8 @@ body {
     body .challenge-form .opponent-picker {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around; }
+      justify-content: space-around;
+      padding-bottom: 60px; }
       body .challenge-form .opponent-picker .opponent {
         margin: 10px;
         text-decoration: none;
