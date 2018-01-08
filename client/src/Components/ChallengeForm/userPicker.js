@@ -1,41 +1,27 @@
 import React from "react";
-import Client from "../api";
+import Client from "../../api";
 import { Link, Redirect } from 'react-router-dom';
-import { Flash } from './flash';
-import { Spinner } from './Spinner';
+import { Flash } from '../flash';
+import { Spinner } from '../Spinner';
 
-class ChallengeForm extends React.Component {
+class UserPicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
-      gameTypes: [],
-      selectedGameType: "",
+      selectedGameType: props.match.params.gameType,
       loading: true,
-      newGameId: null
+      newGameId: false
     };
-    this.handleGameChange = this.handleGameChange.bind(this);
     this.playerPicker = this.playerPicker.bind(this);
-    this.gamePicker = this.gamePicker.bind(this);
     this.getOtherUsers();
-    this.getGameTypes();
   }
 
-  getGameTypes() {
-    Client.gameTypes().then((gameTypes) => {
-      this.setState({gameTypes})
-      this.setState({loading: false})
-  })
-  }
 
   getOtherUsers() {
     Client.otherUsers((users) =>{
-      this.setState({users: users})
+      this.setState({users: users, loading: false})
     })
-  }
-
-  handleGameChange(event) {
-    this.setState({selectedGameType: event.target.value})
   }
 
   playerPicker() {
@@ -65,32 +51,8 @@ class ChallengeForm extends React.Component {
     );
   }
 
-  gamePicker() {
-    return(
-      <div>
-        <h3>Select Game</h3>
-        <div className="game-picker">
-        {this.state.gameTypes.map((gameType) => {
-            const withSpaces = gameType.replace( /([A-Z])/g, " $1" );
-            const capitalized = withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
-            return(
-              <div className="game-button-wrapper">
-                <h1>{capitalized}</h1>
-                <div className={`button ${gameType}`} onClick={() => this.setState({selectedGameType: gameType})} key={gameType}></div>
-              </div>
-            )
-          }
-        )}
-        </div>
-      </div>
-    );
-  }
-
-  renderGame() {
-
-  }
-
   render() {
+  	
     if(this.state.newGameId){
       if(this.state.newGameId === "error"){
         return <Redirect to="/" />
@@ -102,19 +64,13 @@ class ChallengeForm extends React.Component {
       return Spinner()
     }
 
-    let step = this.gamePicker
-
-    if (this.state.selectedGameType !== "") {
-      step = this.playerPicker
-    }
-
     return (
           <div className="challenge-form">
-          {step()}
+          {this.playerPicker()}
           <Link to="/" className="btn back-button">Back</Link>
           </div>
     );
   }
 }
 
-export default ChallengeForm;
+export default UserPicker;
