@@ -43,7 +43,7 @@ class ChallengeForm extends React.Component {
       <div>
         <h3>Select Opponent</h3>
         <div className="opponent-picker">
-          {this.state.users.map((userInfo) => <button onClick={() => {
+          {this.state.users.map((userInfo) => <div className="opponent" onClick={() => {
             Client.challenge(
               userInfo.user.id,
               this.state.selectedGameType,
@@ -59,7 +59,7 @@ class ChallengeForm extends React.Component {
               {userInfo.user.uid && <img src={`https://graph.facebook.com/v2.11/${userInfo.user.uid}/picture?type=normal`}/>}
             </div>
             <p className="record">{userInfo.record.wins + " - " + userInfo.record.losses + " - " + userInfo.record.ties}</p>
-          </button>)}
+          </div>)}
         </div>
       </div>
     );
