@@ -26,6 +26,9 @@ class Game < ApplicationRecord
   def set_winner
   end
 
+  def color_for_user(user_id)
+  end
+
   def set_player_1
     self.player_1 = [challenged_id, challenger_id].sample
   end

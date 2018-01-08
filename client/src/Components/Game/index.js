@@ -23,7 +23,9 @@ class GameRouter extends React.Component {
 			nudgable: true,
 			loading: true,
 			gameType: props.match.params.gameType,
-			newGameId: false
+			newGameId: false,
+			player1Piece: "",
+			player2Piece: ""
 		}
 		this.initialState.gameId = props.match.params.gameId
 		this.state = this.initialState
@@ -99,16 +101,27 @@ class GameRouter extends React.Component {
 		const gameType = this.state.gameType
 		const currentUserId = Authentication.currentUser.id
 		let game
+		const props = {
+				gameId: gameId,
+				currentUserId: currentUserId,
+				board: this.state.board,
+				turn: this.state.turn,
+				player1: this.state.player1,
+				winner: this.state.winner,
+				lastMove: this.state.lastMove,
+				player1Piece: this.state.player1Piece,
+				player2Piece: this.state.player2Piece
+			}
 
 		switch(gameType) {
 			case "TicTacToe":
-				game = <TicTacToe gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner} lastMove={this.state.lastMove}/>;
+				game = <TicTacToe {...props}/>;
 				break;
 			case "Connect4":
-				game = <Connect4 gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner} lastMove={this.state.lastMove}/>;
+				game = <Connect4 {...props}/>;
 				break;
 			case "Hex":
-				game = <Hex gameId={gameId} currentUserId={currentUserId} board={this.state.board} turn={this.state.turn} player1={this.state.player1} winner={this.state.winner} lastMove={this.state.lastMove}/>;
+				game = <Hex {...props}/>;
 				break;
 			default:
 				throw new Error(gameType + " is not a game type");
@@ -155,8 +168,9 @@ class GameRouter extends React.Component {
 		const winner = this.state.winner;
 		let status;
 		let rematch;
+		const piece = <div className={`color ${this.state.turn === this.state.player1 ? this.state.player1Piece : this.state.player2Piece}`}></div>
 		if (winner) {
-			status = this.state.winner === Authentication.currentUser.id ? "You Won! Congrats!" : "You Lost. Bummer."
+			status = this.state.winner === Authentication.currentUser.id ? "You Won!" : "You Lost."
 			rematch = <div className="rematch btn" onClick={() => {
 						Client.challenge(
 							this.state.opponentId, 
@@ -177,7 +191,7 @@ class GameRouter extends React.Component {
 		return (
 			<div className="game">
 				<div className="status">
-					<p>{status}</p>
+					<div>{status}{!this.state.winner && piece}</div>
 					{rematch}
 				</div>
 				<div className="game-board">

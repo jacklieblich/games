@@ -56,4 +56,9 @@ class Connect4 < Game
 			self.update(status:"completed")
 		end
 	end
+
+	def color_for_user(user_id)
+		return "red" if user_id == player_1
+		return "yellow" if user_id == player_2
+	end
 end
