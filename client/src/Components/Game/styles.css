@@ -16,14 +16,16 @@
     .game .nudge:hover {
       opacity: 1; }
   .game .status {
-    margin-bottom: 20px;
-    font-size: 40px;
     text-align: center;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center; }
+    position: relative; }
     .game .status p {
-      margin: 0; }
+      font-size: 40px;
+      margin: 0;
+      margin-bottom: 20px; }
+    .game .status .rematch {
+      position: absolute;
+      bottom: -40px;
+      left: calc(50% - 50px); }
   .game .last-move {
     border-color: #7cfc00 !important; }
   .game .bottom-game-section {
