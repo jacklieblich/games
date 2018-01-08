@@ -3,31 +3,54 @@ import TicTacToe from "../Games/TicTacToe";
 import Connect4 from "../Games/Connect4";
 import Hex from "../Games/Hex";
 import { Authentication } from '../../Authentication';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Client from "../../api";
 import { Spinner } from '../Spinner';
+import { Flash } from '../flash';
 import './styles.css';
 
 class GameRouter extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
+		this.initialState = {
 			opponentWatching: false,
 			board: [],
 			turn: "",
 			player1 : "",
 			winner: false,
-			gameId: this.props.match.params.gameId,
 			opponentId: "",
 			lastMove: "",
 			nudgable: true,
-			loading: true
+			loading: true,
+			gameType: props.match.params.gameType,
+			newGameId: false
 		}
-		this.fillBoard = this.fillBoard.bind(this);
-		this.fillBoard();
+		this.initialState.gameId = props.match.params.gameId
+		this.state = this.initialState
+		this.fillBoard = this.fillBoard.bind(this)
 	}
 
 	componentDidMount() {
+		this.subscribe()
+		this.fillBoard()
+	}
+
+	componentWillUnmount() {
+		this.unsubscribe()
+	}
+
+	componentWillReceiveProps(newProps) {
+		this.initialState.gameId = newProps.match.params.gameId
+		this.setState(this.initialState,
+			() => {
+				this.unsubscribe()
+				this.subscribe()
+				this.fillBoard()
+			}
+		)
+	}
+
+	subscribe() {
 		this.subscription = Client.subscribe({channel: 'GameChannel', game_id: this.state.gameId},
 			(gameData) => {
 				if ('stoppedWatching' in gameData || 'isWatching' in gameData){
@@ -46,7 +69,7 @@ class GameRouter extends React.Component {
 		)
 	}
 
-	componentWillUnmount() {
+	unsubscribe() {
 		Client.endSubscription(this.subscription)
 	}
 
@@ -73,7 +96,7 @@ class GameRouter extends React.Component {
 
 	renderGame() {
 		const gameId = this.state.gameId
-		const gameType = this.props.match.params.gameType
+		const gameType = this.state.gameType
 		const currentUserId = Authentication.currentUser.id
 		let game
 
@@ -113,27 +136,50 @@ class GameRouter extends React.Component {
 	}
 
 	myTurn(){
-		console.log(this.state.turn)
-		console.log(Authentication.currentUser.id)
-		console.log(this.state.turn === Authentication.currentUser.id)
 		return this.state.turn === Authentication.currentUser.id
 	}
 
 	render() {
 
+		if(this.state.newGameId){
+			if(this.state.newGameId === "error"){
+    	    	return <Redirect to="/" />
+    	  	}
+    	  	return <Redirect to={"/games/" + this.state.gameType +"/" + this.state.newGameId} />
+    	}
+
 		if (this.state.loading) {
 			return Spinner()
 		}
+
 		const winner = this.state.winner;
 		let status;
+		let rematch;
 		if (winner) {
 			status = this.state.winner === Authentication.currentUser.id ? "You Won! Congrats!" : "You Lost. Bummer."
+			rematch = <div className="rematch btn" onClick={() => {
+						Client.challenge(
+							this.state.opponentId, 
+							this.state.gameType,
+							(response) => this.setState({newGameId: response.gameId}),
+							(errors) => {
+              				  this.setState({newGameId: "error"})
+              				  errors.response.json().then(response => Flash.errors = response)
+              				}
+						)
+					}}>
+				Rematch
+			</div>
 		} else {
 			status = this.state.turn === Authentication.currentUser.id ? "Your Turn" : "Opponent's Turn"
 		}
+
 		return (
 			<div className="game">
-				<div className="status"><p>{status}</p></div>
+				<div className="status">
+					<p>{status}</p>
+					{rematch}
+				</div>
 				<div className="game-board">
 					{this.renderGame()}
 				</div>

@@ -5,6 +5,7 @@ class GamesController < ApplicationController
 		if game.errors.any?
 			render json: {errorMessage: game.errors}, status: 403
 		else
+			render json: {gameId: game.id}
 			broadcast_for_users(game)
 		end
 	end
