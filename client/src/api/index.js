@@ -67,6 +67,7 @@ function signup(signup_params, cb) {
 }
 
 function login(login_params) {
+	login_params.user.remember_me = true;
 	return fetch("/users/sign_in", {
 		credentials: 'include',
 		method: "POST",
