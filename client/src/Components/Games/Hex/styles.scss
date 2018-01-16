@@ -1,78 +1,147 @@
-.hex-board {
-  margin: 0 auto;
-  .piece-display{
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: bottom;
-    &.red{
-      background-color: red;
-    }
-    &.blue{
-      background-color: blue;
-    }
-  }
-  $boardWidth: 83%;
-  $hexWidth: $boardWidth / 11;
-  $hexHeight: $hexWidth * 1.1508610692;
+@media only screen and (max-width: 767px) {
+  .hex-board {
+    margin: 0 auto;
+    $boardWidth: 136%;
+    $hexWidth: 100%;
+    $hexHeight: $hexWidth * 1.1508610692 / 11;
+    overflow: hidden;
 
-  .board {
-    max-width: 100%;
-    width: $boardWidth;
+    .board {
+      width: $boardWidth;
 
-  }
-
-
-  .board {
-
-    &.red svg.empty:hover polygon {
-      fill: red !important;
     }
 
-    &.blue svg.empty:hover polygon {
-      fill: blue!important;
-    }
-  }
 
-  .row {
-    width:100%;
-    display: flex;
-    position: relative;
-    @for $i from 1 through 10 {
-      &:nth-child(#{$i + 1}) {
-        left: #{$i* ($hexWidth/ 2)};
-        margin-top: -1 * $hexHeight / 3
+    .board {
+      display: flex;
+      &.red svg.empty:hover polygon {
+        fill: red !important;
+      }
+
+      &.blue svg.empty:hover polygon {
+        fill: blue!important;
       }
     }
 
-    svg {
-      width: $hexWidth;
-      height: $hexHeight;
-
-      &.red {
-        polygon {
-          fill: red !important;
+    .row {
+      width:calc(100% / 11);
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: $hexHeight * 11;
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i + 1}) {
+          left: #{-1 * $i * 100% / 11 * .288675134595};
+          margin-top: 3.9% * $i;
         }
       }
 
-      &.blue {
+      svg {
+        width: $hexWidth;
+        height: $hexHeight;
+        flex-grow: 0;
+        &.red {
+          polygon {
+            fill: red !important;
+          }
+        }
+
+        &.blue {
+          polygon {
+            fill: blue !important;
+          }
+        }
+
+
         polygon {
-          fill: blue !important;
+          cursor: pointer;
+          fill: white !important;
+          stroke: gray!important;
+          stroke-width: 10 !important;
+
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 768px) {
+  .hex-board {
+    margin: 0 auto;
+    .piece-display{
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: bottom;
+      &.red{
+        background-color: red;
+      }
+      &.blue{
+        background-color: blue;
+      }
+    }
+    $boardWidth: 83%;
+    $hexWidth: $boardWidth / 11;
+    $hexHeight: $hexWidth * 1.1508610692;
+
+    .board {
+      max-width: 100%;
+      width: $boardWidth;
+
+    }
+
+
+    .board {
+
+      &.red svg.empty:hover polygon {
+        fill: red !important;
+      }
+
+      &.blue svg.empty:hover polygon {
+        fill: blue!important;
+      }
+    }
+
+    .row {
+      width:100%;
+      display: flex;
+      position: relative;
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i + 1}) {
+          left: #{$i* ($hexWidth/ 2)};
+          margin-top: -1 * $hexHeight / 3
+        }
+      }
+
+      svg {
+        width: $hexWidth;
+        height: $hexHeight;
+
+        &.red {
+          polygon {
+            fill: red !important;
+          }
+        }
+
+        &.blue {
+          polygon {
+            fill: blue !important;
+          }
+        }
+
+
+        polygon {
+          cursor: pointer;
+          fill: white !important;
+          stroke: gray!important;
+          stroke-width: 10 !important;
+
         }
       }
 
 
-      polygon {
-        cursor: pointer;
-        fill: white !important;
-        stroke: gray!important;
-        stroke-width: 10 !important;
-
-      }
     }
 
-
   }
-
 }
