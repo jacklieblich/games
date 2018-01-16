@@ -1,65 +1,129 @@
-.hex-board {
-  margin: 0 auto; }
-  .hex-board .piece-display {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: bottom; }
-    .hex-board .piece-display.red {
-      background-color: red; }
-    .hex-board .piece-display.blue {
-      background-color: blue; }
-  .hex-board .board {
-    max-width: 100%;
-    width: 83%; }
-  .hex-board .board.red svg.empty:hover polygon {
-    fill: red !important; }
-  .hex-board .board.blue svg.empty:hover polygon {
-    fill: blue !important; }
-  .hex-board .row {
-    width: 100%;
-    display: flex;
-    position: relative; }
-    .hex-board .row:nth-child(2) {
-      left: 3.77273%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(3) {
-      left: 7.54545%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(4) {
-      left: 11.31818%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(5) {
-      left: 15.09091%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(6) {
-      left: 18.86364%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(7) {
-      left: 22.63636%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(8) {
-      left: 26.40909%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(9) {
-      left: 30.18182%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(10) {
-      left: 33.95455%;
-      margin-top: -2.89459%; }
-    .hex-board .row:nth-child(11) {
-      left: 37.72727%;
-      margin-top: -2.89459%; }
-    .hex-board .row svg {
-      width: 7.54545%;
-      height: 8.68377%; }
-      .hex-board .row svg.red polygon {
+@media only screen and (max-width: 767px) {
+  .hex-board {
+    margin: 0 auto;
+    overflow: hidden; }
+    .hex-board .board {
+      width: 136%; }
+    .hex-board .board {
+      display: flex; }
+      .hex-board .board.red svg.empty:hover polygon {
         fill: red !important; }
-      .hex-board .row svg.blue polygon {
+      .hex-board .board.blue svg.empty:hover polygon {
         fill: blue !important; }
-      .hex-board .row svg polygon {
-        cursor: pointer;
-        fill: white !important;
-        stroke: gray !important;
-        stroke-width: 10 !important; }
+    .hex-board .row {
+      width: calc(100% / 11);
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 115.08611%; }
+      .hex-board .row:nth-child(2) {
+        left: -2.62432%;
+        margin-top: 3.9%; }
+      .hex-board .row:nth-child(3) {
+        left: -5.24864%;
+        margin-top: 7.8%; }
+      .hex-board .row:nth-child(4) {
+        left: -7.87296%;
+        margin-top: 11.7%; }
+      .hex-board .row:nth-child(5) {
+        left: -10.49728%;
+        margin-top: 15.6%; }
+      .hex-board .row:nth-child(6) {
+        left: -13.1216%;
+        margin-top: 19.5%; }
+      .hex-board .row:nth-child(7) {
+        left: -15.74592%;
+        margin-top: 23.4%; }
+      .hex-board .row:nth-child(8) {
+        left: -18.37024%;
+        margin-top: 27.3%; }
+      .hex-board .row:nth-child(9) {
+        left: -20.99456%;
+        margin-top: 31.2%; }
+      .hex-board .row:nth-child(10) {
+        left: -23.61887%;
+        margin-top: 35.1%; }
+      .hex-board .row:nth-child(11) {
+        left: -26.24319%;
+        margin-top: 39%; }
+      .hex-board .row svg {
+        width: 100%;
+        height: 10.46237%;
+        flex-grow: 0; }
+        .hex-board .row svg.red polygon {
+          fill: red !important; }
+        .hex-board .row svg.blue polygon {
+          fill: blue !important; }
+        .hex-board .row svg polygon {
+          cursor: pointer;
+          fill: white !important;
+          stroke: gray !important;
+          stroke-width: 10 !important; } }
+
+@media only screen and (min-width: 768px) {
+  .hex-board {
+    margin: 0 auto; }
+    .hex-board .piece-display {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: bottom; }
+      .hex-board .piece-display.red {
+        background-color: red; }
+      .hex-board .piece-display.blue {
+        background-color: blue; }
+    .hex-board .board {
+      max-width: 100%;
+      width: 83%; }
+    .hex-board .board.red svg.empty:hover polygon {
+      fill: red !important; }
+    .hex-board .board.blue svg.empty:hover polygon {
+      fill: blue !important; }
+    .hex-board .row {
+      width: 100%;
+      display: flex;
+      position: relative; }
+      .hex-board .row:nth-child(2) {
+        left: 3.77273%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(3) {
+        left: 7.54545%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(4) {
+        left: 11.31818%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(5) {
+        left: 15.09091%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(6) {
+        left: 18.86364%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(7) {
+        left: 22.63636%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(8) {
+        left: 26.40909%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(9) {
+        left: 30.18182%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(10) {
+        left: 33.95455%;
+        margin-top: -2.89459%; }
+      .hex-board .row:nth-child(11) {
+        left: 37.72727%;
+        margin-top: -2.89459%; }
+      .hex-board .row svg {
+        width: 7.54545%;
+        height: 8.68377%; }
+        .hex-board .row svg.red polygon {
+          fill: red !important; }
+        .hex-board .row svg.blue polygon {
+          fill: blue !important; }
+        .hex-board .row svg polygon {
+          cursor: pointer;
+          fill: white !important;
+          stroke: gray !important;
+          stroke-width: 10 !important; } }
