@@ -142,7 +142,7 @@ class GameRouter extends React.Component {
 	renderNudge() {
 		if(!this.myTurn() && this.state.nudgable && !this.state.winner && !this.state.opponentWatching){
 			return <button className="nudge" onClick={() => {
-				Client.nudge(this.state.opponentId, this.state.gameId)
+				Client.nudge(this.state.gameId)
 				this.setState({nudgable: false})
 			}}>( •_•)σ</button>
 		}
@@ -150,6 +150,12 @@ class GameRouter extends React.Component {
 
 	myTurn(){
 		return this.state.turn === Authentication.currentUser.id
+	}
+
+	renderSurrender() {
+		if (!this.state.winner){
+			return <div className="btn surrender" onClick={() => Client.surrender(this.state.gameId)}>surrender</div>
+		}
 	}
 
 	render() {
@@ -201,6 +207,7 @@ class GameRouter extends React.Component {
 					{this.state.opponentWatching && this.renderOpponentWatching()}
 					{this.renderNudge()}
 					<Link to='/' className="btn game-btn">Back</Link>
+					{this.renderSurrender()}
 				</div>
 			</div>
 			);

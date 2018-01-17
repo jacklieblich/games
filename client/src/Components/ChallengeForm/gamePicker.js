@@ -51,7 +51,7 @@ class GamePicker extends React.Component {
     return (
           <div className="challenge-form">
           {this.gamePicker()}
-          <Link to="/" className="btn back-button">Back</Link>
+          <Link to="/" className="btn bottom back-button">Back</Link>
           </div>
     );
   }

@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	before_action :authenticate_user! , only: [:surrender, :create, :index, :update, :im_watching, :nudge]
 
 	def create
 		game = game_type.create(games_params)
@@ -49,7 +50,20 @@ class GamesController < ApplicationController
 	end
 
 	def nudge
-		SendNudgeEmailJob.perform_later(params[:user_id], params[:game_id])
+		SendNudgeEmailJob.perform_later(Game.find(params[:game_id]).opponent(current_user).id, params[:game_id])
+	end
+
+	def surrender
+		game = Game.find(params[:game_id])
+		unless game.status == "completed"
+			opponent_id = game.opponent(current_user).id
+			game.update(winner: opponent_id, status:"completed")
+			ActionCable.server.broadcast(
+				"game_#{game.id}",
+				{winner: game.winner}
+				)
+			broadcast_for_users(game)
+		end
 	end
 
 	private
