@@ -59,6 +59,11 @@
       border-radius: 2px;
       position: initial;
       text-align: center; }
+    .game .bottom-game-section .surrender {
+      position: absolute;
+      right: 0;
+      text-align: center;
+      top: 10px; }
     .game .bottom-game-section .blue-dot {
       width: 40px;
       height: 40px;
