@@ -1,4 +1,6 @@
 .game {
+  padding: 20px 0 80px;
+  box-sizing: border-box;
   width: 90%;
   margin: 0 auto; }
   .game .nudge {
@@ -53,12 +55,6 @@
     display: flex;
     justify-content: center;
     position: relative; }
-    .game .bottom-game-section .game-btn {
-      display: block;
-      margin-top: 20px;
-      border-radius: 2px;
-      position: initial;
-      text-align: center; }
     .game .bottom-game-section .surrender {
       position: absolute;
       right: 0;
@@ -98,3 +94,20 @@
   50% {
     transform: scale(1);
     -webkit-transform: scale(1); } }
+  .game .player-display {
+    display: flex; }
+    .game .player-display > div {
+      width: 50%;
+      opacity: .5; }
+      .game .player-display > div:nth-of-type(2) {
+        text-align: right; }
+      .game .player-display > div.turn {
+        opacity: 1; }
+      .game .player-display > div.winner {
+        border: 2px solid gold; }
+      .game .player-display > div img {
+        height: 75px;
+        width: 75px;
+        border-radius: 50%; }
+  .game .btn.bottom {
+    left: 0; }
