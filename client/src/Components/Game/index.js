@@ -7,6 +7,7 @@ import { Link, Redirect } from 'react-router-dom';
 import Client from "../../api";
 import { Spinner } from '../Spinner';
 import { Flash } from '../flash';
+import DefaultUserImage from '../images/default_user.svg'
 import './styles.css';
 
 class GameRouter extends React.Component {
@@ -16,16 +17,17 @@ class GameRouter extends React.Component {
 			opponentWatching: false,
 			board: [],
 			turn: "",
-			player1 : "",
 			winner: false,
-			opponentId: "",
+			player1: "",
+			player2: "",
+			player1Piece: "",
+			player2Piece: "",
 			lastMove: "",
 			nudgable: true,
 			loading: true,
 			gameType: props.match.params.gameType,
 			newGameId: false,
-			player1Piece: "",
-			player2Piece: ""
+			opponent: false
 		}
 		this.initialState.gameId = props.match.params.gameId
 		this.state = this.initialState
@@ -33,7 +35,6 @@ class GameRouter extends React.Component {
 	}
 
 	componentDidMount() {
-		this.subscribe()
 		this.fillBoard()
 	}
 
@@ -41,12 +42,12 @@ class GameRouter extends React.Component {
 		this.unsubscribe()
 	}
 
+	//handles rematch
 	componentWillReceiveProps(newProps) {
 		this.initialState.gameId = newProps.match.params.gameId
 		this.setState(this.initialState,
 			() => {
 				this.unsubscribe()
-				this.subscribe()
 				this.fillBoard()
 			}
 		)
@@ -76,23 +77,26 @@ class GameRouter extends React.Component {
 	}
 
 	fillBoard() {
-		Client.loadGame(this.state.gameId, (game_data) => {
-			this.setState(game_data)
+		Client.loadGame(this.state.gameId, (gameData) => {
+			gameData.opponent = [gameData.player1, gameData.player2].find((player) => player.id != Authentication.currentUser.id)
+			this.setState(gameData, () => this.subscribe())
 			this.setState({loading: false})
 		})
 	}
 
 	handleOpponentWatching(gameData) {
-		if (gameData.stoppedWatching === this.state.opponentId){
-			this.setState({opponentWatching: false})
-		}
-		//cant hide watching status by closing secondary connection
-		if (gameData.stoppedWatching === Authentication.currentUser.id){
-			Client.imWatching({game_id: this.state.gameId})
-		}
-		if (gameData.isWatching === this.state.opponentId && !this.state.opponentWatching){
-			this.setState({opponentWatching: true})
-			Client.imWatching({game_id: this.state.gameId})
+		if (this.state.opponent){
+			if (gameData.stoppedWatching === this.state.opponent.id){
+				this.setState({opponentWatching: false})
+			}
+			//cant hide watching status by closing secondary connection
+			if (gameData.stoppedWatching === Authentication.currentUser.id){
+				Client.imWatching({game_id: this.state.gameId})
+			}
+			if (gameData.isWatching === this.state.opponent.id && !this.state.opponentWatching){
+				this.setState({opponentWatching: true})
+				Client.imWatching({game_id: this.state.gameId})
+			}
 		}
 	}
 
@@ -106,7 +110,7 @@ class GameRouter extends React.Component {
 				currentUserId: currentUserId,
 				board: this.state.board,
 				turn: this.state.turn,
-				player1: this.state.player1,
+				player1: this.state.player1.id,
 				winner: this.state.winner,
 				lastMove: this.state.lastMove,
 				player1Piece: this.state.player1Piece,
@@ -158,6 +162,43 @@ class GameRouter extends React.Component {
 		}
 	}
 
+	renderPlayerImage(player) {
+		return <img src={player.uid != null ? `https://graph.facebook.com/v2.11/${player.uid}/picture?type=normal` : DefaultUserImage}/>
+	}
+
+	renderRematchButton() {
+		return (
+			<div className="rematch btn" onClick={() => {
+						Client.challenge(
+							this.state.opponent.id, 
+							this.state.gameType,
+							(response) => this.setState({newGameId: response.gameId}),
+							(errors) => {
+              				  this.setState({newGameId: "error"})
+              				  errors.response.json().then(response => Flash.errors = response)
+              				}
+						)
+					}}>
+				Rematch
+			</div>
+		)
+	}
+
+	playerClasses(playerId) {
+		let classes = ""
+		if (this.state.winner) {
+			classes += "turn"
+			if (this.state.winner === playerId){
+				classes += " winner"
+			}
+		}else{
+			if(this.state.turn === playerId){
+				classes += "turn"
+			}
+		}
+		return classes;
+	}
+
 	render() {
 
 		if(this.state.newGameId){
@@ -171,44 +212,26 @@ class GameRouter extends React.Component {
 			return Spinner()
 		}
 
-		const winner = this.state.winner;
-		let status;
-		let rematch;
-		const piece = <div className={`color ${this.state.turn === this.state.player1 ? this.state.player1Piece : this.state.player2Piece}`}></div>
-		if (winner) {
-			status = this.state.winner === Authentication.currentUser.id ? "You Won!" : "You Lost."
-			rematch = <div className="rematch btn" onClick={() => {
-						Client.challenge(
-							this.state.opponentId, 
-							this.state.gameType,
-							(response) => this.setState({newGameId: response.gameId}),
-							(errors) => {
-              				  this.setState({newGameId: "error"})
-              				  errors.response.json().then(response => Flash.errors = response)
-              				}
-						)
-					}}>
-				Rematch
-			</div>
-		} else {
-			status = this.state.turn === Authentication.currentUser.id ? "Your Turn" : "Opponent's Turn"
-		}
-
 		return (
 			<div className="game">
-				<div className="status">
-					<div>{status}{!this.state.winner && piece}</div>
-					{rematch}
-				</div>
 				<div className="game-board">
 					{this.renderGame()}
+				</div>
+				<div className="player-display">
+					<div style={{backgroundColor: this.state.player1Piece}} className={this.playerClasses(this.state.player1.id)}>
+						{this.renderPlayerImage(this.state.player1)}
+					</div>
+					<div style={{backgroundColor: this.state.player2Piece}} className={this.playerClasses(this.state.player2.id)}>
+						{this.renderPlayerImage(this.state.player2)}
+					</div>
 				</div>
 				<div className="bottom-game-section">
 					{this.state.opponentWatching && this.renderOpponentWatching()}
 					{this.renderNudge()}
-					<Link to='/' className="btn game-btn">Back</Link>
 					{this.renderSurrender()}
+					{this.state.winner && this.renderRematchButton()}
 				</div>
+				<Link to='/' className="btn bottom">Back</Link>
 			</div>
 			);
 	}

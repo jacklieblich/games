@@ -20,11 +20,11 @@ class GamesController < ApplicationController
 		render json: {
 			board: game.board,
 			turn: game.turn,
-			player1: game.player_1,
 			winner: game.winner,
-			opponentId: game.opponent(current_user).id,
+			player1: User.find(game.player_1),
+			player2: User.find(game.player_2),
 			player1Piece: game.color_for_user(game.player_1),
-			player2Piece: game.color_for_user(game.player_2)
+			player2Piece: game.color_for_user(game.player_2),
 		} 
 	end
 
@@ -50,12 +50,13 @@ class GamesController < ApplicationController
 	end
 
 	def nudge
-		SendNudgeEmailJob.perform_later(Game.find(params[:game_id]).opponent(current_user).id, params[:game_id])
+		game = Game.find(params[:game_id])
+		SendNudgeEmailJob.perform_later(game.opponent(current_user).id, params[:game_id]) if game.users.include?(current_user)
 	end
 
 	def surrender
 		game = Game.find(params[:game_id])
-		unless game.status == "completed"
+		if game.status != "completed" && game.users.include?(current_user)
 			opponent_id = game.opponent(current_user).id
 			game.update(winner: opponent_id, status:"completed")
 			ActionCable.server.broadcast(
