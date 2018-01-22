@@ -9,6 +9,7 @@
 	width: 100px;
 	cursor: pointer;
 	text-align: center;
+	display: block;
 	&:hover{
 		opacity: 1;
 	}
@@ -16,5 +17,15 @@
 		position: absolute;
 		left: 20px;
 		bottom: 20px;
+	}
+	&.back{
+		background-image: url(./Components/images/back-arrow.svg);
+		padding: 0;
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		background-position: center;
+		background-size: 20px;
+		background-repeat: no-repeat;
 	}
 }

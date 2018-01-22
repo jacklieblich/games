@@ -1,23 +1,12 @@
 .game {
-  padding: 20px 0 80px;
   box-sizing: border-box;
-  width: 90%;
-  margin: 0 auto;
-  .nudge{
-    background: white;
-    opacity: .5;
-    border-radius: 2px;
-    border: none;
-    padding: 3px 10px;
-    display: block;
-    cursor: pointer;
-    position: absolute;
-    left: 0px;
-    top: 10px;
-    transition: all .3s ease;
-    &:hover{
-      opacity: 1;
-    }
+  width: 100%;
+  margin: 0;
+  padding-top: 5px;
+  .game-board{
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 75px;
   }
   .status{
     text-align: center;
@@ -33,110 +22,98 @@
     .rematch{
       position: initial;
     }
-    .color{
-      display: inline-block;
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      margin-left: 8px;
-      &.yellow{
-        background-color: yellow;
-      }
-      &.red{
-        background-color: red;
-      }
-      &.blue{
-        background-color: blue;
-      }
-      &.X{
-        border-radius: 0;
-        background: url(../Games/TicTacToe/images/X.png);
-        background-size: contain;
-      }
-      &.O{
-        border-radius: 0;
-        background: url(../Games/TicTacToe/images/O.png);
-        background-size: contain;
-      }
-    }
   }
   .last-move{
     border-color: #7cfc00 !important;
   }
-  .bottom-game-section{
+  .top-game-section{
+    width: calc(100% - 10px);
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    position: relative;
-    .surrender{
-      position: absolute;
-      right: 0;
-      text-align: center;
-      top: 10px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .quit{
+      width: 50px;
     }
-
-    .blue-dot {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      .double-bounce1, .double-bounce2 {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background-color: #ffeb3b;
-        opacity: 0.6;
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-        animation: sk-bounce 2.0s infinite ease-in-out;
+  }
+  .player-display{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    >div{
+      padding: 10px;
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .user-info{
+        width: calc(100% - 45px);
+        text-align: center;
+        p{
+          margin: 0;
+        }
       }
-
-      .double-bounce2 {
-        -webkit-animation-delay: -1.0s;
-        animation-delay: -1.0s;
+      .image-wrapper{
+        position: relative;
+        .nudge{
+          background-image: url(./../images/nudge.svg);
+          background-position: center calc(100% + 5px);
+          background-size: 20px;
+          background-repeat: no-repeat;
+          height: 50px;
+          width: 45px;
+          position: absolute;
+          right: 0px;
+          bottom: 0px;
+          padding: 0;
+          background-color: transparent;
+          border: none;
+          display: block;
+          cursor: pointer;
+          position: absolute;
+        }
       }
-
-      @-webkit-keyframes sk-bounce {
-        0%, 100% { -webkit-transform: scale(0.9) }
-        50% { -webkit-transform: scale(1.0) }
+      &:nth-of-type(2){
+        /*justify-content: flex-end;*/
       }
+      &.winner{
+        border: 2px solid gold;
+      }
+      &.watching{
+        img{
+          border: 3px solid;
+          animation: glow 1.5s infinite ease-in-out;
+          @keyframes glow {
+            0% {
+             border-color: rgba(89, 251, 75, 1)
+           }
 
-      @keyframes sk-bounce {
-        0%, 100% { 
-          transform: scale(0.9);
-          -webkit-transform: scale(0.9);
-          } 50% { 
-            transform: scale(1.0);
-            -webkit-transform: scale(1.0);
+           50% {
+            border-color: rgba(89, 251, 75, .7)
+          }
+          100% {
+            border-color: rgba(89, 251, 75, 1)
           }
         }
       }
     }
-    .player-display{
-      display: flex;
-      >div{
-        width: 50%;
-        opacity: .5;
-        &:nth-of-type(2){
-          text-align: right;
-        }
-        &.turn{
-          opacity: 1;
-        }
-        &.winner{
-          border: 2px solid gold;
-        }
-        img{
-          height: 75px;
-          width: 75px;
-          border-radius: 50%;
-        }
+    &.self{
+      img{
+        border: none;
+        animation: none;
+      }
+      .nudge{
+        display: none;
       }
     }
-    .btn.bottom{
-      left: 0;
+    img{
+      box-sizing: border-box;
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
     }
   }
+}
+}

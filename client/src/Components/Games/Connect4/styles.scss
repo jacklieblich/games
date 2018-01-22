@@ -8,12 +8,6 @@
     border-radius: 50%;
     display: inline-block;
     vertical-align: bottom;
-    &.red{
-      background-color: red;
-    }
-    &.yellow{
-      background-color: yellow;
-    }
   }
   .board{
     display: flex;

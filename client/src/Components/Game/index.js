@@ -14,7 +14,8 @@ class GameRouter extends React.Component {
 	constructor(props) {
 		super(props);
 		this.initialState = {
-			opponentWatching: false,
+			player1Watching: false,
+			player2Watching: false,
 			board: [],
 			turn: "",
 			winner: false,
@@ -22,6 +23,8 @@ class GameRouter extends React.Component {
 			player2: "",
 			player1Piece: "",
 			player2Piece: "",
+			player1Record: "",
+			player2Record: "",
 			lastMove: "",
 			nudgable: true,
 			loading: true,
@@ -85,18 +88,26 @@ class GameRouter extends React.Component {
 	}
 
 	handleOpponentWatching(gameData) {
-		if (this.state.opponent){
-			if (gameData.stoppedWatching === this.state.opponent.id){
-				this.setState({opponentWatching: false})
-			}
-			//cant hide watching status by closing secondary connection
-			if (gameData.stoppedWatching === Authentication.currentUser.id){
-				Client.imWatching({game_id: this.state.gameId})
-			}
-			if (gameData.isWatching === this.state.opponent.id && !this.state.opponentWatching){
-				this.setState({opponentWatching: true})
-				Client.imWatching({game_id: this.state.gameId})
-			}
+		if (gameData.stoppedWatching === this.state.player1.id){
+			this.setState({player1Watching: false})
+		}
+		if (gameData.stoppedWatching === this.state.player2.id){
+			this.setState({player2Watching: false})
+		}
+		//cant hide watching status by closing secondary connection
+		if (gameData.stoppedWatching === Authentication.currentUser.id){
+			Client.imWatching({game_id: this.state.gameId})
+		}
+		// if (gameData.isWatching !== Authentication.currentUser.id){
+		// 	Client.imWatching({game_id: this.state.gameId})
+		// }
+		if (gameData.isWatching === this.state.player1.id && !this.state.player1Watching){
+			this.setState({player1Watching: true})
+			Client.imWatching({game_id: this.state.gameId})
+		}
+		if (gameData.isWatching === this.state.player2.id && !this.state.player2Watching){
+			this.setState({player2Watching: true})
+			Client.imWatching({game_id: this.state.gameId})
 		}
 	}
 
@@ -134,21 +145,12 @@ class GameRouter extends React.Component {
 
 	}
 
-	renderOpponentWatching() {
-		return(
-			<div className="blue-dot">
-				<div className="double-bounce1"></div>
-				<div className="double-bounce2"></div>
-			</div>
-		);
-	}
-
 	renderNudge() {
 		if(!this.myTurn() && this.state.nudgable && !this.state.winner && !this.state.opponentWatching){
 			return <button className="nudge" onClick={() => {
 				Client.nudge(this.state.gameId)
 				this.setState({nudgable: false})
-			}}>( •_•)σ</button>
+			}}></button>
 		}
 	}
 
@@ -158,7 +160,7 @@ class GameRouter extends React.Component {
 
 	renderSurrender() {
 		if (!this.state.winner){
-			return <div className="btn surrender" onClick={() => Client.surrender(this.state.gameId)}>surrender</div>
+			return <div className="btn quit" onClick={() => Client.surrender(this.state.gameId)}>quit</div>
 		}
 	}
 
@@ -186,17 +188,37 @@ class GameRouter extends React.Component {
 
 	playerClasses(playerId) {
 		let classes = ""
-		if (this.state.winner) {
-			classes += "turn"
-			if (this.state.winner === playerId){
-				classes += " winner"
-			}
-		}else{
-			if(this.state.turn === playerId){
-				classes += "turn"
-			}
+		if (playerId === this.state.player1.id && this.state.player1Watching){
+			classes += " watching"
+		}
+		if (playerId === this.state.player2.id && this.state.player2Watching){
+			classes += " watching"
+		}
+		if (playerId === Authentication.currentUser.id){
+			classes += " self"
 		}
 		return classes;
+	}
+
+	playerBackground(player) {
+		const playerData = {}
+		if (player === "player1"){
+		 	playerData.color = this.state.player1Piece
+		 	playerData.id = this.state.player1.id
+		}else{
+			playerData.color = this.state.player2Piece
+		 	playerData.id = this.state.player2.id
+		}
+
+		if (this.state.winner) {
+			return playerData.color;
+		}else{
+			if(this.state.turn === playerData.id){
+				return playerData.color;
+			}else{
+				 return playerData.color.substring(0, playerData.color.length-2) + ".5)"
+			}
+		}
 	}
 
 	render() {
@@ -214,24 +236,36 @@ class GameRouter extends React.Component {
 
 		return (
 			<div className="game">
+				<div className="top-game-section">
+					<Link to='/' className="btn back"></Link>
+					{this.renderSurrender()}
+					{this.state.winner && this.renderRematchButton()}
+				</div>
 				<div className="game-board">
 					{this.renderGame()}
 				</div>
 				<div className="player-display">
-					<div style={{backgroundColor: this.state.player1Piece}} className={this.playerClasses(this.state.player1.id)}>
-						{this.renderPlayerImage(this.state.player1)}
+					<div style={{backgroundColor: this.playerBackground("player1")}} className={this.playerClasses(this.state.player1.id)}>
+						<div className="image-wrapper">
+							{this.renderPlayerImage(this.state.player1)}
+							{this.renderNudge()}
+						</div>
+						<div className="user-info">
+							<p>{this.state.player1.username}</p>
+							<p>{this.state.player1Record.wins} - {this.state.player1Record.losses}</p>
+						</div>
 					</div>
-					<div style={{backgroundColor: this.state.player2Piece}} className={this.playerClasses(this.state.player2.id)}>
-						{this.renderPlayerImage(this.state.player2)}
+					<div style={{backgroundColor: this.playerBackground("player2")}} className={this.playerClasses(this.state.player2.id)}>
+						<div className="image-wrapper">
+							{this.renderPlayerImage(this.state.player2)}
+							{this.renderNudge()}
+						</div>
+						<div className="user-info">
+							<p>{this.state.player2.username}</p>
+							<p>{this.state.player2Record.wins} - {this.state.player2Record.losses}</p>
+						</div>
 					</div>
 				</div>
-				<div className="bottom-game-section">
-					{this.state.opponentWatching && this.renderOpponentWatching()}
-					{this.renderNudge()}
-					{this.renderSurrender()}
-					{this.state.winner && this.renderRematchButton()}
-				</div>
-				<Link to='/' className="btn bottom">Back</Link>
 			</div>
 			);
 	}

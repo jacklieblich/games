@@ -8,13 +8,23 @@
   padding: 10px 0;
   width: 100px;
   cursor: pointer;
-  text-align: center; }
+  text-align: center;
+  display: block; }
   .btn:hover {
     opacity: 1; }
   .btn.bottom {
     position: absolute;
     left: 20px;
     bottom: 20px; }
+  .btn.back {
+    background-image: url(./Components/images/back-arrow.svg);
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat; }
 
 html, body, #root, .app, .dashboard, .challenge-form, .game {
   min-height: 100vh;

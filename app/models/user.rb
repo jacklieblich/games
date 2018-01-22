@@ -18,6 +18,14 @@ class User < ApplicationRecord
   	games.completed.ordered_by_latest_activity.for_display(self)
   end
 
+  def wins
+    self.games.where(winner: self.id).count
+  end
+
+  def losses
+    self.games.where.not(winner: [nil, self.id]).count
+  end
+
   def opponents_ordered_by_most_played_with_records
   	opponents = User.where.not(id: self.id).sort_by{ |opponent| Game.games_for_users(self, opponent).count}.reverse
   	opponents.map do |opponent|

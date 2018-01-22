@@ -19,12 +19,12 @@ class HexPiece extends Component {
     }
 
   render() {
-  	console.log(this.state)
     return (
       <Hexagon
         className={this.props.className}
         onClick={this.props.onClick}
         flatTop={this.state.width > 767 ? false : true}
+        style={{fill: this.props.color}}
       />
     );
 

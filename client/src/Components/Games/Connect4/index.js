@@ -12,9 +12,9 @@ class Column extends React.Component{
 
 	renderSquare(userId, index) {
 		const lastMove = this.props.lastMove !== "" && (this.props.lastMove - this.props.columnNumber*6) === index ? "last-move" : ""
-		const classes = `space ${this.pieceFor(userId)} ${lastMove}`;
+		const classes = `space ${lastMove}`;
 		return (
-			<div className={classes} key={index}>
+			<div className={classes} key={index} style={{backgroundColor: this.pieceFor(userId)}}>
 			</div>
 			);
 	}

@@ -72,7 +72,7 @@ class Hex < Game
   end
 
   def color_for_user(user_id)
-    return "red" if user_id == player_1
-    return "blue" if user_id == player_2
+    return "rgba(255, 0, 0, 1)" if user_id == player_1
+    return "rgba(0, 0, 255, 1)" if user_id == player_2
   end
 end

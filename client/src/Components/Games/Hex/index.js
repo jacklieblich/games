@@ -62,6 +62,7 @@ class Hex extends React.Component {
                   key={rowIndex*11 + columnIndex}
                   className={piece !== null ? this.pieceFor(piece) : ' empty '}
                   onClick={() => this.handleClick({rowIndex: rowIndex, columnIndex: columnIndex})}
+                  color={this.pieceFor(piece)}
                 />
               )}
             </div>
