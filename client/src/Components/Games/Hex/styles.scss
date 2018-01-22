@@ -41,22 +41,10 @@
         width: $hexWidth;
         height: $hexHeight;
         flex-grow: 0;
-        &.red {
-          polygon {
-            fill: red !important;
-          }
-        }
-
-        &.blue {
-          polygon {
-            fill: blue !important;
-          }
-        }
-
 
         polygon {
           cursor: pointer;
-          fill: white !important;
+          fill: white;
           stroke: gray!important;
           stroke-width: 10 !important;
 
@@ -68,19 +56,6 @@
 @media only screen and (min-width: 768px) {
   .hex-board {
     margin: 0 auto;
-    .piece-display{
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      display: inline-block;
-      vertical-align: bottom;
-      &.red{
-        background-color: red;
-      }
-      &.blue{
-        background-color: blue;
-      }
-    }
     $boardWidth: 83%;
     $hexWidth: $boardWidth / 11;
     $hexHeight: $hexWidth * 1.1508610692;
@@ -118,22 +93,9 @@
         width: $hexWidth;
         height: $hexHeight;
 
-        &.red {
-          polygon {
-            fill: red !important;
-          }
-        }
-
-        &.blue {
-          polygon {
-            fill: blue !important;
-          }
-        }
-
-
         polygon {
           cursor: pointer;
-          fill: white !important;
+          fill: white;
           stroke: gray!important;
           stroke-width: 10 !important;
 

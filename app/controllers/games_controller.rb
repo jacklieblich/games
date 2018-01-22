@@ -17,14 +17,18 @@ class GamesController < ApplicationController
 
 	def show
 		game = Game.find(params[:id])
+		player_1 = User.find(game.player_1)
+		player_2 = User.find(game.player_2)
 		render json: {
 			board: game.board,
 			turn: game.turn,
 			winner: game.winner,
-			player1: User.find(game.player_1),
-			player2: User.find(game.player_2),
+			player1: player_1,
+			player2: player_2,
 			player1Piece: game.color_for_user(game.player_1),
 			player2Piece: game.color_for_user(game.player_2),
+			player1Record: {wins: player_1.wins, losses: player_1.losses},
+			player2Record: {wins: player_2.wins, losses: player_2.losses}
 		} 
 	end
 

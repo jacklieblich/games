@@ -58,7 +58,7 @@ class Connect4 < Game
 	end
 
 	def color_for_user(user_id)
-		return "red" if user_id == player_1
-		return "yellow" if user_id == player_2
+		return "rgba(255, 0, 0, 1)" if user_id == player_1
+		return "rgba(255, 255, 0, 1)" if user_id == player_2
 	end
 end

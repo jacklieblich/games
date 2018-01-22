@@ -51,29 +51,15 @@
         width: 100%;
         height: 10.46237%;
         flex-grow: 0; }
-        .hex-board .row svg.red polygon {
-          fill: red !important; }
-        .hex-board .row svg.blue polygon {
-          fill: blue !important; }
         .hex-board .row svg polygon {
           cursor: pointer;
-          fill: white !important;
+          fill: white;
           stroke: gray !important;
           stroke-width: 10 !important; } }
 
 @media only screen and (min-width: 768px) {
   .hex-board {
     margin: 0 auto; }
-    .hex-board .piece-display {
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      display: inline-block;
-      vertical-align: bottom; }
-      .hex-board .piece-display.red {
-        background-color: red; }
-      .hex-board .piece-display.blue {
-        background-color: blue; }
     .hex-board .board {
       max-width: 100%;
       width: 83%; }
@@ -118,12 +104,8 @@
       .hex-board .row svg {
         width: 7.54545%;
         height: 8.68377%; }
-        .hex-board .row svg.red polygon {
-          fill: red !important; }
-        .hex-board .row svg.blue polygon {
-          fill: blue !important; }
         .hex-board .row svg polygon {
           cursor: pointer;
-          fill: white !important;
+          fill: white;
           stroke: gray !important;
           stroke-width: 10 !important; } }
