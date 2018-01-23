@@ -197,26 +197,20 @@ class GameRouter extends React.Component {
 		if (playerId === Authentication.currentUser.id){
 			classes += " self"
 		}
+		if (this.state.winner || playerId === this.state.turn){
+			classes += " turn"
+		}
 		return classes;
 	}
 
-	playerBackground(player) {
-		const playerData = {}
-		if (player === "player1"){
-		 	playerData.color = this.state.player1Piece
-		 	playerData.id = this.state.player1.id
+	renderResult(playerId) {
+		if (!this.state.winner){
+			return
 		}else{
-			playerData.color = this.state.player2Piece
-		 	playerData.id = this.state.player2.id
-		}
-
-		if (this.state.winner) {
-			return playerData.color;
-		}else{
-			if(this.state.turn === playerData.id){
-				return playerData.color;
+			if(playerId === this.state.winner){
+				return <p className="result">{String.fromCodePoint(55357, 56401)}</p>
 			}else{
-				 return playerData.color.substring(0, playerData.color.length-2) + ".5)"
+				return <p className="result">{String.fromCodePoint(55357, 56489)}</p>
 			}
 		}
 	}
@@ -234,6 +228,18 @@ class GameRouter extends React.Component {
 			return Spinner()
 		}
 
+		let style
+		var ua = window.navigator.userAgent;
+		var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+		var webkit = !!ua.match(/WebKit/i);
+		var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+		if (iOSSafari) {
+			style = `
+                html, body, #root, .app, .dashboard, .challenge-form, .game{
+                  min-height:calc(100vh - 74px);
+                }`
+		}
+
 		return (
 			<div className="game">
 				<div className="top-game-section">
@@ -245,20 +251,24 @@ class GameRouter extends React.Component {
 					{this.renderGame()}
 				</div>
 				<div className="player-display">
-					<div style={{backgroundColor: this.playerBackground("player1")}} className={this.playerClasses(this.state.player1.id)}>
+					<div style={{backgroundColor: this.state.player1Piece}} className={this.playerClasses(this.state.player1.id)}>
+						<div className="shade"></div>
 						<div className="image-wrapper">
 							{this.renderPlayerImage(this.state.player1)}
 							{this.renderNudge()}
+							{this.renderResult(this.state.player1.id)}
 						</div>
 						<div className="user-info">
 							<p>{this.state.player1.username}</p>
 							<p>{this.state.player1Record.wins} - {this.state.player1Record.losses}</p>
 						</div>
 					</div>
-					<div style={{backgroundColor: this.playerBackground("player2")}} className={this.playerClasses(this.state.player2.id)}>
+					<div style={{backgroundColor: this.state.player2Piece}} className={this.playerClasses(this.state.player2.id)}>
+						<div className="shade"></div>
 						<div className="image-wrapper">
 							{this.renderPlayerImage(this.state.player2)}
 							{this.renderNudge()}
+							{this.renderResult(this.state.player2.id)}
 						</div>
 						<div className="user-info">
 							<p>{this.state.player2.username}</p>
@@ -266,6 +276,7 @@ class GameRouter extends React.Component {
 						</div>
 					</div>
 				</div>
+				<style>{style}</style>
 			</div>
 			);
 	}

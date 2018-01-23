@@ -40,7 +40,28 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap; }
+      flex-wrap: wrap;
+      position: relative; }
+      .game .player-display > div .result {
+        position: absolute;
+        margin: 0;
+        left: 0;
+        top: -35px;
+        font-size: 45px;
+        animation: grow 2s 1 ease-in; }
+
+@keyframes grow {
+  0% {
+    font-size: 0px; }
+  100% {
+    font-size: 45px; } }
+      .game .player-display > div .shade {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        background-color: grey;
+        opacity: 0.7; }
       .game .player-display > div .user-info {
         width: calc(100% - 45px);
         text-align: center; }
@@ -83,6 +104,8 @@
         border: none;
         animation: none; }
       .game .player-display > div.self .nudge {
+        display: none; }
+      .game .player-display > div.turn .shade {
         display: none; }
       .game .player-display > div img {
         box-sizing: border-box;
